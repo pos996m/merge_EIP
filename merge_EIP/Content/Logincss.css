@@ -1,0 +1,76 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(img/room2.jpeg);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.center {
+    margin: 0 auto;
+    float: none;
+    display: flex;
+    /* z-index: 21; */
+}
+
+.login {
+    border: 10px solid #fff;
+    border-radius: 10px;
+    background-color: #3b5998;
+    opacity: 0.8;
+    box-shadow: 0 0 60px #000;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    color: #fff;
+}
+
+
+.form h3 {
+    margin-bottom: 10%;
+    border-bottom: 2px solid #fff;
+    padding-bottom: 10%;
+    text-align: center;
+}
+
+.form .group {
+    margin-bottom: 20px;
+}
+
+.form label {
+    line-height: 1;
+}
+
+.form input {
+    border: 1px solid #aaa;
+    line-height: 2;
+    border-radius: 5px;
+}
+
+
+.btn {
+    /* 文字顏色  */
+    color: #3b5998;
+    /* 邊框樣式、顏色、寬度  */
+    transition-duration: 0.4s;
+    color: black;
+    border: 3px solid white;
+}
+
+    .btn:hover {
+        background-color: #3b5998;
+        color: white;
+    }

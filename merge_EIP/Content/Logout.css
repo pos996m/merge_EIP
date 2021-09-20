@@ -1,0 +1,158 @@
+﻿/* 畫面高度 */
+html, body {
+    height: 100%;
+}
+/* 讓畫面垂直置中 */
+body {
+    align-items: center;
+    display: flex
+}
+
+#showMonth td {
+/*    height: 5rem;*/
+}
+
+.con {
+    margin: 0 auto;
+    display: flex;
+    float: none;
+}
+/* 打卡鈕尺寸 */
+.button {
+    width: 250px;
+    height: 50px;
+    line-height: 50px;
+    background-color: #334b80;
+    border-radius: 20px;
+    font-size: 20px;
+
+
+}
+
+    /* 按鈕邊框 */
+    .button:before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 250px;
+        height: 50px;
+        border-radius: inherit;
+        border: 3px solid #334b80;
+        transition: all 300ms linear;
+    }
+
+    .button:hover:before {
+        left: -4px;
+        right: -4px;
+        top: -4px;
+        bottom: -4px;
+        width: 258px;
+        height: 58px;
+    }
+
+/* 按鈕變色 */
+.return {
+    color: #fff;
+    text-decoration: none;
+}
+
+    .return:hover {
+        color: #fff;
+    }
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #3b5998;
+    color: black;
+    text-align: center;
+}
+
+.container-fluid {
+    position: absolute;
+/*    top: 20%;*/
+    /*    text-align: center;*/
+}
+
+.loader {
+/*    position: absolute;
+    left: 49%;
+    top: 180%;*/
+    text-align: center;
+}
+
+.loading-3 {
+    position: relative;
+}
+
+    .loading-3 i {
+        display: block;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background-color: #333;
+        position: absolute;
+    }
+
+        .loading-3 i:nth-child(1) {
+            top: 25px;
+            left: 0;
+            animation: loading-3 1s ease 0s infinite;
+        }
+
+        .loading-3 i:nth-child(2) {
+            top: 17px;
+            left: 17px;
+            animation: loading-3 1s ease -0.12s infinite;
+        }
+
+        .loading-3 i:nth-child(3) {
+            top: 0;
+            left: 25px;
+            animation: loading-3 1s ease -0.24s infinite;
+        }
+
+        .loading-3 i:nth-child(4) {
+            top: -17px;
+            left: 17px;
+            animation: loading-3 1s ease -0.36s infinite;
+        }
+
+        .loading-3 i:nth-child(5) {
+            top: -25px;
+            left: 0;
+            animation: loading-3 1s ease -0.48s infinite;
+        }
+
+        .loading-3 i:nth-child(6) {
+            top: -17px;
+            left: -17px;
+            animation: loading-3 1s ease -0.6s infinite;
+        }
+
+        .loading-3 i:nth-child(7) {
+            top: 0;
+            left: -25px;
+            animation: loading-3 1s ease -0.72s infinite;
+        }
+
+        .loading-3 i:nth-child(8) {
+            top: 17px;
+            left: -17px;
+            animation: loading-3 1s ease -0.84s infinite;
+        }
+
+@keyframes loading-3 {
+    50% {
+        transform: scale(0.4);
+        opacity: 0.3;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

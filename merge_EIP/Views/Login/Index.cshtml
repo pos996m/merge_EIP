@@ -1,0 +1,82 @@
+﻿
+
+
+@{
+    Layout = null;
+    ViewBag.Title = "EIP登入";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    @* bs4 *@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    @* JQ3.6 *@
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @* icon *@
+    <link href="~/Scripts/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet" />
+    @* sweetalert *@
+    <script src="~/Scripts/sweetaleat/sweetalert2@11.js"></script>
+
+    @* 這頁的css *@
+    <link href="~/Content/Logincss.css" rel="stylesheet" />
+    @*<script src="~/Scripts/modernizr-2.8.3.js"></script>*@
+</head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="card center login">
+                <div class="card-body p-5">
+                    <form class="form" action="/Login/Index" method="post" id="form1" name="form1">
+                        <h3>EIP登入系統</h3>
+                        <div class="group">
+                            <label for="userID">帳號</label>
+                            <input type="text" name="account" id="userID" placeholder=" 請輸入員工帳號">
+                        </div>
+                        <div class="group">
+                            <label for="userPWD">密碼</label>
+                            <input type="password" name="password" id="userPWD" placeholder=" 請輸入登入密碼">
+                        </div><br>
+                        <div>
+                            <button type="button" id="demo3" class="btn btn-light float-right">
+                                登入
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/Scripts/Login/Loginalert.js"></script>
+    @if (Session["sn"] == null && ViewBag.mypost == "POST")
+    {
+        <script>
+            Swal.fire({
+                heightAuto: false,
+                title: "登入失敗",
+                text: "帳號密碼錯誤",
+                icon: "error"
+            })
+        </script>
+    }
+    else if(ViewBag.mypost == "POST")
+    {
+        <script>
+            Swal.fire({
+                heightAuto: false,
+                title: "成功登入",
+                text: "正在轉跳...",
+                icon: "success",
+                showConfirmButton: false
+            })
+            setTimeout(() => { document.location.href="/Clockin/Index" }, 1500)
+        </script>
+    }
+</body>
+</html>

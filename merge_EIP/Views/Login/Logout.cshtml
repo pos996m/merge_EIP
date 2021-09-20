@@ -1,0 +1,65 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Logout</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Logout.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <h1 type="text" class="col-12" style="text-align: center">輸入的網址不存在</h1>
+            <h2 type="text" class="col-12" style="text-align: center">請於網頁跳轉後登入</h2>
+            <h5 type="text" id="rebackLogin" class="col-12" style="text-align: center"></h5>
+        </div>
+        <br />
+        <br />
+        <div class="row">
+            <div class="loader col-12 con">
+                <div class="loading-3 con">
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                    <i></i>
+                </div>
+            </div>
+        </div>
+        <br /><br />
+        <br />
+        <div class="row">
+            <div class="col-12">
+                <a href="/Login/Index" class="return" onclick="changecolor()">
+                    <div class="button col-12 con" style="text-align: center;display:block;">立即轉跳</div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var backtime = 4
+        document.getElementById("rebackLogin").innerHTML = (backtime+1) + " 秒後自動轉跳";
+        // 倒數轉跳
+        var mytime = setInterval(() => {
+            document.getElementById("rebackLogin").innerHTML = backtime + " 秒後自動轉跳";
+        // 轉跳
+        if (backtime == 0) {
+            clearInterval(mytime);
+            document.location.href = "/Login/Index";
+        }
+            backtime -= 1;
+        }, 1000)
+    </script>
+</body>
+</html>
