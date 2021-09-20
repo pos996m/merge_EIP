@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="93a18896bc2f493dbc810a061d1b3c85" Name="Diagram1">
+        <EntityTypeShape EntityType="FormModelModel.Backlog" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.BusinessTrip" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.Calendar" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.dayOff" Width="1.5" PointX="5.25" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.Department" Width="1.5" PointX="0.75" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.Employee" Width="1.5" PointX="3" PointY="18" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.Funding" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.gameRecord" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.messageBoard" Width="1.5" PointX="5.25" PointY="21.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.Order" Width="1.5" PointX="5.25" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.Position" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.punchIn" Width="1.5" PointX="5.25" PointY="29.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.rePunchin" Width="1.5" PointX="5.25" PointY="33.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.workOvertime" Width="1.5" PointX="5.25" PointY="36.625" IsExpanded="true" />
+        <AssociationConnector Association="FormModelModel.FK_Backlog_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_BusinessTrip_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_Calendar_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_dayOff_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_Employee_Department" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_Employee_Position" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_Funding_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_gameRecord_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_messageBoard_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_Order_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_Order_OrderEmployee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_punchIn_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_rePunchin_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_workOvertime_Employee" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

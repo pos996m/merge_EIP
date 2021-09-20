@@ -1,0 +1,420 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FormModelModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Backlog">
+    <Key>
+      <PropertyRef Name="backlogNumber" />
+    </Key>
+    <Property Name="backlogNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="backlogTxet" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="backlogDate" Type="date" Nullable="false" />
+    <Property Name="checkState" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="BusinessTrip">
+    <Key>
+      <PropertyRef Name="businesstripID" />
+    </Key>
+    <Property Name="businesstripID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="startDate" Type="datetime" Nullable="false" />
+    <Property Name="endDate" Type="datetime" Nullable="false" />
+    <Property Name="reasonText" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Calendar">
+    <Key>
+      <PropertyRef Name="calendarDate" />
+      <PropertyRef Name="employeeID" />
+    </Key>
+    <Property Name="calendarDate" Type="date" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="calendarText" Type="nvarchar" MaxLength="255" Nullable="false" />
+  </EntityType>
+  <EntityType Name="dayOff">
+    <Key>
+      <PropertyRef Name="dayoffNumber" />
+    </Key>
+    <Property Name="dayoffNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="startDate" Type="datetime" Nullable="false" />
+    <Property Name="endDate" Type="datetime" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="totalDay" Type="nvarchar" MaxLength="50" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="255" />
+    <Property Name="filePath" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="departmentID" />
+    </Key>
+    <Property Name="departmentID" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="departmentName" Type="nvarchar" MaxLength="5" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Employee">
+    <Key>
+      <PropertyRef Name="employeeID" />
+    </Key>
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Gender" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="departmentID" Type="char" MaxLength="1" Nullable="false" />
+    <Property Name="positionID" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="onBoard" Type="date" Nullable="false" />
+    <Property Name="terminationDate" Type="date" />
+    <Property Name="Account" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Password" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="cellPhone" Type="nvarchar" MaxLength="15" Nullable="false" />
+    <Property Name="Address" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="emergencyContact" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="emergencyContactphone" Type="nvarchar" MaxLength="15" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Funding">
+    <Key>
+      <PropertyRef Name="applicationNumber" />
+    </Key>
+    <Property Name="applicationNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="applicationAmount" Type="int" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="gameRecord">
+    <Key>
+      <PropertyRef Name="fractionID" />
+    </Key>
+    <Property Name="fractionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Fraction" Type="int" Nullable="false" />
+    <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="messageBoard">
+    <Key>
+      <PropertyRef Name="messageboardNumber" />
+    </Key>
+    <Property Name="messageboardNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="messageDate" Type="datetime" Nullable="false" />
+    <Property Name="messageText" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="assignPerson" Type="nvarchar" MaxLength="20" />
+  </EntityType>
+  <EntityType Name="Order">
+    <Key>
+      <PropertyRef Name="orderID" />
+    </Key>
+    <Property Name="orderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="startDate" Type="date" Nullable="false" />
+    <Property Name="startTime" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="endDate" Type="date" Nullable="false" />
+    <Property Name="endTime" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="orderType" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="shopName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="orderemployeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="orderemployeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Items" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Quantity" Type="smallint" Nullable="false" />
+    <Property Name="unitPrice" Type="smallint" Nullable="false" />
+    <Property Name="Total" Type="money" Nullable="false" />
+    <Property Name="classID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Position">
+    <Key>
+      <PropertyRef Name="positionID" />
+    </Key>
+    <Property Name="positionID" Type="varchar" MaxLength="2" Nullable="false" />
+    <Property Name="positionName" Type="varchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="punchIn">
+    <Key>
+      <PropertyRef Name="punchinDate" />
+      <PropertyRef Name="employeeID" />
+    </Key>
+    <Property Name="punchinDate" Type="date" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="clockIn" Type="time" Precision="0" />
+    <Property Name="clockOut" Type="time" Precision="0" />
+    <Property Name="State" Type="nvarchar" MaxLength="5" />
+    <Property Name="bodyTemperature" Type="decimal" Precision="3" Scale="1" />
+    <Property Name="startoverTime" Type="time" Precision="0" />
+    <Property Name="endoverTime" Type="time" Precision="0" />
+    <Property Name="overtimeHours" Type="decimal" Precision="5" Scale="2" />
+    <Property Name="totalHours" Type="decimal" Precision="5" Scale="2" />
+  </EntityType>
+  <EntityType Name="rePunchin">
+    <Key>
+      <PropertyRef Name="repunchID" />
+    </Key>
+    <Property Name="repunchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="repunchdate" Type="date" Nullable="false" />
+    <Property Name="repunchTimeIn" Type="time" Precision="0" />
+    <Property Name="repunchTimeOut" Type="time" Precision="0" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="255" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="workOvertime">
+    <Key>
+      <PropertyRef Name="overtimeNumber" />
+    </Key>
+    <Property Name="overtimeNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Date" Type="date" Nullable="false" />
+    <Property Name="startTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="expectTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="overtimeHours" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="State" Type="nvarchar" MaxLength="5" Nullable="false" />
+    <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_Backlog_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Backlog" Type="Self.Backlog" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="Backlog">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_BusinessTrip_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="BusinessTrip" Type="Self.BusinessTrip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="BusinessTrip">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Calendar_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Calendar" Type="Self.Calendar" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="Calendar">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dayOff_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="dayOff" Type="Self.dayOff" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="dayOff">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Department">
+    <End Role="Department" Type="Self.Department" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="departmentID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="departmentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Employee_Position">
+    <End Role="Position" Type="Self.Position" Multiplicity="1" />
+    <End Role="Employee" Type="Self.Employee" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Position">
+        <PropertyRef Name="positionID" />
+      </Principal>
+      <Dependent Role="Employee">
+        <PropertyRef Name="positionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Funding_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Funding" Type="Self.Funding" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="Funding">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_gameRecord_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="gameRecord" Type="Self.gameRecord" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="gameRecord">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_messageBoard_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="messageBoard" Type="Self.messageBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="messageBoard">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Order_OrderEmployee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="Order" Type="Self.Order" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="Order">
+        <PropertyRef Name="orderemployeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_punchIn_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="punchIn" Type="Self.punchIn" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="punchIn">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_rePunchin_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="rePunchin" Type="Self.rePunchin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="rePunchin">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_workOvertime_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="workOvertime" Type="Self.workOvertime" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="workOvertime">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="FormModelModelStoreContainer">
+    <EntitySet Name="Backlog" EntityType="Self.Backlog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="BusinessTrip" EntityType="Self.BusinessTrip" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Calendar" EntityType="Self.Calendar" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="dayOff" EntityType="Self.dayOff" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Department" EntityType="Self.Department" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Funding" EntityType="Self.Funding" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="gameRecord" EntityType="Self.gameRecord" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="messageBoard" EntityType="Self.messageBoard" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="punchIn" EntityType="Self.punchIn" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="rePunchin" EntityType="Self.rePunchin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="workOvertime" EntityType="Self.workOvertime" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Backlog_Employee" Association="Self.FK_Backlog_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Backlog" EntitySet="Backlog" />
+    </AssociationSet>
+    <AssociationSet Name="FK_BusinessTrip_Employee" Association="Self.FK_BusinessTrip_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="BusinessTrip" EntitySet="BusinessTrip" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Calendar_Employee" Association="Self.FK_Calendar_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Calendar" EntitySet="Calendar" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dayOff_Employee" Association="Self.FK_dayOff_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="dayOff" EntitySet="dayOff" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Department" Association="Self.FK_Employee_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Employee_Position" Association="Self.FK_Employee_Position">
+      <End Role="Position" EntitySet="Position" />
+      <End Role="Employee" EntitySet="Employee" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Funding_Employee" Association="Self.FK_Funding_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Funding" EntitySet="Funding" />
+    </AssociationSet>
+    <AssociationSet Name="FK_gameRecord_Employee" Association="Self.FK_gameRecord_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="gameRecord" EntitySet="gameRecord" />
+    </AssociationSet>
+    <AssociationSet Name="FK_messageBoard_Employee" Association="Self.FK_messageBoard_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="messageBoard" EntitySet="messageBoard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_Employee" Association="Self.FK_Order_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Order_OrderEmployee" Association="Self.FK_Order_OrderEmployee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="Order" EntitySet="Order" />
+    </AssociationSet>
+    <AssociationSet Name="FK_punchIn_Employee" Association="Self.FK_punchIn_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="punchIn" EntitySet="punchIn" />
+    </AssociationSet>
+    <AssociationSet Name="FK_rePunchin_Employee" Association="Self.FK_rePunchin_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="rePunchin" EntitySet="rePunchin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_workOvertime_Employee" Association="Self.FK_workOvertime_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="workOvertime" EntitySet="workOvertime" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

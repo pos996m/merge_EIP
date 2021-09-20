@@ -1,0 +1,194 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FormModelModelStoreContainer" CdmEntityContainer="FormModelEntities">
+    <EntitySetMapping Name="Backlog">
+      <EntityTypeMapping TypeName="FormModelModel.Backlog">
+        <MappingFragment StoreEntitySet="Backlog">
+          <ScalarProperty Name="backlogNumber" ColumnName="backlogNumber" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="backlogTxet" ColumnName="backlogTxet" />
+          <ScalarProperty Name="backlogDate" ColumnName="backlogDate" />
+          <ScalarProperty Name="checkState" ColumnName="checkState" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="BusinessTrip">
+      <EntityTypeMapping TypeName="FormModelModel.BusinessTrip">
+        <MappingFragment StoreEntitySet="BusinessTrip">
+          <ScalarProperty Name="businesstripID" ColumnName="businesstripID" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="reasonText" ColumnName="reasonText" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Calendar">
+      <EntityTypeMapping TypeName="FormModelModel.Calendar">
+        <MappingFragment StoreEntitySet="Calendar">
+          <ScalarProperty Name="calendarDate" ColumnName="calendarDate" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="calendarText" ColumnName="calendarText" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="dayOff">
+      <EntityTypeMapping TypeName="FormModelModel.dayOff">
+        <MappingFragment StoreEntitySet="dayOff">
+          <ScalarProperty Name="dayoffNumber" ColumnName="dayoffNumber" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="totalDay" ColumnName="totalDay" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="filePath" ColumnName="filePath" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Department">
+      <EntityTypeMapping TypeName="FormModelModel.Department">
+        <MappingFragment StoreEntitySet="Department">
+          <ScalarProperty Name="departmentID" ColumnName="departmentID" />
+          <ScalarProperty Name="departmentName" ColumnName="departmentName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Employee">
+      <EntityTypeMapping TypeName="FormModelModel.Employee">
+        <MappingFragment StoreEntitySet="Employee">
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+          <ScalarProperty Name="departmentID" ColumnName="departmentID" />
+          <ScalarProperty Name="positionID" ColumnName="positionID" />
+          <ScalarProperty Name="onBoard" ColumnName="onBoard" />
+          <ScalarProperty Name="terminationDate" ColumnName="terminationDate" />
+          <ScalarProperty Name="Account" ColumnName="Account" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="cellPhone" ColumnName="cellPhone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="emergencyContact" ColumnName="emergencyContact" />
+          <ScalarProperty Name="emergencyContactphone" ColumnName="emergencyContactphone" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Funding">
+      <EntityTypeMapping TypeName="FormModelModel.Funding">
+        <MappingFragment StoreEntitySet="Funding">
+          <ScalarProperty Name="applicationNumber" ColumnName="applicationNumber" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="applicationAmount" ColumnName="applicationAmount" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="gameRecord">
+      <EntityTypeMapping TypeName="FormModelModel.gameRecord">
+        <MappingFragment StoreEntitySet="gameRecord">
+          <ScalarProperty Name="fractionID" ColumnName="fractionID" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="Fraction" ColumnName="Fraction" />
+          <ScalarProperty Name="Type" ColumnName="Type" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="messageBoard">
+      <EntityTypeMapping TypeName="FormModelModel.messageBoard">
+        <MappingFragment StoreEntitySet="messageBoard">
+          <ScalarProperty Name="messageboardNumber" ColumnName="messageboardNumber" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="messageDate" ColumnName="messageDate" />
+          <ScalarProperty Name="messageText" ColumnName="messageText" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="assignPerson" ColumnName="assignPerson" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order">
+      <EntityTypeMapping TypeName="FormModelModel.Order">
+        <MappingFragment StoreEntitySet="Order">
+          <ScalarProperty Name="orderID" ColumnName="orderID" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="startDate" ColumnName="startDate" />
+          <ScalarProperty Name="startTime" ColumnName="startTime" />
+          <ScalarProperty Name="endDate" ColumnName="endDate" />
+          <ScalarProperty Name="endTime" ColumnName="endTime" />
+          <ScalarProperty Name="orderType" ColumnName="orderType" />
+          <ScalarProperty Name="shopName" ColumnName="shopName" />
+          <ScalarProperty Name="orderemployeeID" ColumnName="orderemployeeID" />
+          <ScalarProperty Name="orderemployeeName" ColumnName="orderemployeeName" />
+          <ScalarProperty Name="Items" ColumnName="Items" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="unitPrice" ColumnName="unitPrice" />
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="classID" ColumnName="classID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Position">
+      <EntityTypeMapping TypeName="FormModelModel.Position">
+        <MappingFragment StoreEntitySet="Position">
+          <ScalarProperty Name="positionID" ColumnName="positionID" />
+          <ScalarProperty Name="positionName" ColumnName="positionName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="punchIn">
+      <EntityTypeMapping TypeName="FormModelModel.punchIn">
+        <MappingFragment StoreEntitySet="punchIn">
+          <ScalarProperty Name="punchinDate" ColumnName="punchinDate" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="clockIn" ColumnName="clockIn" />
+          <ScalarProperty Name="clockOut" ColumnName="clockOut" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="bodyTemperature" ColumnName="bodyTemperature" />
+          <ScalarProperty Name="startoverTime" ColumnName="startoverTime" />
+          <ScalarProperty Name="endoverTime" ColumnName="endoverTime" />
+          <ScalarProperty Name="overtimeHours" ColumnName="overtimeHours" />
+          <ScalarProperty Name="totalHours" ColumnName="totalHours" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="rePunchin">
+      <EntityTypeMapping TypeName="FormModelModel.rePunchin">
+        <MappingFragment StoreEntitySet="rePunchin">
+          <ScalarProperty Name="repunchID" ColumnName="repunchID" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="repunchdate" ColumnName="repunchdate" />
+          <ScalarProperty Name="repunchTimeIn" ColumnName="repunchTimeIn" />
+          <ScalarProperty Name="repunchTimeOut" ColumnName="repunchTimeOut" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+          <ScalarProperty Name="State" ColumnName="State" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="workOvertime">
+      <EntityTypeMapping TypeName="FormModelModel.workOvertime">
+        <MappingFragment StoreEntitySet="workOvertime">
+          <ScalarProperty Name="overtimeNumber" ColumnName="overtimeNumber" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="employeeName" ColumnName="employeeName" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="startTime" ColumnName="startTime" />
+          <ScalarProperty Name="expectTime" ColumnName="expectTime" />
+          <ScalarProperty Name="overtimeHours" ColumnName="overtimeHours" />
+          <ScalarProperty Name="State" ColumnName="State" />
+          <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -3,7 +3,7 @@
 
 @{
     Layout = null;
-    ViewBag.Title = "EIP登入";
+    ViewBag.Title = "登入";
 }
 <!DOCTYPE html>
 <html>
@@ -54,7 +54,7 @@
     </div>
 
     <script src="~/Scripts/Login/Loginalert.js"></script>
-    @if (Session["sn"] == null && ViewBag.mypost == "POST")
+    @if (Session["ID"] == null && ViewBag.mypost == "POST")
     {
         <script>
             Swal.fire({
