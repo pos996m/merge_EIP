@@ -1,4 +1,5 @@
-﻿using System;
+﻿using merge_EIP.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,23 +9,44 @@ namespace merge_EIP.Controllers
 {
     public class WorklogController : Controller
     {
+        FormModelEntities db = new FormModelEntities();
         // GET: Worklog
         // 代辦事項
         public ActionResult Todolist()
         {
-            return View();
+            if (Session["ID"] != null)
+            {
+                string EID = Convert.ToString(Session["ID"]);
+                var crin = db.Backlog.Where(x => x.employeeID == EID).OrderBy(x => x.checkState).ToList();
+                return View(crin);
+            }
+            else
+            {
+                return RedirectToAction("Logout", "Login");
+            }
         }
 
         [HttpPost]
-        public ActionResult Todolist(int? id)
+        public ActionResult Todolist(string Tname)
         {
-            return View();
+            Backlog backlog = new Backlog();
+            string EID = Convert.ToString(Session["ID"]);
+            backlog.employeeID = EID;
+            backlog.backlogTxet = Tname;
+            backlog.backlogDate = DateTime.Now;
+            backlog.checkState = false;
+            db.Backlog.Add(backlog);
+            db.SaveChanges();
+            return RedirectToAction("Todolist");
         }
 
         // 刪除代辦事項
-        public ActionResult Delete()
+        public ActionResult Delete(int? id)
         {
-            return View();
+            Backlog backlog = db.Backlog.Find(id);
+            db.Backlog.Remove(backlog);
+            db.SaveChanges();
+            return RedirectToAction("Todolist");
         }
 
         // 行事曆

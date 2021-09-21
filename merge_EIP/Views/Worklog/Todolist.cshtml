@@ -1,0 +1,84 @@
+﻿@model IEnumerable<merge_EIP.Models.Backlog>
+
+@{
+    ViewBag.Title = "代辦事項";
+}
+
+<style>
+    .del {
+        text-decoration: line-through;
+    }
+
+    .mycheck {
+        cursor: pointer;
+    }
+</style>
+
+<div class="container p-33">
+    <br />
+    <h2>代辦事項</h2>
+    @using (Html.BeginForm())
+    {
+            <p>
+                <input type="text" maxlength="48" size="25" name="Tname" placeholder="輸入代辦事項"  required />
+                <input type="submit" name="btn" value="新增" class="btn btn-FB" />
+            </p>
+    }
+    <div class="table-responsive">
+        <table class="table mylist">
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.backlogTxet)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.checkState)
+                </th>
+                @*<th></th>*@
+                <th></th>
+            </tr>
+            @{
+                int cnt = 0;
+            }
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*判斷完成是否為true*@
+                    @if (item.checkState == true)
+                    {
+                        // 給每個td，流水ID、流水數字、資料庫編號
+                        <td data-cnt="@cnt" class="mycheck del" id="Tname_@cnt" data-tid="@item.backlogNumber" width="600">
+                            @Html.DisplayFor(modelItem => item.backlogTxet)
+                        </td>
+                    }
+                    else
+                    {
+                        // 範圍監聽用的calss，指定用的ID，存值用的data
+                        <td data-cnt="@cnt" class="mycheck" id="Tname_@cnt" data-tid="@item.backlogNumber" width="600">
+                            @Html.DisplayFor(modelItem => item.backlogTxet)
+                        </td>
+                    }
+
+                    <td data-cnt="@cnt" class="mycheck" data-TID="@item.backlogNumber">
+                        @*@Html.DisplayFor(modelItem => item.clock,new {type = "checkbox" })*@
+                        @Html.EditorFor(modelItem => item.checkState, new { @class = "test", type = "checkbox", htmlAttributes = new { data_TID = $"{item.backlogNumber}", data_cnt = $"{cnt}", id = $"list_{cnt}", style = "width:1.5rem;height:1.5rem" } })
+                    </td>
+                    @*<td></td>*@
+                    <td>
+                        @*<input type="button" name="@item.TID" value="刪除" />*@
+                        <button data-cnt="@cnt" onclick="myEdit(event)" class="btn btn-FB m-1" data-TID="@item.backlogNumber" style="white-space: nowrap;">編輯</button>
+                        @Html.ActionLink("刪除", "Delete", new { id = item.backlogNumber }, new { @class = "btn btn-secondary m-1", onclick = "return delbtn(event)", style = "white-space: nowrap;" })
+                    </td>
+                </tr>
+                cnt++;
+            }
+        </table>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+</div>
+<script src="~/Scripts/worklog/todolist.js"></script>
+<script src="~/Scripts/worklog/SwalYN.js"></script>

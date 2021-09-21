@@ -7,7 +7,8 @@
     }
 }
 <link href="~/Content/clockin.css" rel="stylesheet" />
-
+<br />
+<br />
 <div class="container">
     <div class="row">
         <div class="btnpage center">
@@ -36,13 +37,20 @@
     </div>
 </div>
 
-<br/>
+<br />
 <input type="text" class="center" id="bodyTemp" size="25" placeholder="請輸入體溫再打卡" style="line-height: 2;font-size:1rem"
-       onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,1})?).*$/g, '$1')"/>
-<br/>
+       onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,1})?).*$/g, '$1')" />
+<br />
 <button class="btn btn-primary btn-salf center justify-content-center align-items-center" onclick="test()"
         id="clickname">@ViewBag.clockinstr</button>
-
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
+<br />
 <div id="EID" style="display:none">@Session["ID"]</div>
 
 <script src="~/Scripts/clockin/clock.js"></script>
@@ -50,7 +58,7 @@
 
 
 @*員工編號: @Session["ID"]
-員工名稱: @Session["Name"]
-員工部門: @Session["Dep"]
-員工職位: @Session["Pos"]
-職位編號: @Session["PosID"]*@
+    員工名稱: @Session["Name"]
+    員工部門: @Session["Dep"]
+    員工職位: @Session["Pos"]
+    職位編號: @Session["PosID"]*@

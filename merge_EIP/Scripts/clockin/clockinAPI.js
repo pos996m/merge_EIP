@@ -3,19 +3,24 @@
 // 上班打卡使用post(新增)，下班打卡使用put(修改)
 
 var clockinorout;
+var x;
+var EID;
 // var x = document.getElementById("clickname").innerHTML;
-var x = $("#clickname").text();
-var EID = $("#EID").text();
 
-// 如果偵測到今日已打過卡，則顯示下班打卡
-if (x == "上班打卡") {
-    clockinorout = true;
-    console.log(clockinorout);
-} else if (x == "下班打卡") {
-    clockinorout = false;
-    $("#bodyTemp").hide();
-    console.log(clockinorout);
-}
+$(document).ready(() => {
+    x = $("#clickname").text();
+    EID = $("#EID").text();
+
+    // 如果偵測到今日已打過卡，則顯示下班打卡
+    if (x == "上班打卡") {
+        clockinorout = true;
+        console.log(clockinorout);
+    } else if (x == "下班打卡") {
+        clockinorout = false;
+        $("#bodyTemp").hide();
+        console.log(clockinorout);
+    }
+})
 
 function test() {
     // 取得現在時間
@@ -39,7 +44,7 @@ function test() {
             })
             return
         }
-        var bodyTempStr = "<br>${bodyTemp}度，體溫正常";
+        var bodyTempStr = `<br>${bodyTemp}度，體溫正常`;
         if (parseFloat(bodyTemp) > 37.5) {
             bodyTempStr = `<br>${bodyTemp}度，有發燒狀況，請多留意`
         }
@@ -60,7 +65,7 @@ function test() {
             if (data == "打卡成功") {
                 Swal.fire({
                     heightAuto: false,
-                    title:"上班" + data,
+                    title: "上班" + data,
                     html: `打卡時間: ${myday}  ${mystime}` + bodyTempStr,
                     icon: "success"
                 })

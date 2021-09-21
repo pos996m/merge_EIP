@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewBag.Title = "假單申請表";
+}
+<div class="container p-33">
+    <br />
+    <h2>假單申請表</h2>
+    <hr />
+
+    @model merge_EIP.Models.dayOff
+
+    @using (Html.BeginForm("Leave", "Form", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <div class="row">
+            <div class="col-12 col-xl-6">
+                <div class="form-horizontal">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.employeeID, "employeeID", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Session["ID"]
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.employeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Session["Name"]
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                            @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
+                        <small>最小請假時單位為1小時，以整點、30分始計算</small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                            @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <select id="fType" name="Type" class="form-control">
+                                <option value="補休假" name="Type" id="fType">補休假</option>
+                                <option value="特別休假">特別休假</option>
+                                <option value="普通傷病假">普通傷病假</option>
+                                <option value="生病傷病假">生病傷病假</option>
+                                <option value="生理假">生理假</option>
+                                <option value="事假">事假</option>
+                                <option value="公差">公差</option>
+                                <option value="公假">公假</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-xl-6">
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", maxlength = "200" } })
+                        @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                @*上傳檔案*@
+                <div class="form-group">
+                    @Html.LabelFor(model => model.filePath, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        <input type="file" name="ImageFile" id="FileUp" class="FileUP" />
+                        <br />
+                        <small>可以不附檔 ( 一次只能上傳一份，僅限jpg或png檔案 )</small>
+                        <br>
+                        <div>
+                            <img id="preview" class="m-2" style="max-width: 200px; max-height: 200px;">
+                            <div class="size"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="申請" class="btn FileUpBtn float-right" />
+            </div>
+        </div>
+    }
+</div>
+<br />
+<br />
+<br />
+<br />
+<script>
+    $('#FileUp').on('change', function (e) {
+        const file = this.files[0];//將上傳檔案轉換為base64字串
+
+        const fr = new FileReader();//建立FileReader物件
+        fr.onload = function (e) {
+            $('#preview').attr('src', e.target.result);//读取的结果放入圖片
+        };
+
+        // 使用 readAsDataURL 將圖片轉成 Base64
+        fr.readAsDataURL(file);
+    });
+</script>

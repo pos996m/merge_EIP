@@ -1,0 +1,236 @@
+﻿@model merge_EIP.Models.Search
+@{
+    ViewBag.Title = "Approve";
+}
+
+<div class="container">
+<br />
+<h2 class="font-weight-bold">表單審核</h2>
+<div class="btn-group" role="group" aria-label="Basic example">
+    <button type="button" class="btn btn-FB" onclick="showT1()">假單</button>
+    <button type="button" class="btn btn-FB" onclick="showT2()">加班單</button>
+    <button type="button" class="btn btn-FB" onclick="showT3()">補卡單</button>
+    <button type="button" class="btn btn-FB" onclick="showT4()">經費申請單</button>
+</div>
+<br />
+<br />
+
+
+    <div id="showT1">
+        <h3>假單審核</h3>
+        <p>待審核假單共 @ViewBag.lv_qty 筆</p>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>假單編號</th>
+                    <th>員工編號</th>
+                    <th>姓名</th>
+                    <th>假別</th>
+                    <th>起始日</th>
+                    <th>結束日</th>
+                    <th>合計差假</th>
+                    <th>理由</th>
+                    <th>附件</th>
+                    <th>審核</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.leave)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.dayoffNumber)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employeeID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employeeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.startDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.endDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.totalDay)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Img")?fId=@item.dayoffNumber">
+                                @Html.DisplayFor(modelItem => item.filePath)
+                            </a>
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Yes")?fId=@item.dayoffNumber" class="btn btn-FB m-1" onclick="return YNbtn(event,'同意','@item.employeeName')" style="white-space: nowrap;">同意</a>
+                            <a href="@Url.Action("No")?fId=@item.dayoffNumber" class="btn btn-secondary m-1" onclick="return YNbtn(event,'退回','@item.employeeName')" style="white-space: nowrap;">退回</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+    <div id="showT2" style="display:none">
+        <h3>加班單審核</h3>
+        <p>待審核加班單共 @ViewBag.ot_qty 筆</p>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>加班單編號</th>
+                    <th>員工編號</th>
+                    <th>姓名</th>
+                    <th>日期</th>
+                    <th>開始時間</th>
+                    <th>結束時間</th>
+                    <th>合計</th>
+                    <th>備註</th>
+                    <th>審核</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.OT)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.overtimeNumber)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employeeID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employeeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.startTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.expectTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.overtimeHours)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("OTYes")?fId=@item.overtimeNumber" class="btn btn-FB m-1" onclick="return YNbtn(event,'同意','@item.employeeName')" style="white-space: nowrap;">同意</a>
+                            <a href="@Url.Action("OTNo")?fId=@item.overtimeNumber" class="btn btn-secondary m-1" onclick="return YNbtn(event,'退回','@item.employeeName')" style="white-space: nowrap;">退回</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+    <div id="showT3" style="display:none">
+        <h3>補卡審核</h3>
+        <p>待審核補卡共 @ViewBag.re_qty 筆</p>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>補打卡單編號</th>
+                    <th>員工編號</th>
+                    <th>姓名</th>
+                    <th>日期</th>
+                    <th>上班打卡時間</th>
+                    <th>下班打卡時間</th>
+                    <th>備註</th>
+                    <th>審核</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.repunch)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.repunchID)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employeeID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employeeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.repunchdate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.repunchTimeIn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.repunchTimeOut)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("reYes")?fId=@item.repunchID" class="btn btn-FB m-1" onclick="return YNbtn(event,'同意','@item.employeeName')" style="white-space: nowrap;">同意</a>
+                            <a href="@Url.Action("reNo")?fId=@item.repunchID" class="btn btn-secondary m-1" onclick="return YNbtn(event,'退回','@item.employeeName')" style="white-space: nowrap;">退回</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+    <div id="showT4" style="display:none">
+        <h3>經費審核</h3>
+        <p>待審核經費共 @ViewBag.bd_qty 筆</p>
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>經費單編號</th>
+                    <th>員工編號</th>
+                    <th>姓名</th>
+                    <th>項目</th>
+                    <th>費用</th>
+                    <th>備註</th>
+                    <th>審核</th>
+                    <th></th>
+                </tr>
+
+                @foreach (var item in Model.budget)
+                {
+                    <tr>
+                        <th>
+                            @Html.DisplayFor(modelItem => item.applicationNumber)
+                        </th>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employeeID)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.employeeName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Type)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.applicationAmount)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Reason)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("bdYes")?fId=@item.applicationNumber" class="btn btn-FB m-1" onclick="return YNbtn(event,'同意','@item.employeeName')" style="white-space: nowrap;">同意</a>
+                            <a href="@Url.Action("bdNo")?fId=@item.applicationNumber" class="btn btn-secondary m-1" onclick="return YNbtn(event,'退回','@item.employeeName')" style="white-space: nowrap;">退回</a>
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+</div>
+
+<script src="~/Scripts/Form/buttonShow.js"></script>
+<script src="~/Scripts/worklog/SwalYN.js"></script>

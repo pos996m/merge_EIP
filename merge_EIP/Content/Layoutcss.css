@@ -1,4 +1,22 @@
-﻿#showMonth td {
+﻿html, body {
+    height: 100%;
+}
+
+@media screen and (max-width: 1110px) {
+    html, body {
+        height: auto;
+    }
+}
+
+@media screen and (min-width: 800px) {
+    .p-33 {
+        padding-left: 5rem;
+        padding-right: 5rem;
+    }
+}
+
+
+#showMonth td {
     height: 5rem;
 }
 
@@ -7,11 +25,11 @@
 }
 
 .navbar-toggler {
-/*    border-color: rgba(255, 255, 255, 0.1);*/
+    /*    border-color: rgba(255, 255, 255, 0.1);*/
     background-color: #3b5998;
-    width:5rem;
-    height:2.5rem;
-    padding:1rem,3rem;
+    width: 5rem;
+    height: 2.5rem;
+    padding: 1rem,3rem;
 }
 
 .nav-link {
@@ -38,6 +56,36 @@
 .timers {
     position: absolute;
 }
+
+/* 上傳選擇檔案按鈕 */
+.FileUpBtn {
+    position: relative;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    width: 100px;
+    padding: 10px 0;
+    /* 文字顏色 */
+    color: #fff;
+    /* 邊框樣式、顏色、寬度 */
+    border: 3px solid #3b5998;
+    border-radius: 6px;
+    text-align: center;
+    display: inline-block;
+    font-size: 16px;
+    /* margin: 4px 2px; */
+    -webkit-transition-duration: 0.4s;
+    /* Safari */
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #3b5998;
+}
+
+    .FileUpBtn:hover {
+        background-color: rgb(212, 212, 212);
+        color: black;
+        border: 3px solid rgb(228, 226, 226);
+    }
 
 /* 打卡鈕尺寸 */
 .button {

@@ -11,15 +11,18 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class rePunchin
     {
         public int repunchID { get; set; }
         public string employeeID { get; set; }
         public string employeeName { get; set; }
+        [DataType(DataType.Date)]
         public System.DateTime repunchdate { get; set; }
         public Nullable<System.TimeSpan> repunchTimeIn { get; set; }
         public Nullable<System.TimeSpan> repunchTimeOut { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Reason { get; set; }
         public string State { get; set; }
     

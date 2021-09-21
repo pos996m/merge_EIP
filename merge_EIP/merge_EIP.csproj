@@ -1802,6 +1802,7 @@
     <Content Include="Scripts\fontawesome-free-5.15.4-web\webfonts\fa-brands-400.svg" />
     <Content Include="Scripts\fontawesome-free-5.15.4-web\webfonts\fa-regular-400.svg" />
     <Content Include="Scripts\fontawesome-free-5.15.4-web\webfonts\fa-solid-900.svg" />
+    <Content Include="Scripts\Form\buttonShow.js" />
     <Content Include="Scripts\FullCalendar\main.min.css" />
     <Content Include="Scripts\FullCalendar\main.min.js" />
     <Content Include="Scripts\index.js.flow" />
@@ -1961,6 +1962,8 @@
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
     <Content Include="Scripts\umd\popper.min.js" />
+    <Content Include="Scripts\worklog\SwalYN.js" />
+    <Content Include="Scripts\worklog\todolist.js" />
     <Content Include="Web.config" />
     <Content Include="Scripts\umd\popper.min.js.map" />
     <Content Include="Scripts\umd\popper.js.map" />
@@ -1983,8 +1986,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ClockinAPIController.cs" />
     <Compile Include="Controllers\ClockinController.cs" />
+    <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\WorklogController.cs" />
+    <Compile Include="Controllers\WorklogListAPIController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -2042,6 +2047,7 @@
     <Compile Include="Models\rePunchin.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Search.cs" />
     <Compile Include="Models\workOvertime.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
@@ -2053,6 +2059,14 @@
     <Content Include="Scripts\jquery-3.4.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.4.1.min.map" />
     <Content Include="Views\Clockin\Search.cshtml" />
+    <Content Include="Views\Worklog\Todolist.cshtml" />
+    <Content Include="Views\Form\Leave.cshtml" />
+    <Content Include="Views\Form\Img.cshtml" />
+    <Content Include="Views\Form\Overtime.cshtml" />
+    <Content Include="Views\Form\Funding.cshtml" />
+    <Content Include="Views\Form\rePunch.cshtml" />
+    <Content Include="Views\Form\Search.cshtml" />
+    <Content Include="Views\Form\Approve.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2062,7 +2076,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Worklog\" />
+    <Folder Include="Image\" />
+    <Folder Include="Views\From\" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />

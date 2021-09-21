@@ -1,0 +1,13 @@
+﻿
+@{
+    ViewBag.Title = "查看附件";
+}
+
+@model merge_EIP.Models.dayOff
+
+<img src="@Url.Content(Model.filePath)" />
+
+<p>
+    @Html.ActionLink("回到上一頁", "Approve")
+</p>
+
