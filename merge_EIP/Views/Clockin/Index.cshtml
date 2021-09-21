@@ -3,14 +3,54 @@
     ViewBag.Title = "打卡";
     if (Session["ID"] == null)
     {
-        Response.Redirect("~/Login/Logout");
+        @*Response.Redirect("~/Login/Logout");*@
     }
 }
+<link href="~/Content/clockin.css" rel="stylesheet" />
 
-<h2>Index</h2>
+<div class="container">
+    <div class="row">
+        <div class="btnpage center">
+            <span class="remind">
+                <div class="clock simple">
+                    <div>
+                        <div class="hour12"></div>
+                        <div class="hour1"></div>
+                        <div class="hour2"></div>
+                        <div class="hour3"></div>
+                        <div class="hour4"></div>
+                        <div class="hour5"></div>
+                    </div>
+                    <div class="hours-container">
+                        <div class="hours"></div>
+                    </div>
+                    <div class="minutes-container">
+                        <div class="minutes"></div>
+                    </div>
+                    <div class="seconds-container">
+                        <div class="seconds"></div>
+                    </div>
+                </div>
+            </span>
+        </div>
+    </div>
+</div>
 
-員工編號: @Session["ID"]
+<br/>
+<input type="text" class="center" id="bodyTemp" size="25" placeholder="請輸入體溫再打卡" style="line-height: 2;font-size:1rem"
+       onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,1})?).*$/g, '$1')"/>
+<br/>
+<button class="btn btn-primary btn-salf center justify-content-center align-items-center" onclick="test()"
+        id="clickname">@ViewBag.clockinstr</button>
+
+<div id="EID" style="display:none">@Session["ID"]</div>
+
+<script src="~/Scripts/clockin/clock.js"></script>
+<script src="~/Scripts/clockin/clockinAPI.js"></script>
+
+
+@*員工編號: @Session["ID"]
 員工名稱: @Session["Name"]
 員工部門: @Session["Dep"]
 員工職位: @Session["Pos"]
-職位編號: @Session["PosID"]
+職位編號: @Session["PosID"]*@

@@ -24,7 +24,7 @@ namespace merge_EIP.Controllers
 
             var loginselect = db.Employee.Where(x => x.Account == account).FirstOrDefault();
 
-            if(loginselect.Password == password)
+            if(loginselect!=null && loginselect.Password == password)
             {
                 //Session["sn"] = "登入成功";
                 Session["ID"] = loginselect.employeeID;
@@ -38,6 +38,11 @@ namespace merge_EIP.Controllers
 
         public ActionResult Logout()
         {
+            Session["ID"] = null;
+            Session["Name"] = null;
+            Session["Dep"] = null;
+            Session["Pos"] = null;
+            Session["PosID"] = null;
             return View();
         }
     }

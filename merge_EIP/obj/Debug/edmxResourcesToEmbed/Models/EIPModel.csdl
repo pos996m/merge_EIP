@@ -90,6 +90,7 @@
     <NavigationProperty Name="punchIn" Relationship="Self.FK_punchIn_Employee" FromRole="Employee" ToRole="punchIn" />
     <NavigationProperty Name="rePunchin" Relationship="Self.FK_rePunchin_Employee" FromRole="Employee" ToRole="rePunchin" />
     <NavigationProperty Name="workOvertime" Relationship="Self.FK_workOvertime_Employee" FromRole="Employee" ToRole="workOvertime" />
+    <NavigationProperty Name="messageBoard1" Relationship="FormModelModel.FK_messageBoard_EmployeeAss" FromRole="Employee" ToRole="messageBoard" />
   </EntityType>
   <EntityType Name="Funding">
     <Key>
@@ -125,8 +126,9 @@
     <Property Name="messageDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="messageText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="assignPerson" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="assignPerson" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_messageBoard_Employee" FromRole="messageBoard" ToRole="Employee" />
+    <NavigationProperty Name="Employee1" Relationship="FormModelModel.FK_messageBoard_EmployeeAss" FromRole="messageBoard" ToRole="Employee" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -444,5 +446,21 @@
       <End Role="Employee" EntitySet="Employee" />
       <End Role="workOvertime" EntitySet="workOvertime" />
     </AssociationSet>
+    <AssociationSet Name="FK_messageBoard_EmployeeAss" Association="FormModelModel.FK_messageBoard_EmployeeAss">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="messageBoard" EntitySet="messageBoard" />
+    </AssociationSet>
   </EntityContainer>
+  <Association Name="FK_messageBoard_EmployeeAss">
+    <End Type="FormModelModel.Employee" Role="Employee" Multiplicity="0..1" />
+    <End Type="FormModelModel.messageBoard" Role="messageBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="messageBoard">
+        <PropertyRef Name="assignPerson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>
