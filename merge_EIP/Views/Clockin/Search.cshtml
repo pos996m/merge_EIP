@@ -1,0 +1,146 @@
+﻿@*@model IEnumerable<Lab_0913_clockin.Models.clocktest>*@
+
+@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<merge_EIP.Models.punchIn>
+
+
+@{
+    ViewBag.Title = "打卡記錄查詢";
+}
+
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+<div class="container">
+    <br />
+    <h2>打卡記錄查詢</h2>
+    <br />
+    <input type="text" id="inname" class="m-1" placeholder="輸入搜尋的名稱"/>
+    <input type="date" id="intime" class="m-1"/>
+    <button onclick="getnowtime()" class="m-1 btn" style="color: white; background-color: #3b5998;">搜尋</button>
+    <br />
+    <br />
+    <div class="row">
+        <div class="table-responsive">
+            <table class="table">
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().punchinDate)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().Employee.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().clockIn)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().clockOut)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().bodyTemperature)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().startoverTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().endoverTime)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().totalHours)
+                    </th>
+                </tr>
+                @{
+                    TimeSpan morning = TimeSpan.Parse("09:00:00");
+                    TimeSpan afternoon = TimeSpan.Parse("18:00:00");
+                }
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.punchinDate)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Employee.Name)
+                        </td>
+                        @if (item.clockIn != null)
+                        {
+                            string clockinstr = Convert.ToString(item.clockIn);
+                            TimeSpan clockinSP = TimeSpan.Parse(clockinstr);
+
+                            if (clockinSP > morning)
+                            {
+                                <td class="text-danger">
+                                    @Html.DisplayFor(modelItem => item.clockIn)
+                                </td>
+
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.clockIn)
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        @if (item.clockOut != null)
+                        {
+                            string clockoutstr = Convert.ToString(item.clockOut);
+                            TimeSpan clockoutSP = TimeSpan.Parse(clockoutstr);
+
+                            if (clockoutSP < afternoon)
+                            {
+                                <td class="text-danger">
+                                    @Html.DisplayFor(modelItem => item.clockOut)
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.clockOut)
+                                </td>
+                            }
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.bodyTemperature)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.startoverTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.endoverTime)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.totalHours)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </div>
+        @Html.PagedListPager(Model, page => Url.Action("Search", new { page }))
+    </div>
+</div>
+<script>
+    function getnowtime() {
+        let x = $("#intime").val();
+        let y = $("#inname").val();
+        console.log(x);
+        console.log(y);
+
+        if (x != "" && y != "") {
+            document.location.href = "/Clockin/Search" + `?datetime=${x}&myname=${y}`;
+        } else if (x != "") {
+            document.location.href = "/Clockin/Search" + `?datetime=${x}`;
+        } else if (y != "") {
+            document.location.href = "/Clockin/Search" + `?myname=${y}`;
+        }
+        // document.location.href = "/Showclockin/index" + `?datetime=${x}`;
+    }
+</script>

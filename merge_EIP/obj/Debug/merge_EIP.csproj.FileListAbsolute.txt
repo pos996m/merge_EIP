@@ -92,3 +92,8 @@ D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\EntityFramework.SqlServer.d
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\EntityFramework.xml
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\EntityFramework.SqlServer.xml
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\zh-Hant\EntityFramework.resources.dll
+D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\PagedList.dll
+D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\PagedList.Mvc.dll
+D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\PagedList.xml
+D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\PagedList.Mvc.xml
+D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\zh-Hant\EntityFramework.SqlServer.resources.dll

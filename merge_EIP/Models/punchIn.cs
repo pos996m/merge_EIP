@@ -11,10 +11,13 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class punchIn
     {
+        [DataType(DataType.Date)]
         public System.DateTime punchinDate { get; set; }
+
         public string employeeID { get; set; }
         public Nullable<System.TimeSpan> clockIn { get; set; }
         public Nullable<System.TimeSpan> clockOut { get; set; }

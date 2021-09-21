@@ -7,7 +7,11 @@
 }
 
 .navbar-toggler {
+/*    border-color: rgba(255, 255, 255, 0.1);*/
     background-color: #3b5998;
+    width:5rem;
+    height:2.5rem;
+    padding:1rem,3rem;
 }
 
 .nav-link {
@@ -143,7 +147,7 @@
     bottom: 0;
     width: 100%;
     background-color: #3b5998;
-    color: black;
+    color: white;
     text-align: center;
 }
 

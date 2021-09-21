@@ -29,8 +29,8 @@ namespace merge_EIP.Controllers
                 //Session["sn"] = "登入成功";
                 Session["ID"] = loginselect.employeeID;
                 Session["Name"] = loginselect.Name;
-                Session["Dep"] = loginselect.Department.departmentName;
-                Session["Pos"] = loginselect.Position.positionName;
+                Session["Dep"] = loginselect.Department.departmentName; // 部門
+                Session["Pos"] = loginselect.Position.positionName; // 職位
                 Session["PosID"] = loginselect.positionID;
             }
             return View();

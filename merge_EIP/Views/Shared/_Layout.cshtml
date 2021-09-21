@@ -1,12 +1,12 @@
 ﻿<!DOCTYPE html>
-<html>
+<html style="height:100%">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
     @* bs4 *@
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
     @* JQ3.6 *@
     <script src="~/Scripts/jquery-3.4.1.js"></script>
     @* icon *@
@@ -15,23 +15,44 @@
     <script src="~/Scripts/sweetaleat/sweetalert2@11.js"></script>
     @*Layout css*@
     <link href="~/Content/Layoutcss.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
     <style>
         .btn-FB {
             background-color: #3b5998;
             border: #3b5998;
-            color:white;
+            color: white;
         }
     </style>
     @*<script src="~/Scripts/modernizr-2.8.3.js"></script>*@
+
+    @*<link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />*@
 </head>
-<body>
-    <div class="navbar navbar-expand-md  navbar-inverse navbar-fixed-top">
+<body style="height: 100%; background-color: rgb(228 228 228); ">
+    <div class="navbar navbar-expand-md navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" href="#" style="color: #fff;"><b>EIP系統</b></a>
+            <a class="navbar-brand" style="color: #fff;"><b>EIP系統</b></a>
             <!-- 縮排成漢堡鈕 -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse">
-                <span class="navbar-toggler-icon"></span>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+                    style="padding:15px,20px">
+                @*<span class="navbar-toggler-icon"></span>*@
+                @*<i class="fa fa-camera-retro"></i>*@
+                <i class="fas fa-bars text-light" style="font-size:1.8rem"></i>
             </button>
+            <div class="nav-item dropdown float-right">
+                <a class="nav-link dropdown-toggle pull-right" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <img src="~/Content/img/people.png"
+                         style="width: 30px;height: 25px;">
+                </a>
+                <div class="dropdown-menu dropdown-menu-right p-3 text-muted" aria-labelledby="navbarDropdown"
+                     style="max-width: 15rem; ">
+                    <p class="mb-0">使用者 :</p>
+                    <p class="">@Session["Name"]</p>
+                    <p class="mb-0">部門資訊 :</p>
+                    <p class="">@Session["Dep"]@Session["Pos"]</p>
+                    <p>@Html.ActionLink("登出", "Logout", "Login", new { }, new { @class = "dropdown-item btn btn-FB", style = "text-align:center;" })</p>
+                </div>
+            </div>
             <div class="navbar-collapse collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav mr-auto">
                     <li class="nav-item dropdown">
@@ -76,30 +97,20 @@
                     <li class="nav-item">
                         @Html.ActionLink("帳戶設定", "About", "Home", new { }, new { @class = "nav-link" })
                     </li>
+                    <li class="nav-item" style="color: snow;">
+                        <a id="times" class="nav-link" style="color: snow;"></a>
+                        @*<div style="color: snow;"></div>
+                            <div  style="color: snow;"></div>*@
+                    </li>
                 </ul>
             </div>
-            <div style="color: snow;">現在時間 :</div>
-            <div id="times" style="color: snow;"></div>
             <!-- 新增使用者資訊 -->
-            <div class="nav-item dropdown float-right">
-                <a class="nav-link dropdown-toggle pull-right" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    <img src="~/Content/img/people.png"
-                         style="width: 30px;height: 25px;">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right p-3 text-muted" aria-labelledby="navbarDropdown"
-                     style="max-width: 15rem; ">
-                    <p class="mb-0">使用者 :</p>
-                    <p class="">@Session["Name"]</p>
-                    <p class="mb-0">部門資訊 :</p>
-                    <p class="">@Session["Dep"]@Session["Pos"]</p>
-                    <p>@Html.ActionLink("登出", "Logout", "Login", new { }, new { @class = "dropdown-item btn btn-FB", style= "text-align:center;" })</p>
-                </div>
-            </div>
         </div>
         <!-- 使用者資訊結束 -->
     </div>
-    @RenderBody()
+    <div class="container-xl bg-light" style="height:100%">
+        @RenderBody()
+    </div>
     <footer>
         <div>
             <div class="footer">
