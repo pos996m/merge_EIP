@@ -15,6 +15,9 @@
     }
 }
 
+table {
+    white-space: nowrap;
+}
 
 #showMonth td {
     height: 5rem;

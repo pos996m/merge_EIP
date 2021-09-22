@@ -1,4 +1,5 @@
 ﻿using merge_EIP.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,13 +13,20 @@ namespace merge_EIP.Controllers
         FormModelEntities db = new FormModelEntities();
         // GET: Worklog
         // 代辦事項
-        public ActionResult Todolist()
+        // 幾筆資料一頁
+        int pageSize = 6;
+
+        public ActionResult Todolist(int page = 1)
         {
             if (Session["ID"] != null)
             {
                 string EID = Convert.ToString(Session["ID"]);
                 var crin = db.Backlog.Where(x => x.employeeID == EID).OrderBy(x => x.checkState).ToList();
-                return View(crin);
+
+                int currpag = page < 1 ? 1 : page;
+                var result = crin.ToPagedList(currpag, pageSize);
+
+                return View(result);
             }
             else
             {
@@ -27,8 +35,9 @@ namespace merge_EIP.Controllers
         }
 
         [HttpPost]
-        public ActionResult Todolist(string Tname)
+        public ActionResult Todolist(string Tname,int page = 1)
         {
+            int currpag = page < 1 ? 1 : page;
             Backlog backlog = new Backlog();
             string EID = Convert.ToString(Session["ID"]);
             backlog.employeeID = EID;
@@ -37,7 +46,7 @@ namespace merge_EIP.Controllers
             backlog.checkState = false;
             db.Backlog.Add(backlog);
             db.SaveChanges();
-            return RedirectToAction("Todolist");
+            return RedirectToAction("Todolist",new {Page = currpag });
         }
 
         // 刪除代辦事項

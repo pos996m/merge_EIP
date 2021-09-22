@@ -1,4 +1,11 @@
-﻿@model IEnumerable<merge_EIP.Models.Backlog>
+﻿@*@model IEnumerable<merge_EIP.Models.Backlog>*@
+
+@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<merge_EIP.Models.Backlog>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
 
 @{
     ViewBag.Title = "待辦事項";
@@ -19,20 +26,20 @@
     <h2>待辦事項</h2>
     @using (Html.BeginForm())
     {
-            <p>
-                <input type="text" maxlength="48" size="25" name="Tname" placeholder="輸入代辦事項"  required />
-                <input type="submit" name="btn" value="新增" class="btn btn-FB" />
-            </p>
+        <p>
+            <input type="text" maxlength="48" size="25" name="Tname" placeholder="輸入代辦事項" required />
+            <input type="submit" name="btn" value="新增" class="btn btn-FB" />
+        </p>
     }
     <div class="table-responsive">
         <table class="table mylist">
             <tr>
 
                 <th>
-                    @Html.DisplayNameFor(model => model.backlogTxet)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().backlogTxet)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.checkState)
+                    @Html.DisplayNameFor(model => model.FirstOrDefault().checkState)
                 </th>
                 @*<th></th>*@
                 <th></th>
@@ -75,6 +82,7 @@
             }
         </table>
     </div>
+        @Html.PagedListPager(Model, page => Url.Action("Todolist", new { page }))
     <br>
     <br>
     <br>
