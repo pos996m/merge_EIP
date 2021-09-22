@@ -1987,6 +1987,7 @@
     <Compile Include="Controllers\ClockinAPIController.cs" />
     <Compile Include="Controllers\ClockinController.cs" />
     <Compile Include="Controllers\FormController.cs" />
+    <Compile Include="Controllers\FormImgAPIController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\WorklogController.cs" />
     <Compile Include="Controllers\WorklogListAPIController.cs" />

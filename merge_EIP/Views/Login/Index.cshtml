@@ -25,13 +25,14 @@
     @* 這頁的css *@
     <link href="~/Content/Logincss.css" rel="stylesheet" />
     @*<script src="~/Scripts/modernizr-2.8.3.js"></script>*@
+
 </head>
 
 <body>
     <div class="container">
         <div class="row">
             <div class="card center login">
-                <div class="card-body p-5">
+                <div class="card-body p-5 wh-Login">
                     <form class="form" action="/Login/Index" method="post" id="form1" name="form1">
                         <h3>EIP登入系統</h3>
                         <div class="group">
@@ -40,7 +41,7 @@
                         </div>
                         <div class="group">
                             <label for="userPWD">密碼</label>
-                            <input type="password" name="password" id="userPWD" placeholder=" 請輸入登入密碼">
+                            <input class="myfilter" type="password" name="password" id="userPWD" placeholder=" 請輸入登入密碼">
                         </div><br>
                         <div>
                             <button type="button" id="demo3" class="btn btn-light float-right">
@@ -75,7 +76,7 @@
                 icon: "success",
                 showConfirmButton: false
             })
-            setTimeout(() => { document.location.href="/Clockin/Index" }, 1500)
+            setTimeout(() => { document.location.href="/Clockin/Index" }, 1000)
         </script>
     }
 </body>

@@ -2,9 +2,10 @@
     margin: 0 auto;
     float: none;
     display: flex;
-    -webkit-filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.7));
-    filter: drop-shadow(5px 5px 10px rgba(0, 0, 0, 0.5))
+    -webkit-filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.5));
+    filter: drop-shadow(5px 5px 5px rgba(0, 0, 0, 0.3))
 }
+
 
 .btn-salf {
     width: 15rem;

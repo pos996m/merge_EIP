@@ -19,6 +19,29 @@ body {
     background-size: cover;
 }
 
+/* 登入窗格的響應，如果畫面大就放大 */
+@media screen and (min-width: 1000px) {
+    .wh-Login {
+        width: 23rem;
+        height: 27rem;
+    }
+
+    .wh-Login input{
+        width:100%;
+        font-size:1.2rem;
+    }
+
+    .wh-Login button{
+/*        margin-right:1rem;*/
+        width:5rem;
+        height:3.5rem;
+    }
+
+    .wh-Login label {
+        font-size: 1.1rem;
+    }
+}
+
 .center {
     margin: 0 auto;
     float: none;

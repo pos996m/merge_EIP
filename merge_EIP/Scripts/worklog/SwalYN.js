@@ -14,7 +14,7 @@
     return false;
 }
 
-function YNbtn(e,YN,Ename) {
+function YNbtn(e, YN, Ename) {
     Swal.fire({
         title: `確定要${YN} ${Ename} 的申請嗎?`,
         icon: 'warning',
@@ -29,3 +29,24 @@ function YNbtn(e,YN,Ename) {
     })
     return false;
 }
+
+function showIMG(e, Ename) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "/api/FormImgAPI" + encodeURI(`?FID=${e.target.getAttribute("data-fid")}`), true);
+    xhttp.send();
+    // 要取得JSON要等他load完才拿得到
+    xhttp.onload = () => {
+        var data = JSON.parse(xhttp.responseText);
+
+        Swal.fire({
+            title: `查看${Ename}的附件`,
+            imageUrl: `${data}`,
+            //imageWidth: 400,
+            //imageHeight: 200,
+            imageAlt: 'Custom image',
+        })
+    }
+    return false;
+}
+
+

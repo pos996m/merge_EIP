@@ -51,7 +51,7 @@ namespace merge_EIP.Controllers
             string pos = Convert.ToString(Session["PosID"]); // 職位
             
             // 預設為員工的顯示
-            var products = db.punchIn.Where(x => x.Employee.employeeID == EID).ToList(); ;
+            var products = db.punchIn.Where(x => x.Employee.employeeID == EID).ToList();
 
             if (products != null)
             {
@@ -62,7 +62,9 @@ namespace merge_EIP.Controllers
                     products = db.punchIn.Where(x => x.Employee.Department.departmentName == dep).ToList();
                 }
 
-                //var products = db.punchIn.ToList();
+
+
+                // 判斷有搜尋才做
                 if (datetime != null && myname != null)
                 {
                     products = products.Where(x => x.punchinDate.ToString("yyyy-MM-dd") == datetime && x.Employee.Name.Contains(myname)).ToList();
@@ -74,6 +76,12 @@ namespace merge_EIP.Controllers
                 else if (myname != null)
                 {
                     products = products.Where(x => x.Employee.Name.Contains(myname)).ToList();
+                }
+                else
+                {
+                    // 預設只出現今天的打卡狀態
+                    string toDay = DateTime.Now.ToString("yyyy-MM-dd");
+                    products = products.Where(x => x.punchinDate.ToString("yyyy-MM-dd") == toDay).ToList();
                 }
             }
             else

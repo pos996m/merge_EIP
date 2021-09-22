@@ -38,11 +38,13 @@
 </div>
 
 <br />
-<input type="text" class="center" id="bodyTemp" size="25" placeholder="請輸入體溫再打卡" style="line-height: 2;font-size:1rem"
+<input type="text" class="center form-control" id="bodyTemp" size="20" placeholder="請輸入體溫再打卡" style="line-height: 2;font-size:1rem"
        onkeyup="value=value.replace(/^\D*(\d*(?:\.\d{0,1})?).*$/g, '$1')" />
 <br />
 <button class="btn btn-primary btn-salf center justify-content-center align-items-center" onclick="test()"
-        id="clickname">@ViewBag.clockinstr</button>
+        id="clickname">
+    @ViewBag.clockinstr
+</button>
 <br />
 <br />
 <br />
@@ -55,6 +57,20 @@
 
 <script src="~/Scripts/clockin/clock.js"></script>
 <script src="~/Scripts/clockin/clockinAPI.js"></script>
+
+@if (Session["mypost"] != null)
+{
+    <script>
+        Swal.fire({
+            heightAuto: false,
+            title: "表單申請成功",
+            icon: "success",
+            showConfirmButton: false,
+            timer: 2000,
+        })
+        // setTimeout(() => { document.location.href = "/Clockin/Index" }, 1000)
+    </script>
+}
 
 
 @*員工編號: @Session["ID"]

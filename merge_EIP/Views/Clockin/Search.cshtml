@@ -55,71 +55,79 @@
                 }
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.punchinDate)
-                        </td>
-                        <td style="white-space: nowrap;">
-                            @Html.DisplayFor(modelItem => item.Employee.Name)
-                        </td>
-                        @if (item.clockIn != null)
-                        {
-                            string clockinstr = Convert.ToString(item.clockIn);
-                            TimeSpan clockinSP = TimeSpan.Parse(clockinstr);
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.punchinDate)
+                </td>
+                <td style="white-space: nowrap;">
+                    @Html.DisplayFor(modelItem => item.Employee.Name)
+                </td>
+                @if (item.clockIn != null)
+                {
+                    string clockinstr = Convert.ToString(item.clockIn);
+                    TimeSpan clockinSP = TimeSpan.Parse(clockinstr);
 
-                            if (clockinSP > morning)
-                            {
-                                <td class="text-danger">
-                                    @Html.DisplayFor(modelItem => item.clockIn)
-                                </td>
+                    if (clockinSP > morning)
+                    {
+                        <td class="text-danger">
+                            @Html.DisplayFor(modelItem => item.clockIn)
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.DisplayFor(modelItem => item.clockIn)
+                        </td>
+                    }
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (item.clockOut != null)
+                {
+                    string clockoutstr = Convert.ToString(item.clockOut);
+                    TimeSpan clockoutSP = TimeSpan.Parse(clockoutstr);
 
-                            }
-                            else
-                            {
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.clockIn)
-                                </td>
-                            }
-                        }
-                        else
-                        {
-                            <td></td>
-                        }
-                        @if (item.clockOut != null)
-                        {
-                            string clockoutstr = Convert.ToString(item.clockOut);
-                            TimeSpan clockoutSP = TimeSpan.Parse(clockoutstr);
-
-                            if (clockoutSP < afternoon)
-                            {
-                                <td class="text-danger">
-                                    @Html.DisplayFor(modelItem => item.clockOut)
-                                </td>
-                            }
-                            else
-                            {
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.clockOut)
-                                </td>
-                            }
-                        }
-                        else
-                        {
-                            <td></td>
-                        }
-                        <td>
-                            @Html.DisplayFor(modelItem => item.bodyTemperature)
+                    if (clockoutSP < afternoon)
+                    {
+                        <td class="text-danger">
+                            @Html.DisplayFor(modelItem => item.clockOut)
                         </td>
+                    }
+                    else
+                    {
                         <td>
-                            @Html.DisplayFor(modelItem => item.startoverTime)
+                            @Html.DisplayFor(modelItem => item.clockOut)
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.endoverTime)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.totalHours)
-                        </td>
-                    </tr>
+                    }
+                }
+                else
+                {
+                    <td></td>
+                }
+                @if (item.bodyTemperature > 37.5m)
+                {
+                    <td class="text-danger">
+                        @Html.DisplayFor(modelItem => item.bodyTemperature)
+                    </td>
+                }
+                else
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => item.bodyTemperature)
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.startoverTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.endoverTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.totalHours)
+                </td>
+            </tr>
                 }
 
             </table>

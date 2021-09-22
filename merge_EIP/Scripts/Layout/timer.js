@@ -11,4 +11,4 @@ function getDate() {
     div1.innerHTML = date1;
 }
 //使用定時器每秒向div寫入當前時間
-setInterval("getDate()", 1000);
+setInterval("getDate()", 500);

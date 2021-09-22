@@ -2,18 +2,64 @@
 @{
     ViewBag.Title = "Approve";
 }
+@functions{
+    public string showCnt(string x)
+    {
+        if (Convert.ToInt32(x) >= 1)
+        {
+            return x;
+        }
+        else
+        {
+            return "";
+        }
+    }
+}
+
+<style>
+    .swal-wide {
+        width: 800px;
+    }
+    .swal2-popup{
+        width:50em;
+    }
+    .sweet-alert .sa-icon {
+        max-width: 800px;
+        max-height: 800px;
+        @*border: 4px solid gray;
+        -webkit-border-radius: 40px;
+        border-radius: 40px;
+        border-radius: 50%;
+        margin: 20px auto;
+        padding: 0;
+        position: relative;
+        box-sizing: content-box;*@
+    }
+</style>
 
 <div class="container">
-<br />
-<h2 class="font-weight-bold">表單審核</h2>
-<div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-FB" onclick="showT1()">假單</button>
-    <button type="button" class="btn btn-FB" onclick="showT2()">加班單</button>
-    <button type="button" class="btn btn-FB" onclick="showT3()">補卡單</button>
-    <button type="button" class="btn btn-FB" onclick="showT4()">經費申請單</button>
-</div>
-<br />
-<br />
+    <br />
+    <h2 class="font-weight-bold">表單審核</h2>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-FB" onclick="showT1()">
+            假單
+            <span class="badge badge-pill badge-warning">@showCnt($"{ViewBag.lv_qty}")</span>
+        </button>
+        <button type="button" class="btn btn-FB" onclick="showT2()">
+            加班單
+            <span class="badge badge-pill badge-warning">@showCnt($"{ViewBag.ot_qty}")</span>
+        </button>
+        <button type="button" class="btn btn-FB" onclick="showT3()">
+            補卡單
+            <span class="badge badge-pill badge-warning">@showCnt($"{ViewBag.re_qty}")</span>
+        </button>
+        <button type="button" class="btn btn-FB" onclick="showT4()">
+            經費申請單
+            <span class="badge badge-pill badge-warning">@showCnt($"{ViewBag.bd_qty}")</span>
+        </button>
+    </div>
+    <br />
+    <br />
 
 
     <div id="showT1">
@@ -63,7 +109,7 @@
                             @Html.DisplayFor(modelItem => item.Reason)
                         </td>
                         <td>
-                            <a href="@Url.Action("Img")?fId=@item.dayoffNumber">
+                            <a href="@Url.Action("Img")?fId=@item.dayoffNumber" data-fid='@item.dayoffNumber' onclick="return showIMG(event, '@item.employeeName')">
                                 @Html.DisplayFor(modelItem => item.filePath)
                             </a>
                         </td>

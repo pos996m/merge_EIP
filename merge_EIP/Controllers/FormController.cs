@@ -49,16 +49,25 @@ namespace merge_EIP.Controllers
             db.dayOff.Add(tdayOff);
             db.SaveChanges();
 
+            Session["mypost"] = "FOK";
+
             return RedirectToAction("Index", "Clockin");
         }
 
         // 附件檔案
-        public ActionResult Img(int fId)
+        public ActionResult Img(int? fId)
         {
-            dayOff image = new dayOff();
-            image = db.dayOff.Where(m => m.dayoffNumber == fId).FirstOrDefault();
+            if (Session["ID"] != null)
+            {
+                dayOff image = new dayOff();
+                image = db.dayOff.Where(m => m.dayoffNumber == fId).FirstOrDefault();
 
-            return View(image);
+                return View(image);
+            }
+            else
+            {
+                return RedirectToAction("Logout", "Login");
+            }
         }
 
         // GET - 加班單申請
@@ -85,7 +94,7 @@ namespace merge_EIP.Controllers
 
             db.workOvertime.Add(tworkOvertime);
             db.SaveChanges();
-
+            Session["mypost"] = "FOK";
             return RedirectToAction("Index", "Clockin");
         }
 
@@ -105,7 +114,7 @@ namespace merge_EIP.Controllers
 
             db.Funding.Add(tfunding);
             db.SaveChanges();
-
+            Session["mypost"] = "FOK";
             return RedirectToAction("Index", "Clockin");
         }
 
@@ -122,20 +131,21 @@ namespace merge_EIP.Controllers
             trePunchin.State = "審核中";
             trePunchin.employeeID = Session["ID"].ToString();
             trePunchin.employeeName = Session["Name"].ToString();
-            if(trePunchin.Reason == null)
+            if (trePunchin.Reason == null)
             {
                 trePunchin.Reason = "無備註";
             }
 
             db.rePunchin.Add(trePunchin);
             db.SaveChanges();
-
+            Session["mypost"] = "FOK";
             return RedirectToAction("Index", "Clockin");
         }
 
         // 員工查詢
         public ActionResult Search()
         {
+            // 判斷是否有登入
             if (Session["ID"] != null)
             {
                 string posID = Convert.ToString(Session["PosID"]);
