@@ -2,6 +2,10 @@
     height: 100%;
 }
 
+body {
+    background-color: rgb(228 228 228);
+}
+
 @media screen and (max-width: 1110px) {
     html, body {
         height: auto;
@@ -14,6 +18,17 @@
         padding-right: 5rem;
     }
 }
+
+.btn-FB {
+    background-color: #3b5998;
+    border: #3b5998;
+    color: white;
+}
+
+    .btn-FB:hover {
+        background-color: rgb(228 228 228);
+        border: rgb(228 228 228);
+    }
 
 table {
     white-space: nowrap;
