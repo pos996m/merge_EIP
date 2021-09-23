@@ -9,6 +9,7 @@
 
 namespace merge_EIP.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.Web;
@@ -27,6 +28,7 @@ namespace merge_EIP.Models
         public string filePath { get; set; }
         public HttpPostedFileBase ImageFile { get; set; }
 
+        [JsonIgnore]
         public virtual Employee Employee { get; set; }
     }
 }

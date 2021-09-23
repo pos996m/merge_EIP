@@ -1991,6 +1991,7 @@
     <Compile Include="Controllers\ClockinController.cs" />
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\FormImgAPIController.cs" />
+    <Compile Include="Controllers\FormSearchAPIController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\WorklogController.cs" />
     <Compile Include="Controllers\WorklogListAPIController.cs" />
@@ -2074,6 +2075,7 @@
     <Content Include="Views\Form\rePunch.cshtml" />
     <Content Include="Views\Form\Search.cshtml" />
     <Content Include="Views\Form\Approve.cshtml" />
+    <Content Include="Views\Form\FSearch.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

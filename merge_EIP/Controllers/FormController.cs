@@ -171,6 +171,35 @@ namespace merge_EIP.Controllers
             }
         }
 
+        // 測試員工查詢
+        public ActionResult FSearch()
+        {
+            // 判斷是否有登入
+            if (Session["ID"] != null)
+            {
+                string posID = Convert.ToString(Session["PosID"]);
+                if (posID == "1")
+                {
+                    var id = Convert.ToString(Session["ID"]);
+                    var lv = db.dayOff.Where(m => m.employeeID == id).OrderByDescending(m => m.dayoffNumber).ToList();
+                    var bd = db.Funding.Where(m => m.employeeID == id).OrderByDescending(m => m.applicationNumber).ToList();
+                    var ot = db.workOvertime.Where(m => m.employeeID == id).OrderByDescending(m => m.overtimeNumber).ToList();
+                    var re = db.rePunchin.Where(m => m.employeeID == id).OrderByDescending(m => m.repunchID).ToList();
+
+                    Search all = new Search() { leave = lv, budget = bd, OT = ot, repunch = re };
+                    return View(all);
+                }
+                else
+                {
+                    return RedirectToAction("Approve");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Logout", "Login");
+            }
+        }
+
         // 老闆審核
         public ActionResult Approve()
         {

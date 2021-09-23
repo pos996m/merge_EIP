@@ -1,0 +1,110 @@
+﻿@model merge_EIP.Models.Search
+@{
+    ViewBag.Title = "表單審核查詢";
+}
+
+
+<div class="container">
+    <br />
+    <h2 class="font-weight-bold">申請表單查詢</h2>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-FB" onclick="showT1()">假單</button>
+        <button type="button" class="btn btn-FB" onclick="showT2()">加班單</button>
+        <button type="button" class="btn btn-FB" onclick="showT3()">經費申請單</button>
+        <button type="button" class="btn btn-FB" onclick="showT4()">補卡單</button>
+    </div>
+    <br />
+    <br />
+    <span id="EID" style="display:none">@Session["ID"]</span>
+    <span id="PosID" style="display:none">@Session["PosID"]</span>
+
+    <div id="showT1">
+        <h3>假單查詢</h3>
+        <div class="table-responsive">
+            <table class="table" id="sort-table">
+                <thead>
+                    <tr>
+                        <th data-field="employeeID" data-sortable="true">員工編號</th>
+                        <th data-field="employeeName" data-sortable="true">姓名</th>
+                        <th data-field="Type" data-sortable="true">假別</th>
+                        <th data-field="startDate" data-sortable="true">開始時間</th>
+                        <th data-field="endDate" data-sortable="true">結束時間</th>
+                        <th data-field="dayoffNumber" data-sortable="true">合計差假</th>
+                        <th data-field="Reason" data-sortable="true">理由</th>
+                        <th data-field="State" data-sortable="true">狀態</th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/page-jump-to/bootstrap-table-page-jump-to.min.js"></script>
+<script src="~/Scripts/bootstrap-table.min.js"></script>
+<script src="~/Scripts/colResizable/colResizable-1.6.min.js"></script>
+
+<script>
+    let EID = $("#EID").text();
+    let PosID = $("#PosID").text();
+    console.log(EID);
+    console.log(PosID);
+    var dataShow = [];
+
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("GET", "/api/FormSearchAPI" + encodeURI(`?EID=${EID}&PosID=${PosID}`), true);
+    xhttp.send();
+    // 要取得JSON要等他load完才拿得到
+    xhttp.onload = () => {
+        dataShow = JSON.parse(xhttp.responseText);
+        $('#sort-table').bootstrapTable({
+            data: dataShow,
+            pagination: true,
+            pageSize: 3,
+            onPageChange: function (currentPage, pageSize) {
+                console.log("目前頁數:" + currentPage + ",一頁顯示:" + pageSize + "筆");
+            }, formatRecordsPerPage: function (pageSize) {
+                return '';
+                //&nbsp;&nbsp;每頁顯示 10 筆
+            }, formatShowingRows: function (fromIndex, toIndex, totalSize) {
+                //目前第幾頁
+                var currentPage = Math.ceil(fromIndex / this.pageSize);
+                //總共幾頁
+                var totalPageCount = Math.ceil(totalSize / this.pageSize);
+                return '第' + currentPage + '頁&nbsp;&nbsp;共' + totalPageCount + '頁';
+            }
+        })
+    }
+
+
+    @*@foreach (var item in Model.leave)
+    {
+        @:dataShow.push({
+            @:Eid: '@item.employeeID',
+            @:Ename: '@item.employeeName',
+            // _name_rowspan: 2,
+            @:Eds: '@item.Type',
+            @:Est: '@item.startDate',
+            @:Eend: '@item.endDate',
+            @:Eover: '@item.totalDay',
+            @:Ere: '@item.Reason',
+            @:Est: '@item.State'
+            @:    })
+    }*@
+    @*$(function () {
+        $('#sort-table').bootstrapTable({
+            data: dataShow,
+            onPageChange: function (currentPage, pageSize) {
+                console.log("目前頁數:" + currentPage + ",一頁顯示:" + pageSize + "筆");
+            }, formatRecordsPerPage: function (pageSize) {
+                return '';
+                //&nbsp;&nbsp;每頁顯示 10 筆
+            }, formatShowingRows: function (fromIndex, toIndex, totalSize) {
+                //目前第幾頁
+                var currentPage = Math.ceil(fromIndex / this.pageSize);
+                //總共幾頁
+                var totalPageCount = Math.ceil(totalSize / this.pageSize);
+                return '第' + currentPage + '頁&nbsp;&nbsp;共' + totalPageCount + '頁';
+            }
+        })
+    })*@
+</script>
