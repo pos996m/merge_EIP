@@ -11,20 +11,17 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class workOvertime
     {
         public int overtimeNumber { get; set; }
         public string employeeID { get; set; }
         public string employeeName { get; set; }
-        [DataType(DataType.Date)]
         public System.DateTime Date { get; set; }
         public System.TimeSpan startTime { get; set; }
         public System.TimeSpan expectTime { get; set; }
         public string overtimeHours { get; set; }
         public string State { get; set; }
-        [DataType(DataType.MultilineText)]
         public string Reason { get; set; }
     
         public virtual Employee Employee { get; set; }

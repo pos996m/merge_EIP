@@ -16,7 +16,6 @@ namespace merge_EIP.Models
     {
         public System.DateTime calendarDate { get; set; }
         public string employeeID { get; set; }
-        public string calendarText { get; set; }
     
         public virtual Employee Employee { get; set; }
     }

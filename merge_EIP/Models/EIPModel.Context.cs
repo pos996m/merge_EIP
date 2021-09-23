@@ -39,5 +39,6 @@ namespace merge_EIP.Models
         public virtual DbSet<punchIn> punchIn { get; set; }
         public virtual DbSet<rePunchin> rePunchin { get; set; }
         public virtual DbSet<workOvertime> workOvertime { get; set; }
+        public virtual DbSet<watchCount> watchCount { get; set; }
     }
 }

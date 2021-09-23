@@ -23,17 +23,14 @@ namespace merge_EIP.Models
             this.dayOff = new HashSet<dayOff>();
             this.Funding = new HashSet<Funding>();
             this.gameRecord = new HashSet<gameRecord>();
-            // 留言人ID
             this.messageBoard = new HashSet<messageBoard>();
-            // 指定人ID
-            this.messageBoard1 = new HashSet<messageBoard>();
-            // 開團人ID
             this.Order = new HashSet<Order>();
-            // 跟團人ID
             this.Order1 = new HashSet<Order>();
             this.punchIn = new HashSet<punchIn>();
             this.rePunchin = new HashSet<rePunchin>();
             this.workOvertime = new HashSet<workOvertime>();
+            this.messageBoard1 = new HashSet<messageBoard>();
+            this.watchCount = new HashSet<watchCount>();
         }
     
         public string employeeID { get; set; }
@@ -79,5 +76,7 @@ namespace merge_EIP.Models
         public virtual ICollection<workOvertime> workOvertime { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<messageBoard> messageBoard1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<watchCount> watchCount { get; set; }
     }
 }

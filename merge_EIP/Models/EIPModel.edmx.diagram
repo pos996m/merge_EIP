@@ -13,12 +13,12 @@
         <EntityTypeShape EntityType="FormModelModel.Employee" Width="1.5" PointX="3" PointY="18" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.Funding" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.gameRecord" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FormModelModel.messageBoard" Width="1.5" PointX="5.25" PointY="21.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FormModelModel.Order" Width="1.5" PointX="5.25" PointY="24.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.messageBoard" Width="1.5" PointX="5.25" PointY="22" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.Order" Width="1.5" PointX="1.375" PointY="25.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.Position" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FormModelModel.punchIn" Width="1.5" PointX="5.25" PointY="29.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="FormModelModel.rePunchin" Width="1.5" PointX="5.25" PointY="33.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="FormModelModel.workOvertime" Width="1.5" PointX="5.25" PointY="36.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.punchIn" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.rePunchin" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.workOvertime" Width="1.5" PointX="5.25" PointY="29.125" IsExpanded="true" />
         <AssociationConnector Association="FormModelModel.FK_Backlog_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="FormModelModel.FK_BusinessTrip_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="FormModelModel.FK_Calendar_Employee" ManuallyRouted="false" />
@@ -34,6 +34,10 @@
         <AssociationConnector Association="FormModelModel.FK_rePunchin_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="FormModelModel.FK_workOvertime_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="FormModelModel.FK_messageBoard_EmployeeAss" />
+        <EntityTypeShape EntityType="FormModelModel.watchCount" Width="1.5" PointX="7.5" PointY="20.375" />
+        <AssociationConnector Association="FormModelModel.FK_messageBoard_Department" />
+        <AssociationConnector Association="FormModelModel.FK_watchCount_Employee" />
+        <AssociationConnector Association="FormModelModel.FK_watchCount_messageBoard" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -21,7 +21,8 @@ namespace merge_EIP.Controllers
             if (Session["ID"] != null)
             {
                 string EID = Convert.ToString(Session["ID"]);
-                var crin = db.Backlog.Where(x => x.employeeID == EID).OrderBy(x => x.checkState).ToList();
+                // OrderBy後面加 .ThenBy(x => x.backlogDate) 次排序 (ThenByDescending 次排序遞減)
+                var crin = db.Backlog.Where(x => x.employeeID == EID).OrderByDescending(x => x.backlogDate).ToList();
 
                 int currpag = page < 1 ? 1 : page;
                 var result = crin.ToPagedList(currpag, pageSize);
@@ -35,14 +36,15 @@ namespace merge_EIP.Controllers
         }
 
         [HttpPost]
-        public ActionResult Todolist(string Tname,int page = 1)
+        public ActionResult Todolist(string Tname, DateTime Tdate,TimeSpan? Ttime, int page = 1)
         {
             int currpag = page < 1 ? 1 : page;
             Backlog backlog = new Backlog();
             string EID = Convert.ToString(Session["ID"]);
             backlog.employeeID = EID;
             backlog.backlogTxet = Tname;
-            backlog.backlogDate = DateTime.Now;
+            backlog.backlogDate = Tdate;
+            backlog.backlogTime = Ttime;
             backlog.checkState = false;
             db.Backlog.Add(backlog);
             db.SaveChanges();

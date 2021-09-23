@@ -14,7 +14,7 @@ function AJAXcall(data, clock, Tname) {
 
 const mylist = $(".mylist");
 
-    // 監聽 mylist 的點擊事件
+    // 監聽 mylist 的點擊事件，製作點窗格就執行check
     mylist.click((e) => {
 
         // 如果沒點擊到就不做

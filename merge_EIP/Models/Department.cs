@@ -18,6 +18,7 @@ namespace merge_EIP.Models
         public Department()
         {
             this.Employee = new HashSet<Employee>();
+            this.messageBoard = new HashSet<messageBoard>();
         }
     
         public string departmentID { get; set; }
@@ -25,5 +26,7 @@ namespace merge_EIP.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Employee> Employee { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<messageBoard> messageBoard { get; set; }
     }
 }

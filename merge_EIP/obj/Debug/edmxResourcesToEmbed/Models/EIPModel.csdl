@@ -10,6 +10,7 @@
     <Property Name="backlogDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="checkState" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Backlog_Employee" FromRole="Backlog" ToRole="Employee" />
+    <Property Name="backlogTime" Type="Time" Precision="0" />
   </EntityType>
   <EntityType Name="BusinessTrip">
     <Key>
@@ -31,7 +32,6 @@
     </Key>
     <Property Name="calendarDate" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="employeeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-    <Property Name="calendarText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Calendar_Employee" FromRole="Calendar" ToRole="Employee" />
   </EntityType>
   <EntityType Name="dayOff">
@@ -57,6 +57,7 @@
     <Property Name="departmentID" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
     <Property Name="departmentName" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+    <NavigationProperty Name="messageBoard" Relationship="FormModelModel.FK_messageBoard_Department" FromRole="Department" ToRole="messageBoard" />
   </EntityType>
   <EntityType Name="Employee">
     <Key>
@@ -91,6 +92,7 @@
     <NavigationProperty Name="rePunchin" Relationship="Self.FK_rePunchin_Employee" FromRole="Employee" ToRole="rePunchin" />
     <NavigationProperty Name="workOvertime" Relationship="Self.FK_workOvertime_Employee" FromRole="Employee" ToRole="workOvertime" />
     <NavigationProperty Name="messageBoard1" Relationship="FormModelModel.FK_messageBoard_EmployeeAss" FromRole="Employee" ToRole="messageBoard" />
+    <NavigationProperty Name="watchCount" Relationship="FormModelModel.FK_watchCount_Employee" FromRole="Employee" ToRole="watchCount" />
   </EntityType>
   <EntityType Name="Funding">
     <Key>
@@ -129,6 +131,11 @@
     <Property Name="assignPerson" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_messageBoard_Employee" FromRole="messageBoard" ToRole="Employee" />
     <NavigationProperty Name="Employee1" Relationship="FormModelModel.FK_messageBoard_EmployeeAss" FromRole="messageBoard" ToRole="Employee" />
+    <Property Name="assignDepartment" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+    <Property Name="goTop" Type="Boolean" Nullable="false" />
+    <Property Name="toCalendar" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Department" Relationship="FormModelModel.FK_messageBoard_Department" FromRole="messageBoard" ToRole="Department" />
+    <NavigationProperty Name="watchCount" Relationship="FormModelModel.FK_watchCount_messageBoard" FromRole="messageBoard" ToRole="watchCount" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -450,6 +457,19 @@
       <End Role="Employee" EntitySet="Employee" />
       <End Role="messageBoard" EntitySet="messageBoard" />
     </AssociationSet>
+    <EntitySet Name="watchCount" EntityType="FormModelModel.watchCount" />
+    <AssociationSet Name="FK_messageBoard_Department" Association="FormModelModel.FK_messageBoard_Department">
+      <End Role="Department" EntitySet="Department" />
+      <End Role="messageBoard" EntitySet="messageBoard" />
+    </AssociationSet>
+    <AssociationSet Name="FK_watchCount_Employee" Association="FormModelModel.FK_watchCount_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="watchCount" EntitySet="watchCount" />
+    </AssociationSet>
+    <AssociationSet Name="FK_watchCount_messageBoard" Association="FormModelModel.FK_watchCount_messageBoard">
+      <End Role="messageBoard" EntitySet="messageBoard" />
+      <End Role="watchCount" EntitySet="watchCount" />
+    </AssociationSet>
   </EntityContainer>
   <Association Name="FK_messageBoard_EmployeeAss">
     <End Type="FormModelModel.Employee" Role="Employee" Multiplicity="0..1" />
@@ -460,6 +480,53 @@
       </Principal>
       <Dependent Role="messageBoard">
         <PropertyRef Name="assignPerson" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="watchCount">
+    <Key>
+      <PropertyRef Name="messageboardNumber" />
+      <PropertyRef Name="employeeID" />
+    </Key>
+    <Property Name="messageboardNumber" Type="Int32" Nullable="false" />
+    <Property Name="employeeID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="watchState" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Employee" Relationship="FormModelModel.FK_watchCount_Employee" FromRole="watchCount" ToRole="Employee" />
+    <NavigationProperty Name="messageBoard" Relationship="FormModelModel.FK_watchCount_messageBoard" FromRole="watchCount" ToRole="messageBoard" />
+  </EntityType>
+  <Association Name="FK_messageBoard_Department">
+    <End Type="FormModelModel.Department" Role="Department" Multiplicity="0..1" />
+    <End Type="FormModelModel.messageBoard" Role="messageBoard" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Department">
+        <PropertyRef Name="departmentID" />
+      </Principal>
+      <Dependent Role="messageBoard">
+        <PropertyRef Name="assignDepartment" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_watchCount_Employee">
+    <End Type="FormModelModel.Employee" Role="Employee" Multiplicity="1" />
+    <End Type="FormModelModel.watchCount" Role="watchCount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="watchCount">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_watchCount_messageBoard">
+    <End Type="FormModelModel.messageBoard" Role="messageBoard" Multiplicity="1" />
+    <End Type="FormModelModel.watchCount" Role="watchCount" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="messageBoard">
+        <PropertyRef Name="messageboardNumber" />
+      </Principal>
+      <Dependent Role="watchCount">
+        <PropertyRef Name="messageboardNumber" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

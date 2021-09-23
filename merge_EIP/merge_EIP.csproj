@@ -145,12 +145,14 @@
       <DependentUpon>EIPModel.edmx</DependentUpon>
       <LastGenOutput>EIPModel.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\bootstrap-table.min.js" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\clockin\clock.js" />
     <Content Include="Scripts\clockin\clockinAPI.js" />
+    <Content Include="Scripts\colResizable\colResizable-1.6.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -1958,6 +1960,7 @@
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
     <Content Include="Scripts\sweetaleat\sweetal.js" />
     <Content Include="Scripts\sweetaleat\sweetalert2%4011.js" />
+    <Content Include="Scripts\table_ALL\BStable.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -2049,6 +2052,9 @@
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Search.cs" />
+    <Compile Include="Models\watchCount.cs">
+      <DependentUpon>EIPModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\workOvertime.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>

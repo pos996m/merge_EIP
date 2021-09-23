@@ -11,7 +11,6 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
     using System.Web;
 
     public partial class dayOff
@@ -24,10 +23,8 @@ namespace merge_EIP.Models
         public string Type { get; set; }
         public string State { get; set; }
         public string totalDay { get; set; }
-        [DataType(DataType.MultilineText)]
         public string Reason { get; set; }
         public string filePath { get; set; }
-
         public HttpPostedFileBase ImageFile { get; set; }
 
         public virtual Employee Employee { get; set; }

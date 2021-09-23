@@ -11,8 +11,7 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Funding
     {
         public int applicationNumber { get; set; }
@@ -21,7 +20,6 @@ namespace merge_EIP.Models
         public int applicationAmount { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
-        [DataType(DataType.MultilineText)]
         public string Reason { get; set; }
     
         public virtual Employee Employee { get; set; }

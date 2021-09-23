@@ -4,6 +4,7 @@
     <EntitySetMapping Name="Backlog">
       <EntityTypeMapping TypeName="FormModelModel.Backlog">
         <MappingFragment StoreEntitySet="Backlog">
+          <ScalarProperty Name="backlogTime" ColumnName="backlogTime" />
           <ScalarProperty Name="backlogNumber" ColumnName="backlogNumber" />
           <ScalarProperty Name="employeeID" ColumnName="employeeID" />
           <ScalarProperty Name="backlogTxet" ColumnName="backlogTxet" />
@@ -30,7 +31,6 @@
         <MappingFragment StoreEntitySet="Calendar">
           <ScalarProperty Name="calendarDate" ColumnName="calendarDate" />
           <ScalarProperty Name="employeeID" ColumnName="employeeID" />
-          <ScalarProperty Name="calendarText" ColumnName="calendarText" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -105,6 +105,9 @@
     <EntitySetMapping Name="messageBoard">
       <EntityTypeMapping TypeName="FormModelModel.messageBoard">
         <MappingFragment StoreEntitySet="messageBoard">
+          <ScalarProperty Name="toCalendar" ColumnName="toCalendar" />
+          <ScalarProperty Name="goTop" ColumnName="goTop" />
+          <ScalarProperty Name="assignDepartment" ColumnName="assignDepartment" />
           <ScalarProperty Name="messageboardNumber" ColumnName="messageboardNumber" />
           <ScalarProperty Name="employeeID" ColumnName="employeeID" />
           <ScalarProperty Name="employeeName" ColumnName="employeeName" />
@@ -187,6 +190,15 @@
           <ScalarProperty Name="overtimeHours" ColumnName="overtimeHours" />
           <ScalarProperty Name="State" ColumnName="State" />
           <ScalarProperty Name="Reason" ColumnName="Reason" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="watchCount">
+      <EntityTypeMapping TypeName="FormModelModel.watchCount">
+        <MappingFragment StoreEntitySet="watchCount">
+          <ScalarProperty Name="watchState" ColumnName="watchState" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="messageboardNumber" ColumnName="messageboardNumber" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

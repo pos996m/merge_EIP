@@ -13,6 +13,7 @@
           <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="backlogTxet" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="backlogDate" Type="date" Nullable="false" />
+          <Property Name="backlogTime" Type="time" Precision="0" />
           <Property Name="checkState" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="BusinessTrip">
@@ -34,7 +35,6 @@
           </Key>
           <Property Name="calendarDate" Type="date" Nullable="false" />
           <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="calendarText" Type="nvarchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="dayOff">
           <Key>
@@ -110,6 +110,9 @@
           <Property Name="messageText" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="assignPerson" Type="varchar" MaxLength="15" />
+          <Property Name="assignDepartment" Type="char" MaxLength="1" />
+          <Property Name="goTop" Type="bit" Nullable="false" />
+          <Property Name="toCalendar" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -167,6 +170,15 @@
           <Property Name="repunchTimeOut" Type="time" Precision="0" />
           <Property Name="Reason" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="watchCount">
+          <Key>
+            <PropertyRef Name="messageboardNumber" />
+            <PropertyRef Name="employeeID" />
+          </Key>
+          <Property Name="messageboardNumber" Type="int" Nullable="false" />
+          <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="watchState" Type="bit" Nullable="false" />
         </EntityType>
         <EntityType Name="workOvertime">
           <Key>
@@ -278,6 +290,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_messageBoard_Department">
+          <End Role="Department" Type="Self.Department" Multiplicity="0..1" />
+          <End Role="messageBoard" Type="Self.messageBoard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="departmentID" />
+            </Principal>
+            <Dependent Role="messageBoard">
+              <PropertyRef Name="assignDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_messageBoard_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="messageBoard" Type="Self.messageBoard" Multiplicity="*" />
@@ -350,6 +374,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_watchCount_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="watchCount" Type="Self.watchCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employeeID" />
+            </Principal>
+            <Dependent Role="watchCount">
+              <PropertyRef Name="employeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_watchCount_messageBoard">
+          <End Role="messageBoard" Type="Self.messageBoard" Multiplicity="1" />
+          <End Role="watchCount" Type="Self.watchCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="messageBoard">
+              <PropertyRef Name="messageboardNumber" />
+            </Principal>
+            <Dependent Role="watchCount">
+              <PropertyRef Name="messageboardNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_workOvertime_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="workOvertime" Type="Self.workOvertime" Multiplicity="*" />
@@ -376,6 +424,7 @@
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="punchIn" EntityType="Self.punchIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rePunchin" EntityType="Self.rePunchin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="watchCount" EntityType="Self.watchCount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workOvertime" EntityType="Self.workOvertime" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Backlog_Employee" Association="Self.FK_Backlog_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -409,6 +458,10 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="gameRecord" EntitySet="gameRecord" />
           </AssociationSet>
+          <AssociationSet Name="FK_messageBoard_Department" Association="Self.FK_messageBoard_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="messageBoard" EntitySet="messageBoard" />
+          </AssociationSet>
           <AssociationSet Name="FK_messageBoard_Employee" Association="Self.FK_messageBoard_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="messageBoard" EntitySet="messageBoard" />
@@ -433,6 +486,14 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="rePunchin" EntitySet="rePunchin" />
           </AssociationSet>
+          <AssociationSet Name="FK_watchCount_Employee" Association="Self.FK_watchCount_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="watchCount" EntitySet="watchCount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_watchCount_messageBoard" Association="Self.FK_watchCount_messageBoard">
+            <End Role="messageBoard" EntitySet="messageBoard" />
+            <End Role="watchCount" EntitySet="watchCount" />
+          </AssociationSet>
           <AssociationSet Name="FK_workOvertime_Employee" Association="Self.FK_workOvertime_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="workOvertime" EntitySet="workOvertime" />
@@ -452,6 +513,7 @@
           <Property Name="backlogDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="checkState" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Backlog_Employee" FromRole="Backlog" ToRole="Employee" />
+          <Property Name="backlogTime" Type="Time" Precision="0" />
         </EntityType>
         <EntityType Name="BusinessTrip">
           <Key>
@@ -473,7 +535,6 @@
           </Key>
           <Property Name="calendarDate" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="employeeID" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="calendarText" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Calendar_Employee" FromRole="Calendar" ToRole="Employee" />
         </EntityType>
         <EntityType Name="dayOff">
@@ -499,6 +560,7 @@
           <Property Name="departmentID" Type="String" MaxLength="1" FixedLength="true" Unicode="false" Nullable="false" />
           <Property Name="departmentName" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Employee_Department" FromRole="Department" ToRole="Employee" />
+          <NavigationProperty Name="messageBoard" Relationship="FormModelModel.FK_messageBoard_Department" FromRole="Department" ToRole="messageBoard" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -533,6 +595,7 @@
           <NavigationProperty Name="rePunchin" Relationship="Self.FK_rePunchin_Employee" FromRole="Employee" ToRole="rePunchin" />
           <NavigationProperty Name="workOvertime" Relationship="Self.FK_workOvertime_Employee" FromRole="Employee" ToRole="workOvertime" />
           <NavigationProperty Name="messageBoard1" Relationship="FormModelModel.FK_messageBoard_EmployeeAss" FromRole="Employee" ToRole="messageBoard" />
+          <NavigationProperty Name="watchCount" Relationship="FormModelModel.FK_watchCount_Employee" FromRole="Employee" ToRole="watchCount" />
         </EntityType>
         <EntityType Name="Funding">
           <Key>
@@ -571,6 +634,11 @@
           <Property Name="assignPerson" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_messageBoard_Employee" FromRole="messageBoard" ToRole="Employee" />
           <NavigationProperty Name="Employee1" Relationship="FormModelModel.FK_messageBoard_EmployeeAss" FromRole="messageBoard" ToRole="Employee" />
+          <Property Name="assignDepartment" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="goTop" Type="Boolean" Nullable="false" />
+          <Property Name="toCalendar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Department" Relationship="FormModelModel.FK_messageBoard_Department" FromRole="messageBoard" ToRole="Department" />
+          <NavigationProperty Name="watchCount" Relationship="FormModelModel.FK_watchCount_messageBoard" FromRole="messageBoard" ToRole="watchCount" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -892,6 +960,19 @@
             <End Role="Employee" EntitySet="Employee" />
             <End Role="messageBoard" EntitySet="messageBoard" />
           </AssociationSet>
+          <EntitySet Name="watchCount" EntityType="FormModelModel.watchCount" />
+          <AssociationSet Name="FK_messageBoard_Department" Association="FormModelModel.FK_messageBoard_Department">
+            <End Role="Department" EntitySet="Department" />
+            <End Role="messageBoard" EntitySet="messageBoard" />
+          </AssociationSet>
+          <AssociationSet Name="FK_watchCount_Employee" Association="FormModelModel.FK_watchCount_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="watchCount" EntitySet="watchCount" />
+          </AssociationSet>
+          <AssociationSet Name="FK_watchCount_messageBoard" Association="FormModelModel.FK_watchCount_messageBoard">
+            <End Role="messageBoard" EntitySet="messageBoard" />
+            <End Role="watchCount" EntitySet="watchCount" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_messageBoard_EmployeeAss">
           <End Type="FormModelModel.Employee" Role="Employee" Multiplicity="0..1" />
@@ -905,6 +986,53 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="watchCount">
+          <Key>
+            <PropertyRef Name="messageboardNumber" />
+            <PropertyRef Name="employeeID" />
+          </Key>
+          <Property Name="messageboardNumber" Type="Int32" Nullable="false" />
+          <Property Name="employeeID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="watchState" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Employee" Relationship="FormModelModel.FK_watchCount_Employee" FromRole="watchCount" ToRole="Employee" />
+          <NavigationProperty Name="messageBoard" Relationship="FormModelModel.FK_watchCount_messageBoard" FromRole="watchCount" ToRole="messageBoard" />
+        </EntityType>
+        <Association Name="FK_messageBoard_Department">
+          <End Type="FormModelModel.Department" Role="Department" Multiplicity="0..1" />
+          <End Type="FormModelModel.messageBoard" Role="messageBoard" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Department">
+              <PropertyRef Name="departmentID" />
+            </Principal>
+            <Dependent Role="messageBoard">
+              <PropertyRef Name="assignDepartment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_watchCount_Employee">
+          <End Type="FormModelModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="FormModelModel.watchCount" Role="watchCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employeeID" />
+            </Principal>
+            <Dependent Role="watchCount">
+              <PropertyRef Name="employeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_watchCount_messageBoard">
+          <End Type="FormModelModel.messageBoard" Role="messageBoard" Multiplicity="1" />
+          <End Type="FormModelModel.watchCount" Role="watchCount" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="messageBoard">
+              <PropertyRef Name="messageboardNumber" />
+            </Principal>
+            <Dependent Role="watchCount">
+              <PropertyRef Name="messageboardNumber" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -914,6 +1042,7 @@
           <EntitySetMapping Name="Backlog">
             <EntityTypeMapping TypeName="FormModelModel.Backlog">
               <MappingFragment StoreEntitySet="Backlog">
+                <ScalarProperty Name="backlogTime" ColumnName="backlogTime" />
                 <ScalarProperty Name="backlogNumber" ColumnName="backlogNumber" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
                 <ScalarProperty Name="backlogTxet" ColumnName="backlogTxet" />
@@ -940,7 +1069,6 @@
               <MappingFragment StoreEntitySet="Calendar">
                 <ScalarProperty Name="calendarDate" ColumnName="calendarDate" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
-                <ScalarProperty Name="calendarText" ColumnName="calendarText" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1015,6 +1143,9 @@
           <EntitySetMapping Name="messageBoard">
             <EntityTypeMapping TypeName="FormModelModel.messageBoard">
               <MappingFragment StoreEntitySet="messageBoard">
+                <ScalarProperty Name="toCalendar" ColumnName="toCalendar" />
+                <ScalarProperty Name="goTop" ColumnName="goTop" />
+                <ScalarProperty Name="assignDepartment" ColumnName="assignDepartment" />
                 <ScalarProperty Name="messageboardNumber" ColumnName="messageboardNumber" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
                 <ScalarProperty Name="employeeName" ColumnName="employeeName" />
@@ -1097,6 +1228,15 @@
                 <ScalarProperty Name="overtimeHours" ColumnName="overtimeHours" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Reason" ColumnName="Reason" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="watchCount">
+            <EntityTypeMapping TypeName="FormModelModel.watchCount">
+              <MappingFragment StoreEntitySet="watchCount">
+                <ScalarProperty Name="watchState" ColumnName="watchState" />
+                <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+                <ScalarProperty Name="messageboardNumber" ColumnName="messageboardNumber" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

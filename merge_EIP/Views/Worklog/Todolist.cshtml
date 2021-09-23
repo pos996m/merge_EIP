@@ -6,7 +6,6 @@
 @model IPagedList<merge_EIP.Models.Backlog>
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 
-
 @{
     ViewBag.Title = "待辦事項";
 }
@@ -21,68 +20,79 @@
     }
 </style>
 
-<div class="container p-33">
+<div class="container">
     <br />
     <h2>待辦事項</h2>
     @using (Html.BeginForm())
     {
         <p>
-            <input type="text" maxlength="48" size="25" name="Tname" placeholder="輸入代辦事項" required />
+            <input class="col-8 col-md-2 m-1" type="date" name="Tdate" required />
+            <input class="col-8 col-md-2 m-1" type="time" name="Ttime" />
+            <input class="col-8 col-md-3 m-1" type="text" maxlength="48" size="25" name="Tname" placeholder="輸入代辦事項" required />
             <input type="submit" name="btn" value="新增" class="btn btn-FB" />
         </p>
     }
     <div class="table-responsive">
-        <table class="table mylist">
-            <tr>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().backlogTxet)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstOrDefault().checkState)
-                </th>
-                @*<th></th>*@
-                <th></th>
-            </tr>
+        <table class="table mylist" id="sort-table">
+            <thead>
+                <tr>
+                    <th data-sortable="true">
+                        時間
+                    </th>
+                    <th data-sortable="true">
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().backlogTxet)
+                    </th>
+                    <th data-sortable="true">
+                        @Html.DisplayNameFor(model => model.FirstOrDefault().checkState)
+                    </th>
+                    @*<th></th>*@
+                    <th></th>
+                </tr>
+            </thead>
             @{
                 int cnt = 0;
             }
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    @*判斷完成是否為true*@
-                    @if (item.checkState == true)
-                    {
-                        // 給每個td，流水ID、流水數字、資料庫編號
-                        <td data-cnt="@cnt" class="mycheck del" id="Tname_@cnt" data-tid="@item.backlogNumber" width="600">
-                            @Html.DisplayFor(modelItem => item.backlogTxet)
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.backlogDate)
+                            @Html.DisplayFor(modelItem => item.backlogTime)
                         </td>
-                    }
-                    else
-                    {
-                        // 範圍監聽用的calss，指定用的ID，存值用的data
-                        <td data-cnt="@cnt" class="mycheck" id="Tname_@cnt" data-tid="@item.backlogNumber" width="600">
-                            @Html.DisplayFor(modelItem => item.backlogTxet)
-                        </td>
-                    }
+                        @*判斷完成是否為true*@
+                        @if (item.checkState == true)
+                        {
+                            // 給每個td，流水ID、流水數字、資料庫編號
+                            <td data-cnt="@cnt" class="mycheck del" id="Tname_@cnt" data-tid="@item.backlogNumber">
+                                @Html.DisplayFor(modelItem => item.backlogTxet)
+                            </td>
+                        }
+                        else
+                        {
+                            // 範圍監聽用的calss，指定用的ID，存值用的data
+                            <td data-cnt="@cnt" class="mycheck" id="Tname_@cnt" data-tid="@item.backlogNumber">
+                                @Html.DisplayFor(modelItem => item.backlogTxet)
+                            </td>
+                        }
 
-                    <td data-cnt="@cnt" class="mycheck" data-TID="@item.backlogNumber">
-                        @*@Html.DisplayFor(modelItem => item.clock,new {type = "checkbox" })*@
-                        @Html.EditorFor(modelItem => item.checkState, new { @class = "test", type = "checkbox", htmlAttributes = new { data_TID = $"{item.backlogNumber}", data_cnt = $"{cnt}", id = $"list_{cnt}", style = "width:1.5rem;height:1.5rem" } })
-                    </td>
-                    @*<td></td>*@
-                    <td>
-                        @*<input type="button" name="@item.TID" value="刪除" />*@
-                        <button data-cnt="@cnt" onclick="myEdit(event)" class="btn btn-FB m-1" data-TID="@item.backlogNumber" style="white-space: nowrap;">編輯</button>
-                        @Html.ActionLink("刪除", "Delete", new { id = item.backlogNumber }, new { @class = "btn btn-secondary m-1", onclick = "return delbtn(event)", style = "white-space: nowrap;" })
-                    </td>
-                </tr>
-                cnt++;
-            }
+                        <td data-cnt="@cnt" class="mycheck" data-TID="@item.backlogNumber">
+                            @*@Html.DisplayFor(modelItem => item.clock,new {type = "checkbox" })*@
+                            @Html.EditorFor(modelItem => item.checkState, new { @class = "test", type = "checkbox", htmlAttributes = new { data_TID = $"{item.backlogNumber}", data_cnt = $"{cnt}", id = $"list_{cnt}", style = "width:1.5rem;height:1.5rem" } })
+                        </td>
+                        @*<td></td>*@
+                        <td>
+                            @*<input type="button" name="@item.TID" value="刪除" />*@
+                            <button data-cnt="@cnt" onclick="myEdit(event)" class="btn btn-FB m-1" data-TID="@item.backlogNumber" style="white-space: nowrap;">編輯</button>
+                            @Html.ActionLink("刪除", "Delete", new { id = item.backlogNumber }, new { @class = "btn btn-secondary m-1", onclick = "return delbtn(event)", style = "white-space: nowrap;" })
+                        </td>
+                    </tr>
+                    cnt++;
+                }
+            </tbody>
         </table>
     </div>
-        @Html.PagedListPager(Model, page => Url.Action("Todolist", new { page }))
+    @Html.PagedListPager(Model, page => Url.Action("Todolist", new { page }))
     <br>
     <br>
     <br>
@@ -90,3 +100,7 @@
 </div>
 <script src="~/Scripts/worklog/todolist.js"></script>
 <script src="~/Scripts/worklog/SwalYN.js"></script>
+
+<script src="~/Scripts/bootstrap-table.min.js"></script>
+<script src="~/Scripts/colResizable/colResizable-1.6.min.js"></script>
+<script src="~/Scripts/table_ALL/BStable.js"></script>

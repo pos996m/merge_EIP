@@ -34,6 +34,18 @@ table {
     white-space: nowrap;
 }
 
+td {
+    border-right: 1px solid transparent !important;
+    border-left: 1px solid transparent !important;
+    border-top: 1px solid transparent !important;
+}
+
+th {
+    border-right: 1px solid transparent !important;
+    border-left: 1px solid transparent !important;
+    border-top: 1px solid transparent !important;
+}
+
 #showMonth td {
     height: 5rem;
 }
@@ -54,9 +66,12 @@ table {
     color: #fff;
 }
 
-    .nav-link:hover {
-        color: black;
-    }
+.nav-link:hover {
+    font-weight: bold;
+    color: #fff !important;
+    font-size:1.1rem;
+    /*    text-shadow:3px 3px 3px white;*/
+}
 
 .nav-item + nav-link {
     color: #fff;
@@ -215,6 +230,7 @@ table {
     background-color: #3b5998;
     color: white;
     text-align: center;
+    z-index: 2;
 }
 
 /* 跳動時鐘 */
