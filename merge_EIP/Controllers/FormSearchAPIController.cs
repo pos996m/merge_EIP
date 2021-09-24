@@ -28,7 +28,8 @@ namespace merge_EIP.Controllers
             }
             else
             {
-                return null;
+                List<dayOff> eqwe = new List<dayOff>();
+                return Json(eqwe);
             }
         }
 
