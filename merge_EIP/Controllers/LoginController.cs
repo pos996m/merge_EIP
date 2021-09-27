@@ -30,6 +30,7 @@ namespace merge_EIP.Controllers
                 Session["ID"] = loginselect.employeeID;
                 Session["Name"] = loginselect.Name;
                 Session["Dep"] = loginselect.Department.departmentName; // 部門
+                Session["DepID"] = loginselect.departmentID; // 部門
                 Session["Pos"] = loginselect.Position.positionName; // 職位
                 Session["PosID"] = loginselect.positionID;
             }

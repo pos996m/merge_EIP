@@ -1,0 +1,107 @@
+﻿@model merge_EIP.Models.messageBoard
+
+@{
+    ViewBag.Title = "Fnewmsg";
+}
+
+<div class="container p-33">
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <br />
+            <h2>新增留言</h2>
+            <hr />
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.employeeName, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Session["Dep"]@Session["Pos"] @Session["Name"]
+                        </div>
+                    </div>
+                    @{
+                        string PosID = Convert.ToString(Session["PosID"]);
+                    }
+                    @if (PosID == "0")
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.goTop, htmlAttributes: new { @class = "control-label col-5 col-md-4" })
+                            @Html.EditorFor(model => model.goTop, new { htmlAttributes = new { style = "width:1.5rem; height:1.5rem" } })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.toCalendar, htmlAttributes: new { @class = "control-label col-5 col-md-4" })
+                            @Html.EditorFor(model => model.toCalendar, new { htmlAttributes = new { style = "width:1.5rem; height:1.5rem" } })
+                        </div>
+                    }
+
+                    @*<div class="form-group">
+                            @Html.LabelFor(model => model.messageDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.EditorFor(model => model.messageDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                                @Html.ValidationMessageFor(model => model.messageDate, "", new { @class = "text-danger" })
+                            </div>
+                        </div>*@
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.toMsgDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.toMsgDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                            @Html.ValidationMessageFor(model => model.toMsgDate, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.messageText, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.messageText, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.messageText, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.State, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            <select id="fType" name="State" class="form-control col-6 col-md-4" style="display:inline-block">
+                                <option value="所有人" name="State" id="fType">所有人</option>
+                                <option value="部門">部門</option>
+                                <option value="指定人">指定人</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="forPerson" class="form-group" style="display:none">
+                        @Html.LabelFor(model => model.assignPerson, "assignPerson", htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.assignPerson, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.assignPerson, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+
+
+                <br>
+                <br>
+                <div class="form-group col-12">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="留言" class="btn btn-FB" />
+                        @Html.ActionLink("取消", "MsgIndex", new { }, new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+<script>
+    $("#fType").on("change", () => {
+        let type = $("#fType").val();
+        if (type == "指定人") {
+            $("#forPerson").show();
+        } else {
+            $("#forPerson").hide();
+        }
+    })
+</script>

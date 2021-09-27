@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "留言板";
+}
+
+@using PagedList
+@using PagedList.Mvc
+
+@model IPagedList<merge_EIP.Models.messageBoard>
+<link href="~/Content/PagedList.css" rel="stylesheet" />
+
+<div class="container custom-gutters">
+    <br />
+    <h2>留言板</h2>
+
+    @using (Html.BeginForm())
+    {
+        <a href="/Message/Fnewmsg" class="btn btn-FB m-1">新增留言</a>
+        <a class="btn btn-FB" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+            顯示搜尋選單
+        </a>
+        <div class="collapse" id="collapseExample">
+            <input class="col-8 col-md-2 m-1" type="text" placeholder="發布者" />
+            <input class="col-8 col-md-2 m-1" type="text" placeholder="查詢內文" />
+            <input class="col-8 col-md-2 m-1" type="date" placeholder="發布時間" />
+            <select id="fType" name="Type" class="form-control m-1 p-1 col-4 col-md-1 h-auto" style="display:inline-block">
+                <option value="所有人" name="Type" id="fType">所有人</option>
+                <option value="主管">主管</option>
+                <option value="部門">部門</option>
+                <option value="私人">私人</option>
+            </select>
+            <button class="btn btn-FB m-1">搜尋</button>
+        </div>
+    }
+    <br>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-12 col-md-4">
+                <div class="card border-primary mb-3">
+                    <div class="card-header">
+                        <div>發布時間: @Html.DisplayFor(modelItem => item.messageDate)</div>
+                        <small class="text-muted">
+                            發布者:
+                            @Html.DisplayFor(modelItem => item.Employee.Department.departmentName)@Html.DisplayFor(modelItem => item.Employee.Position.positionName)
+                            @Html.DisplayFor(modelItem => item.Employee.Name)
+                        </small>
+                        <small class="text-muted"> ------> 給: @Html.DisplayFor(modelItem => item.State)</small>
+                    </div>
+                    <div class="card-body text-primary">
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.toMsgDate)</h5>
+                        <p class="card-text">
+                            @Html.DisplayFor(modelItem => item.messageText)
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">
+                            @Html.DisplayFor(modelItem => item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.watchState == true).ToList().Count)
+                            人已確認
+                        </small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    @Html.PagedListPager(Model, page => Url.Action("MsgIndex", new { page }))
+</div>
+
+
+<script>
+    function newmsg(e) {
+
+    }
+</script>
+
+
+@*<div>
+        <label class="control-label col-md-2" for="messageText">指定時間(選填)</label>
+        <input type="datetime-local" class="form-control text-box single-line" id="toMsgDate" name="toMsgDate" />
+    </div>
+    <div>
+        <label class="control-label col-md-2" for="messageText">內文</label>
+        <textarea class="form-control text-box single-line" id="messageText" name="messageText"></textarea>
+    </div>
+
+    <div>
+        <select id="fType" name="State" class="form-control col-4 col-md-2" style="display:inline-block">
+            <option value="所有人" name="State" id="fType">所有人</option>
+            <option value="部門">部門</option>
+            <option value="指定人">指定人</option>
+        </select>
+    </div>
+    <div>
+        <label class="control-label col-md-2" for="messageText">指定員工編號</label>
+        <input type="datetime-local" class="form-control text-box single-line" id="toMsgDate" name="toMsgDate" />
+    </div>*@
