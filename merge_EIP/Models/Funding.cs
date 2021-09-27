@@ -21,6 +21,7 @@ namespace merge_EIP.Models
         public string Type { get; set; }
         public string State { get; set; }
         public string Reason { get; set; }
+        public Nullable<System.DateTime> submitDate { get; set; }
     
         public virtual Employee Employee { get; set; }
     }

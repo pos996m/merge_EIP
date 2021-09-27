@@ -36,6 +36,7 @@
       <PropertyRef Name="dayoffNumber" />
     </Key>
     <Property Name="dayoffNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="submitDate" Type="datetime" />
     <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="startDate" Type="datetime" Nullable="false" />
@@ -77,6 +78,7 @@
       <PropertyRef Name="applicationNumber" />
     </Key>
     <Property Name="applicationNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="submitDate" Type="datetime" />
     <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="applicationAmount" Type="int" Nullable="false" />
@@ -102,6 +104,7 @@
     <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="messageDate" Type="datetime" Nullable="false" />
+    <Property Name="toMsgDate" Type="datetime" />
     <Property Name="messageText" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="assignPerson" Type="varchar" MaxLength="15" />
@@ -158,6 +161,7 @@
       <PropertyRef Name="repunchID" />
     </Key>
     <Property Name="repunchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="submitDate" Type="datetime" />
     <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="repunchdate" Type="date" Nullable="false" />
@@ -180,6 +184,7 @@
       <PropertyRef Name="overtimeNumber" />
     </Key>
     <Property Name="overtimeNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="submitDate" Type="datetime" />
     <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
     <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="Date" Type="date" Nullable="false" />

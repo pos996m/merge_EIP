@@ -41,6 +41,7 @@
             <PropertyRef Name="dayoffNumber" />
           </Key>
           <Property Name="dayoffNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="submitDate" Type="datetime" />
           <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="startDate" Type="datetime" Nullable="false" />
@@ -82,6 +83,7 @@
             <PropertyRef Name="applicationNumber" />
           </Key>
           <Property Name="applicationNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="submitDate" Type="datetime" />
           <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="applicationAmount" Type="int" Nullable="false" />
@@ -107,6 +109,7 @@
           <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="messageDate" Type="datetime" Nullable="false" />
+          <Property Name="toMsgDate" Type="datetime" />
           <Property Name="messageText" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="assignPerson" Type="varchar" MaxLength="15" />
@@ -163,6 +166,7 @@
             <PropertyRef Name="repunchID" />
           </Key>
           <Property Name="repunchID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="submitDate" Type="datetime" />
           <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="repunchdate" Type="date" Nullable="false" />
@@ -185,6 +189,7 @@
             <PropertyRef Name="overtimeNumber" />
           </Key>
           <Property Name="overtimeNumber" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="submitDate" Type="datetime" />
           <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Date" Type="date" Nullable="false" />
@@ -552,6 +557,7 @@
           <Property Name="Reason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
           <Property Name="filePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_dayOff_Employee" FromRole="dayOff" ToRole="Employee" />
+          <Property Name="submitDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -609,6 +615,7 @@
           <Property Name="State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Funding_Employee" FromRole="Funding" ToRole="Employee" />
+          <Property Name="submitDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="gameRecord">
           <Key>
@@ -639,6 +646,7 @@
           <Property Name="toCalendar" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Department" Relationship="FormModelModel.FK_messageBoard_Department" FromRole="messageBoard" ToRole="Department" />
           <NavigationProperty Name="watchCount" Relationship="FormModelModel.FK_watchCount_messageBoard" FromRole="messageBoard" ToRole="watchCount" />
+          <Property Name="toMsgDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -701,6 +709,7 @@
           <Property Name="Reason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_rePunchin_Employee" FromRole="rePunchin" ToRole="Employee" />
+          <Property Name="submitDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="workOvertime">
           <Key>
@@ -716,6 +725,7 @@
           <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_workOvertime_Employee" FromRole="workOvertime" ToRole="Employee" />
+          <Property Name="submitDate" Type="DateTime" Precision="3" />
         </EntityType>
         <Association Name="FK_Backlog_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
@@ -1075,6 +1085,7 @@
           <EntitySetMapping Name="dayOff">
             <EntityTypeMapping TypeName="FormModelModel.dayOff">
               <MappingFragment StoreEntitySet="dayOff">
+                <ScalarProperty Name="submitDate" ColumnName="submitDate" />
                 <ScalarProperty Name="dayoffNumber" ColumnName="dayoffNumber" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
                 <ScalarProperty Name="employeeName" ColumnName="employeeName" />
@@ -1119,6 +1130,7 @@
           <EntitySetMapping Name="Funding">
             <EntityTypeMapping TypeName="FormModelModel.Funding">
               <MappingFragment StoreEntitySet="Funding">
+                <ScalarProperty Name="submitDate" ColumnName="submitDate" />
                 <ScalarProperty Name="applicationNumber" ColumnName="applicationNumber" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
                 <ScalarProperty Name="employeeName" ColumnName="employeeName" />
@@ -1143,6 +1155,7 @@
           <EntitySetMapping Name="messageBoard">
             <EntityTypeMapping TypeName="FormModelModel.messageBoard">
               <MappingFragment StoreEntitySet="messageBoard">
+                <ScalarProperty Name="toMsgDate" ColumnName="toMsgDate" />
                 <ScalarProperty Name="toCalendar" ColumnName="toCalendar" />
                 <ScalarProperty Name="goTop" ColumnName="goTop" />
                 <ScalarProperty Name="assignDepartment" ColumnName="assignDepartment" />
@@ -1205,6 +1218,7 @@
           <EntitySetMapping Name="rePunchin">
             <EntityTypeMapping TypeName="FormModelModel.rePunchin">
               <MappingFragment StoreEntitySet="rePunchin">
+                <ScalarProperty Name="submitDate" ColumnName="submitDate" />
                 <ScalarProperty Name="repunchID" ColumnName="repunchID" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
                 <ScalarProperty Name="employeeName" ColumnName="employeeName" />
@@ -1219,6 +1233,7 @@
           <EntitySetMapping Name="workOvertime">
             <EntityTypeMapping TypeName="FormModelModel.workOvertime">
               <MappingFragment StoreEntitySet="workOvertime">
+                <ScalarProperty Name="submitDate" ColumnName="submitDate" />
                 <ScalarProperty Name="overtimeNumber" ColumnName="overtimeNumber" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
                 <ScalarProperty Name="employeeName" ColumnName="employeeName" />

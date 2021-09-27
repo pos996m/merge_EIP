@@ -22,6 +22,7 @@ namespace merge_EIP.Models
         public Nullable<System.TimeSpan> repunchTimeOut { get; set; }
         public string Reason { get; set; }
         public string State { get; set; }
+        public Nullable<System.DateTime> submitDate { get; set; }
     
         public virtual Employee Employee { get; set; }
     }

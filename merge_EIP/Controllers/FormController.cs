@@ -25,6 +25,7 @@ namespace merge_EIP.Controllers
             tdayOff.State = "審核中";
             tdayOff.employeeID = Session["ID"].ToString();
             tdayOff.employeeName = Session["Name"].ToString();
+            tdayOff.submitDate = DateTime.Now;
 
             var start = Convert.ToDateTime(tdayOff.startDate);
             var end = Convert.ToDateTime(tdayOff.endDate);
@@ -51,7 +52,7 @@ namespace merge_EIP.Controllers
 
             Session["mypost"] = "FOK";
 
-            return RedirectToAction("Index", "Clockin");
+            return RedirectToAction("Search");
         }
 
         // 附件檔案
@@ -66,7 +67,7 @@ namespace merge_EIP.Controllers
             }
             else
             {
-                return RedirectToAction("Logout", "Login");
+                return RedirectToAction("Search");
             }
         }
 
@@ -83,6 +84,7 @@ namespace merge_EIP.Controllers
             tworkOvertime.State = "審核中";
             tworkOvertime.employeeID = Session["ID"].ToString();
             tworkOvertime.employeeName = Session["Name"].ToString();
+            tworkOvertime.submitDate = DateTime.Now;
 
             var start = tworkOvertime.startTime.ToString();
             var end = tworkOvertime.expectTime.ToString();
@@ -95,7 +97,7 @@ namespace merge_EIP.Controllers
             db.workOvertime.Add(tworkOvertime);
             db.SaveChanges();
             Session["mypost"] = "FOK";
-            return RedirectToAction("Index", "Clockin");
+            return RedirectToAction("Search");
         }
 
         // GET - 經費申請
@@ -111,11 +113,12 @@ namespace merge_EIP.Controllers
             tfunding.State = "審核中";
             tfunding.employeeID = Session["ID"].ToString();
             tfunding.employeeName = Session["Name"].ToString();
+            tfunding.submitDate = DateTime.Now;
 
             db.Funding.Add(tfunding);
             db.SaveChanges();
             Session["mypost"] = "FOK";
-            return RedirectToAction("Index", "Clockin");
+            return RedirectToAction("Search");
         }
 
         // GET - 補打卡
@@ -131,6 +134,8 @@ namespace merge_EIP.Controllers
             trePunchin.State = "審核中";
             trePunchin.employeeID = Session["ID"].ToString();
             trePunchin.employeeName = Session["Name"].ToString();
+            trePunchin.submitDate = DateTime.Now;
+
             if (trePunchin.Reason == null)
             {
                 trePunchin.Reason = "無備註";
@@ -139,7 +144,7 @@ namespace merge_EIP.Controllers
             db.rePunchin.Add(trePunchin);
             db.SaveChanges();
             Session["mypost"] = "FOK";
-            return RedirectToAction("Index", "Clockin");
+            return RedirectToAction("Search");
         }
 
         // 員工查詢
@@ -259,6 +264,13 @@ namespace merge_EIP.Controllers
             var temp = db.dayOff.Where(m => m.dayoffNumber == fId).FirstOrDefault();
             temp.State = "同意";
 
+            for (DateTime i = temp.startDate.Date; i <= temp.endDate.Date; i = i.AddDays(1))
+            {
+                string thisTime = i.ToString("yyyy-MM-dd");
+                var Yestemp = db.punchIn.Where(x => x.punchinDate.ToString().Contains(thisTime) && x.employeeID == temp.employeeID).FirstOrDefault();
+                Yestemp.State = "請假";
+            }
+
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
         }
@@ -273,11 +285,42 @@ namespace merge_EIP.Controllers
             return RedirectToAction("Approve", "Form");
         }
 
+        // 假單全部同意
+        public ActionResult AllYes()
+        {
+            string myDep = Convert.ToString(Session["Dep"]);
+
+            //List<string> vs = new List<string>();
+            var temp = db.dayOff.Where(m => m.State == "審核中" && m.Employee.Department.departmentName == myDep).ToList();
+            for (int i = 0; i < temp.Count; i++)
+            {
+                temp[i].State = "同意";
+
+                for (DateTime k = temp[i].startDate.Date; k <= temp[i].endDate.Date; k = k.AddDays(1))
+                {
+                    string thisTime = k.ToString("yyyy-MM-dd");
+                    string thisID = temp[i].employeeID;
+                    var Yestemp = db.punchIn.Where(x => x.punchinDate.ToString().Contains(thisTime) && x.employeeID == thisID).FirstOrDefault();
+                    Yestemp.State = "請假";
+                    //vs.Add(thisTime);
+                }
+            }
+
+            //Console.WriteLine(vs);
+
+            db.SaveChanges();
+            return RedirectToAction("Approve", "Form");
+        }
+
         // 加班單同意
         public ActionResult OTYes(int fId)
         {
             var temp = db.workOvertime.Where(m => m.overtimeNumber == fId).FirstOrDefault();
             temp.State = "同意";
+
+            var clockinOvertime = db.punchIn.Where(x => x.punchinDate == temp.Date && x.employeeID == temp.employeeID).FirstOrDefault();
+            clockinOvertime.startoverTime = temp.startTime;
+            clockinOvertime.endoverTime = temp.expectTime;
 
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
@@ -289,6 +332,27 @@ namespace merge_EIP.Controllers
             var temp = db.workOvertime.Where(m => m.overtimeNumber == fId).FirstOrDefault();
             temp.State = "退回";
 
+            db.SaveChanges();
+            return RedirectToAction("Approve", "Form");
+        }
+
+        // 加班單全部同意
+        public ActionResult AllOTYes()
+        {
+
+            string myDep = Convert.ToString(Session["Dep"]);
+
+            var temp = db.workOvertime.Where(m => m.State == "審核中" && m.Employee.Department.departmentName == myDep).ToList();
+            for (int i = 0; i < temp.Count; i++)
+            {
+                temp[i].State = "同意";
+                var thistime = temp[i].Date;
+                string thisEID = temp[i].employeeID;
+
+                var clockinOvertime = db.punchIn.Where(x => x.punchinDate == thistime && x.employeeID == thisEID).FirstOrDefault();
+                clockinOvertime.startoverTime = temp[i].startTime;
+                clockinOvertime.endoverTime = temp[i].expectTime;
+            }
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
         }
@@ -313,11 +377,36 @@ namespace merge_EIP.Controllers
             return RedirectToAction("Approve", "Form");
         }
 
+        // 經費全部同意
+        public ActionResult AllbdYes()
+        {
+            string myDep = Convert.ToString(Session["Dep"]);
+
+            var temp = db.Funding.Where(m => m.State == "審核中" && m.Employee.Department.departmentName == myDep).ToList();
+            for (int i = 0; i < temp.Count; i++)
+            {
+                temp[i].State = "同意";
+            }
+            db.SaveChanges();
+            return RedirectToAction("Approve", "Form");
+        }
+
         // 補打卡同意
         public ActionResult reYes(int fId)
         {
             var temp = db.rePunchin.Where(m => m.repunchID == fId).FirstOrDefault();
             temp.State = "同意";
+
+            var inputUpdate = db.punchIn.Where(x => x.punchinDate == temp.repunchdate && x.employeeID == temp.employeeID).FirstOrDefault();
+            if (temp.repunchTimeIn != null)
+            {
+                inputUpdate.clockIn = temp.repunchTimeIn;
+            }
+            
+            if (temp.repunchTimeOut != null)
+            {
+                inputUpdate.clockOut = temp.repunchTimeOut;
+            }
 
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
@@ -329,6 +418,34 @@ namespace merge_EIP.Controllers
             var temp = db.rePunchin.Where(m => m.repunchID == fId).FirstOrDefault();
             temp.State = "退回";
 
+            db.SaveChanges();
+            return RedirectToAction("Approve", "Form");
+        }
+
+        // 補打卡全部同意
+        public ActionResult AllreYes()
+        {
+            string myDep = Convert.ToString(Session["Dep"]);
+
+            var temp = db.rePunchin.Where(m => m.State == "審核中" && m.Employee.Department.departmentName == myDep).ToList();
+            for (int i = 0; i < temp.Count; i++)
+            {
+                temp[i].State = "同意";
+                var mydate = temp[i].repunchdate;
+                string myEID = temp[i].employeeID;
+
+
+                var inputUpdate = db.punchIn.Where(x => x.punchinDate == mydate && x.employeeID == myEID).FirstOrDefault();
+                if (temp[i].repunchTimeIn != null)
+                {
+                    inputUpdate.clockIn = temp[i].repunchTimeIn;
+                }
+
+                if (temp[i].repunchTimeOut != null)
+                {
+                    inputUpdate.clockOut = temp[i].repunchTimeOut;
+                }
+            }
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
         }

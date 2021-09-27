@@ -59,16 +59,18 @@
     <div id="showT1">
         <h3>假單審核</h3>
         <p>待審核假單共 @ViewBag.lv_qty 筆</p>
+        <a href="@Url.Action("AllYes")" class="float-right btn btn-FB" onclick="return YNbtn(event,'同意','請假全部')" style="white-space: nowrap;">一鍵同意</a>
         <div class="table-responsive">
             <table class="table" id="sort-table">
                 <thead>
                     <tr>
+                        <th data-sortable="true">申請時間</th>
                         <th data-sortable="true">員工編號</th>
                         <th data-sortable="true">姓名</th>
                         <th data-sortable="true">假別</th>
                         <th data-sortable="true">起始日</th>
                         <th data-sortable="true">結束日</th>
-                        <th data-sortable="true">合計差假</th>
+                        <th data-sortable="true">合計</th>
                         <th data-sortable="true">理由</th>
                         <th data-sortable="true">附件</th>
                         <th data-sortable="true">審核</th>
@@ -78,6 +80,9 @@
                     @foreach (var item in Model.leave)
                     {
                         <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.submitDate)
+                            </td>
                             <td>
                                 @Html.DisplayFor(modelItem => item.employeeID)
                             </td>
@@ -118,6 +123,7 @@
     <div id="showT2" style="display:none">
         <h3>加班單審核</h3>
         <p>待審核加班單共 @ViewBag.ot_qty 筆</p>
+        <a href="@Url.Action("AllOTYes")" class="float-right btn btn-FB" onclick="return YNbtn(event,'同意','加班全部')" style="white-space: nowrap;">一鍵同意</a>
         <div class="table-responsive">
             <table class="table" id="sort-table2">
                 <thead>
@@ -127,7 +133,7 @@
                         <th data-sortable="true">日期</th>
                         <th data-sortable="true">開始時間</th>
                         <th data-sortable="true">結束時間</th>
-                        <th data-sortable="true">合計</th>
+                        <th data-sortable="true">合計小時</th>
                         <th data-sortable="true">備註</th>
                         <th data-sortable="true">審核</th>
                     </tr>
@@ -171,6 +177,7 @@
     <div id="showT3" style="display:none">
         <h3>補卡審核</h3>
         <p>待審核補卡共 @ViewBag.re_qty 筆</p>
+        <a href="@Url.Action("AllreYes")" class="float-right btn btn-FB" onclick="return YNbtn(event,'同意','補卡全部')" style="white-space: nowrap;">一鍵同意</a>
         <div class="table-responsive">
             <table class="table" id="sort-table3">
                 <thead>
@@ -220,6 +227,7 @@
     <div id="showT4" style="display:none">
         <h3>經費審核</h3>
         <p>待審核經費共 @ViewBag.bd_qty 筆</p>
+        <a href="@Url.Action("AllbdYes")" class="float-right btn btn-FB" onclick="return YNbtn(event,'同意','經費全部')" style="white-space: nowrap;">一鍵同意</a>
         <div class="table-responsive">
             <table class="table" id="sort-table4">
                 <thead>

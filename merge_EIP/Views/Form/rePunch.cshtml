@@ -36,7 +36,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.repunchdate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.repunchdate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                            @Html.EditorFor(model => model.repunchdate, new { htmlAttributes = new { @class = "form-control", type = "date" , required = "required" } })
                             @Html.ValidationMessageFor(model => model.repunchdate, "", new { @class = "text-danger" })
                         </div>
                     </div>
@@ -46,14 +46,16 @@
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.repunchTimeIn, new { htmlAttributes = new { @class = "form-control", type = "time" } })
                             @Html.ValidationMessageFor(model => model.repunchTimeIn, "", new { @class = "text-danger" })
+                            <small id="errSTitle" class="text-danger"></small>
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.repunchTimeOut, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.repunchTimeOut, new { htmlAttributes = new { @class = "form-control", type = "time" } })
+                            @Html.EditorFor(model => model.repunchTimeOut, new { htmlAttributes = new { @class = "form-control", type = "time"  } })
                             @Html.ValidationMessageFor(model => model.repunchTimeOut, "", new { @class = "text-danger" })
+                            <small id="errETitle" class="text-danger"></small>
                         </div>
                     </div>
                 </div>
@@ -62,19 +64,19 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", rows = "5", maxlength = "200" } })
+                        @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", rows = "5", maxlength = "200" , required = "required" } })
                         @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
                     </div>
                 </div>
             </div>
         </div>
+        <small class="col-10">*若僅補上班卡，僅輸入上班即可；下班亦同。</small>
         <br>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="申請" class="btn FileUpBtn float-right" />
+                <input type="submit" value="申請" class="btn btn-FB FileUpBtn float-right" />
             </div>
         </div>
-
     }
 
     <br>
@@ -82,3 +84,23 @@
     <br>
     <br>
 </div>
+
+<script>
+    $("#repunchTimeOut").on('change', (event) => {
+        let star = $("#repunchTimeIn").val();
+        let end = $("#repunchTimeOut").val();
+
+        let today = new Date();
+        let startime = new Date(`${today.toLocaleDateString()} ${star}`);
+        let endtime = new Date(`${today.toLocaleDateString()} ${end}`);
+
+        if (startime >= endtime) {
+            console.log("時間錯誤");
+            $("#repunchTimeOut").val("");
+            $("#errETitle").text("請輸入正確時間");
+        } else {
+            $("#errETitle").text("");
+        }
+        console.log(end);
+    })
+</script>

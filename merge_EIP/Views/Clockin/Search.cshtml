@@ -38,6 +38,9 @@
                             @Html.DisplayNameFor(model => model.FirstOrDefault().clockOut)
                         </th>
                         <th data-sortable="true">
+                            @Html.DisplayNameFor(model => model.FirstOrDefault().State)
+                        </th>
+                        <th data-sortable="true">
                             @Html.DisplayNameFor(model => model.FirstOrDefault().bodyTemperature)
                         </th>
                         <th data-sortable="true">
@@ -109,6 +112,9 @@
                             {
                                 <td></td>
                             }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.State)
+                        </td>
                             @if (item.bodyTemperature > 37.5m)
                             {
                                 <td class="text-danger">

@@ -30,6 +30,7 @@ namespace merge_EIP.Models
         public string assignDepartment { get; set; }
         public bool goTop { get; set; }
         public bool toCalendar { get; set; }
+        public Nullable<System.DateTime> toMsgDate { get; set; }
     
         public virtual Employee Employee { get; set; }
         public virtual Employee Employee1 { get; set; }

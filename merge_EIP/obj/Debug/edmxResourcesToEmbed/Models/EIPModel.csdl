@@ -49,6 +49,7 @@
     <Property Name="Reason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
     <Property Name="filePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_dayOff_Employee" FromRole="dayOff" ToRole="Employee" />
+    <Property Name="submitDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Department">
     <Key>
@@ -106,6 +107,7 @@
     <Property Name="State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_Funding_Employee" FromRole="Funding" ToRole="Employee" />
+    <Property Name="submitDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="gameRecord">
     <Key>
@@ -136,6 +138,7 @@
     <Property Name="toCalendar" Type="Boolean" Nullable="false" />
     <NavigationProperty Name="Department" Relationship="FormModelModel.FK_messageBoard_Department" FromRole="messageBoard" ToRole="Department" />
     <NavigationProperty Name="watchCount" Relationship="FormModelModel.FK_watchCount_messageBoard" FromRole="messageBoard" ToRole="watchCount" />
+    <Property Name="toMsgDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="Order">
     <Key>
@@ -198,6 +201,7 @@
     <Property Name="Reason" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_rePunchin_Employee" FromRole="rePunchin" ToRole="Employee" />
+    <Property Name="submitDate" Type="DateTime" Precision="3" />
   </EntityType>
   <EntityType Name="workOvertime">
     <Key>
@@ -213,6 +217,7 @@
     <Property Name="State" Type="String" MaxLength="5" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
     <NavigationProperty Name="Employee" Relationship="Self.FK_workOvertime_Employee" FromRole="workOvertime" ToRole="Employee" />
+    <Property Name="submitDate" Type="DateTime" Precision="3" />
   </EntityType>
   <Association Name="FK_Backlog_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="1" />

@@ -33,17 +33,21 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.startDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                            @Html.EditorFor(model => model.startDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local", required = "required", max = "2018-06-14T00:00" } })
                             @Html.ValidationMessageFor(model => model.startDate, "", new { @class = "text-danger" })
-                        <small>最小請假時單位為1小時，以整點、30分始計算</small>
+                            @*<small>最小請假時單位為1小時</small><br />*@
+                            @*，以整點、30分始計算*@
+                            <small id="errSTitle" class="text-danger"></small>
                         </div>
                     </div>
 
                     <div class="form-group">
                         @Html.LabelFor(model => model.endDate, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                            @Html.EditorFor(model => model.endDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local", required = "required", max = "2018-06-14T00:00" } })
                             @Html.ValidationMessageFor(model => model.endDate, "", new { @class = "text-danger" })
+                            <small>最小請假時單位為1小時</small><br />
+                            <small id="errETitle" class="text-danger"></small>
                         </div>
                     </div>
 
@@ -69,7 +73,7 @@
                 <div class="form-group">
                     @Html.LabelFor(model => model.Reason, htmlAttributes: new { @class = "control-label col-md-2" })
                     <div class="col-md-10">
-                        @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", maxlength = "200" } })
+                        @Html.EditorFor(model => model.Reason, new { htmlAttributes = new { @class = "form-control", maxlength = "200", required = "required" } })
                         @Html.ValidationMessageFor(model => model.Reason, "", new { @class = "text-danger" })
                     </div>
                 </div>
@@ -93,7 +97,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="申請" class="btn FileUpBtn float-right" />
+                <input type="submit" value="申請" class="btn btn-FB FileUpBtn float-right" />
             </div>
         </div>
     }
@@ -103,6 +107,22 @@
 <br />
 <br />
 <script>
+    function GetFormattedDate(date) {
+        var month = ("0" + (date.getMonth() + 1)).slice(-2);
+        var day = ("0" + (date.getDate())).slice(-2);
+        var year = date.getFullYear();
+        var hour = ("0" + (date.getHours())).slice(-2);
+        var min = ("0" + (date.getMinutes())).slice(-2);
+        var seg = ("0" + (date.getSeconds())).slice(-2);
+        return year + "-" + month + "-" + day + "T" + hour + ":" + min;
+    }
+
+    let maxdate = new Date();
+    maxdate.setDate(maxdate.getDate() + 14);
+    console.log(GetFormattedDate(maxdate))
+    $("#startDate").attr("max", GetFormattedDate(maxdate))
+    $("#endDate").attr("max", GetFormattedDate(maxdate))
+
     $('#FileUp').on('change', function (e) {
         const file = this.files[0];//將上傳檔案轉換為base64字串
 
@@ -114,4 +134,36 @@
         // 使用 readAsDataURL 將圖片轉成 Base64
         fr.readAsDataURL(file);
     });
+
+    $("#startDate").on('change', (event) => {
+        let star = $("#startDate").val();
+        let end = $("#endDate").val();
+        let startime = new Date(star);
+        let endtime = new Date(end);
+        if (startime > endtime || ((endtime.getTime() - startime.getTime()) / 60000) < 60) {
+            console.log("時間錯誤")
+            $("#startDate").val("");
+            $("#errSTitle").text("請輸入正確時間");
+        } else {
+            $("#errSTitle").text("");
+        }
+        console.log(star);
+    })
+
+    $("#endDate").on('change', (event) => {
+        let star = $("#startDate").val();
+        let end = $("#endDate").val();
+        let startime = new Date(star);
+        let endtime = new Date(end);
+        if (startime > endtime || ((endtime.getTime() - startime.getTime()) / 60000) < 60) {
+            @*|| startime.getMinutes() % 30*@
+            console.log("時間錯誤");
+            $("#endDate").val("");
+            $("#errETitle").text("請輸入正確時間");
+        } else {
+            $("#errETitle").text("");
+        }
+        console.log(end);
+        console.log()
+    })
 </script>
