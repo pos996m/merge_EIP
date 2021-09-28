@@ -2079,6 +2079,7 @@
     <Content Include="Views\Form\FSearch.cshtml" />
     <Content Include="Views\Message\MsgIndex.cshtml" />
     <Content Include="Views\Message\Fnewmsg.cshtml" />
+    <Content Include="Views\Message\Setmsg.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

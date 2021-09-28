@@ -110,6 +110,7 @@
           <Property Name="employeeName" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="messageDate" Type="datetime" Nullable="false" />
           <Property Name="toMsgDate" Type="datetime" />
+          <Property Name="messageTitle" Type="nvarchar" MaxLength="50" />
           <Property Name="messageText" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="assignPerson" Type="varchar" MaxLength="15" />
@@ -647,6 +648,7 @@
           <NavigationProperty Name="Department" Relationship="FormModelModel.FK_messageBoard_Department" FromRole="messageBoard" ToRole="Department" />
           <NavigationProperty Name="watchCount" Relationship="FormModelModel.FK_watchCount_messageBoard" FromRole="messageBoard" ToRole="watchCount" />
           <Property Name="toMsgDate" Type="DateTime" Precision="3" />
+          <Property Name="messageTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -1155,6 +1157,7 @@
           <EntitySetMapping Name="messageBoard">
             <EntityTypeMapping TypeName="FormModelModel.messageBoard">
               <MappingFragment StoreEntitySet="messageBoard">
+                <ScalarProperty Name="messageTitle" ColumnName="messageTitle" />
                 <ScalarProperty Name="toMsgDate" ColumnName="toMsgDate" />
                 <ScalarProperty Name="toCalendar" ColumnName="toCalendar" />
                 <ScalarProperty Name="goTop" ColumnName="goTop" />

@@ -36,7 +36,7 @@ function test() {
     if (clockinorout) {
         // 取得體溫
         var bodyTemp = $("#bodyTemp").val();
-        if (bodyTemp == "" || bodyTemp < 35) {
+        if (bodyTemp == "" || bodyTemp < 35 || bodyTemp > 42) {
             Swal.fire({
                 heightAuto: false,
                 title: "體溫輸入錯誤",

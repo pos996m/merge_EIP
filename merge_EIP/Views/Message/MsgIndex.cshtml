@@ -20,43 +20,74 @@
             顯示搜尋選單
         </a>
         <div class="collapse" id="collapseExample">
-            <input class="col-8 col-md-2 m-1" type="text" placeholder="發布者" />
-            <input class="col-8 col-md-2 m-1" type="text" placeholder="查詢內文" />
-            <input class="col-8 col-md-2 m-1" type="date" placeholder="發布時間" />
-            <select id="fType" name="Type" class="form-control m-1 p-1 col-4 col-md-1 h-auto" style="display:inline-block">
-                <option value="所有人" name="Type" id="fType">所有人</option>
+            <input class="col-6 col-md-2 m-1" type="text" id="getName" name="getName" placeholder="查詢發布者" />
+            <input class="col-6 col-md-2 m-1" type="text" id="getText" name="getText" placeholder="查詢內文" />
+            <input class="col-8 col-md-2 m-1" type="date" id="getTime" name="getTime" placeholder="查詢發布時間" />
+            <select id="getState" name="getState" class="form-control m-1 p-1 col-4 col-md-1 h-auto" style="display:inline-block">
+                <option value="全部" id="getState">全部</option>
+                <option value="所有人">所有人</option>
                 <option value="主管">主管</option>
                 <option value="部門">部門</option>
                 <option value="私人">私人</option>
             </select>
-            <button class="btn btn-FB m-1">搜尋</button>
+            <button type="button" class="btn btn-FB m-1" onclick="onSelect()">搜尋</button>
+            @*<a href="/Message/MsgIndex" class="btn btn-FB m-1">搜尋</a>*@
         </div>
     }
     <br>
+    @{
+        string thisEID = Convert.ToString(Session["ID"]);
+    }
+
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-4" title="發布時間 : @item.messageDate">
                 <div class="card border-primary mb-3">
                     <div class="card-header">
-                        <div>發布時間: @Html.DisplayFor(modelItem => item.messageDate)</div>
-                        <small class="text-muted">
-                            發布者:
+                        <div class="h5 m-0">
+
                             @Html.DisplayFor(modelItem => item.Employee.Department.departmentName)@Html.DisplayFor(modelItem => item.Employee.Position.positionName)
                             @Html.DisplayFor(modelItem => item.Employee.Name)
+                        </div>
+                        <div>
+                            給:
+                            @if (item.State == "私人")
+                            {
+                                @Html.DisplayFor(modelItem => item.Employee1.Name) <span>(私人)</span>
+                            }
+                            else if (item.State == "部門")
+                            {
+                                @Html.DisplayFor(modelItem => item.Department.departmentName) @Html.DisplayFor(modelItem => item.State)
+                            }
+                            else
+                            {
+                                @Html.DisplayFor(modelItem => item.State)
+                            }
+                        </div>
+                        @*<small class="text-muted m-0">發布時間: @Html.DisplayFor(modelItem => item.messageDate)</small><br>*@
+                        <small class="text-muted m-0">
+                            @if (item.toMsgDate != null)
+                            {
+                                <span>指派時間: @Html.DisplayFor(modelItem => item.toMsgDate)</span>
+                            }
                         </small>
-                        <small class="text-muted"> ------> 給: @Html.DisplayFor(modelItem => item.State)</small>
                     </div>
                     <div class="card-body text-primary">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.toMsgDate)</h5>
+                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.messageTitle)</h5>
                         <p class="card-text">
                             @Html.DisplayFor(modelItem => item.messageText)
                         </p>
+
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">
                             @Html.DisplayFor(modelItem => item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.watchState == true).ToList().Count)
                             人已確認
+                            @if (item.employeeID == thisEID)
+                            {
+                                @Html.ActionLink("編輯貼文", "Setmsg", new { id = item.messageboardNumber }, new { @class = "float-right" })
+                            }
                         </small>
                     </div>
                 </div>
@@ -68,9 +99,44 @@
 
 
 <script>
-    function newmsg(e) {
-
+    function onSelect(e) {
+        const getName = $("#getName").val();
+        const getText = $("#getText").val();
+        const getTime = $("#getTime").val();
+        const getState = $("#getState").val();
+        if (getState == "全部") {
+            document.location.href = "/Message/MsgIndex";
+        } else {
+            document.location.href = "/Message/MsgIndex" + `?getName=${getName}&getText=${getText}&getTime=${getTime}&getState=${getState}`;
+        }
     }
+
+    const mylist = $(".pagination");
+    mylist.click((e) => {
+        console.log(e.target.innerHTML);
+        console.log(e.target.getAttribute("href"));
+        let myhref = document.location.href;
+        console.log(myhref);
+        if (myhref.indexOf("page=") < 0) {
+            if (myhref.indexOf("?") < 0) {
+                document.location.href = myhref + `?page=${e.target.innerHTML}`;
+            } else {
+                document.location.href = myhref + `&page=${e.target.innerHTML}`;
+            }
+        } else {
+            if (myhref.indexOf("&") < 0) {
+                let Nmh = myhref.substring(myhref.lastIndexOf("?"), myhref - myhref.lastIndexOf("?"))
+                document.location.href = Nmh + `?page=${e.target.innerHTML}`;
+            } else {
+                console.log(myhref.substring(myhref.lastIndexOf("&"), myhref - myhref.lastIndexOf("&")))
+                let Nmh = myhref.substring(myhref.lastIndexOf("&"), myhref - myhref.lastIndexOf("&"))
+                document.location.href = Nmh + `&page=${e.target.innerHTML}`;
+            }
+        }
+
+        return false;
+    })
+
 </script>
 
 

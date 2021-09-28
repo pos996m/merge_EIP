@@ -1,8 +1,10 @@
 ﻿@model merge_EIP.Models.messageBoard
 
 @{
-    ViewBag.Title = "新增留言";
+    ViewBag.Title = "Setmsg";
 }
+
+<h2>Setmsg</h2>
 
 <div class="container p-33">
     @using (Html.BeginForm())
@@ -55,17 +57,9 @@
                 </div>
                 <div class="col-12 col-md-6">
                     <div class="form-group">
-                        @Html.LabelFor(model => model.messageTitle, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.messageTitle, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                            @Html.ValidationMessageFor(model => model.messageTitle, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-
-                    <div class="form-group">
                         @Html.LabelFor(model => model.messageText, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
-                            @Html.EditorFor(model => model.messageText, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.EditorFor(model => model.messageText, new { htmlAttributes = new { @class = "form-control" } })
                             @Html.ValidationMessageFor(model => model.messageText, "", new { @class = "text-danger" })
                         </div>
                     </div>

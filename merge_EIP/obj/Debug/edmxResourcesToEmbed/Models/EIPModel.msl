@@ -107,6 +107,7 @@
     <EntitySetMapping Name="messageBoard">
       <EntityTypeMapping TypeName="FormModelModel.messageBoard">
         <MappingFragment StoreEntitySet="messageBoard">
+          <ScalarProperty Name="messageTitle" ColumnName="messageTitle" />
           <ScalarProperty Name="toMsgDate" ColumnName="toMsgDate" />
           <ScalarProperty Name="toCalendar" ColumnName="toCalendar" />
           <ScalarProperty Name="goTop" ColumnName="goTop" />
