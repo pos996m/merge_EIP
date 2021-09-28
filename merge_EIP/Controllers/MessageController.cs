@@ -24,7 +24,7 @@ namespace merge_EIP.Controllers
 
             // 先撈所有可看見的
             var showMsg = db.messageBoard.Where(x => x.State == "所有人" || x.assignDepartment == DepID || x.assignPerson == EID || x.employeeID == EID)
-                .OrderBy(x => x.goTop).ThenByDescending(x => x.messageDate).ToList();
+                .OrderByDescending(x => x.goTop).ThenByDescending(x => x.messageDate).ToList();
 
             // 再撈指定搜尋的
             if (getName != null)

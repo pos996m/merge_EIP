@@ -45,6 +45,14 @@
             <div class="col-12 col-md-4" title="發布時間 : @item.messageDate">
                 <div class="card border-primary mb-3">
                     <div class="card-header">
+                        @if (item.toCalendar)
+                        {
+                            <i class="far fa-calendar-alt float-right text-secondary" title="行事曆顯示" style="margin:0rem 0rem 0rem 1rem"></i>
+                        }
+                        @if (item.goTop)
+                        {
+                            <i class="fas fa-level-up-alt float-right text-secondary" title="置頂" ></i>
+                        }
                         <div class="h5 m-0">
 
                             @Html.DisplayFor(modelItem => item.Employee.Department.departmentName)@Html.DisplayFor(modelItem => item.Employee.Position.positionName)
@@ -84,6 +92,7 @@
                         <small class="text-muted">
                             @Html.DisplayFor(modelItem => item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.watchState == true).ToList().Count)
                             人已確認
+                            <a href="#" class="float-right" style = "margin:0rem 0rem 0rem 1rem">確認</a>
                             @if (item.employeeID == thisEID)
                             {
                                 @Html.ActionLink("編輯貼文", "Setmsg", new { id = item.messageboardNumber }, new { @class = "float-right" })
