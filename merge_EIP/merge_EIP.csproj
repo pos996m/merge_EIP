@@ -1996,6 +1996,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\MsgCheckAPIController.cs" />
+    <Compile Include="Controllers\WorklogCalAPIController.cs" />
     <Compile Include="Controllers\WorklogController.cs" />
     <Compile Include="Controllers\WorklogListAPIController.cs" />
     <Compile Include="Global.asax.cs">
@@ -2007,6 +2008,7 @@
     <Compile Include="Models\BusinessTrip.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\CalData.cs" />
     <Compile Include="Models\Calendar.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
@@ -2082,6 +2084,7 @@
     <Content Include="Views\Message\MsgIndex.cshtml" />
     <Content Include="Views\Message\Fnewmsg.cshtml" />
     <Content Include="Views\Message\Setmsg.cshtml" />
+    <Content Include="Views\Worklog\Calendar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

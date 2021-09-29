@@ -1,0 +1,96 @@
+﻿
+@{
+    ViewBag.Title = "行事曆";
+}
+
+<link href="~/Scripts/FullCalendar/main.min.css" rel="stylesheet" />
+<script src="~/Scripts/FullCalendar/main.min.js"></script>
+<style>
+    html,body{
+        height:auto;
+    }
+</style>
+<div class="container">
+<h2>Calendar</h2>
+    <hr>
+<span id="EID" style="display:none">@Session["ID"]</span>
+<span id="DepID" style="display:none">@Session["DepID"]</span>
+
+    <div id="calendar" class=""></div>
+    <br />
+    <br />
+    <br />
+    <br />
+</div>
+
+<script>
+    $(document).ready(() => {
+        console.log("ready");
+
+        const EID = $("#EID").text();
+        const DepID = $("#DepID").text();
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "/api/WorklogCalAPI" + encodeURI(`?EID=${EID}&DepID=${DepID}`), true);
+        xhttp.send();
+        // 要取得JSON要等他load完才拿得到
+        xhttp.onload = () => {
+            // 解析API回傳JSON
+            dataShow = JSON.parse(xhttp.responseText);
+            console.log(dataShow);
+            calshowrender(dataShow);
+        }
+    });
+
+
+    let calList = [
+        {
+            title: "去全聯",
+            start: "2021-09-10T15:16",
+            ppp: "work",
+        },
+        {
+            title: "小美請假",
+            start: "2021-09-10",
+            color: "green",
+            ppp: "itmp",
+        },
+    ];
+
+    function calshowrender(dataList) {
+        var calendarEl = document.getElementById("calendar");
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: "title",
+                center: "",
+                right: "prev,next today",
+            },
+            businessHours: true, // display business hours
+            selectable: true,
+            titleFormat: {
+                year: "numeric",
+                month: "2-digit",
+            },
+            dateClick: function (info) {
+                console.log(info.dateStr);
+                console.log(info);
+                @*clickacl(info.dateStr);*@
+            },
+            eventClick: function (info) {
+                console.log("Event: " + info.event.title);
+                console.log(
+                    "Coordinates: " + info.jsEvent.pageX + "," + info.jsEvent.pageY
+                );
+                console.log("View: " + info.view.type);
+                console.log(info);
+                console.log(info.event._def.extendedProps.ppp);
+            },
+            themeSystem: "bootstrap",
+            // 放入顯示
+            events: dataList,
+        });
+
+        calendar.render();
+    }
+</script>

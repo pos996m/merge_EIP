@@ -227,7 +227,6 @@
     function watchCheck(e) {
         const msgnum = e.target.getAttribute("data-msgnum");
         const msgstate = e.target.getAttribute("data-msgstate");
-        console.log(msgnum);
         let trueList = [];
         let falseList = [];
 
@@ -236,8 +235,11 @@
         xhttp.send();
         // 要取得JSON要等他load完才拿得到
         xhttp.onload = () => {
+            // 解析API回傳JSON
             dataShow = JSON.parse(xhttp.responseText);
             console.log(dataShow);
+
+            // 將已讀未讀放入List
             for (var i = 0; i < dataShow.length; i++) {
                 if (dataShow[i].watchState == true) {
                     trueList.push(dataShow[i].employeeName);
@@ -245,8 +247,8 @@
                     falseList.push(dataShow[i].employeeName);
                 }
             }
-            console.log(trueList);
-            console.log(falseList);
+
+            // 建立顯示html字串
             let Liststr = "<h4>未確認</h4><ul>";
             for (var i = 0; i < falseList.length; i++) {
                 Liststr += `<li>${falseList[i]}</li>`
@@ -257,6 +259,7 @@
             }
             Liststr += "</ul>"
 
+            // 顯示
             Swal.fire({
                 html: Liststr,
             })

@@ -56,6 +56,12 @@
     // 要取得JSON要等他load完才拿得到
     xhttp.onload = () => {
         dataShow = JSON.parse(xhttp.responseText);
+        console.log(xhttp.responseText);
+        console.log(dataShow);
+        for (var i = 0; i < dataShow.length; i++) {
+            dataShow[i].startDate = dataShow[i].startDate.replace("T", " ");
+            dataShow[i].endDate = dataShow[i].endDate.replace("T", " ");
+        }
         $('#sort-table').bootstrapTable({
             data: dataShow,
             pagination: true,

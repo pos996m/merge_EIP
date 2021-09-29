@@ -12,6 +12,7 @@ namespace merge_EIP.Models
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web;
 
     public partial class dayOff
@@ -19,7 +20,9 @@ namespace merge_EIP.Models
         public int dayoffNumber { get; set; }
         public string employeeID { get; set; }
         public string employeeName { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm}", ApplyFormatInEditMode = true)]
         public System.DateTime startDate { get; set; }
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm}", ApplyFormatInEditMode = true)]
         public System.DateTime endDate { get; set; }
         public string Type { get; set; }
         public string State { get; set; }
