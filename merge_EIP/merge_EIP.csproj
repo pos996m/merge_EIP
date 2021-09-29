@@ -134,6 +134,7 @@
     <Content Include="Content\Logout.css" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\Tooltip.css" />
     <Content Include="Global.asax" />
     <Content Include="Models\EIPModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -1994,6 +1995,7 @@
     <Compile Include="Controllers\FormSearchAPIController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
+    <Compile Include="Controllers\MsgCheckAPIController.cs" />
     <Compile Include="Controllers\WorklogController.cs" />
     <Compile Include="Controllers\WorklogListAPIController.cs" />
     <Compile Include="Global.asax.cs">

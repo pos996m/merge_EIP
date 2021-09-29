@@ -14,7 +14,7 @@ namespace merge_EIP.Controllers
         FormModelEntities db = new FormModelEntities();
 
         // 幾筆資料一頁
-        int pageSize = 9;
+        int pageSize = 8;
 
         // GET: Message
         public ActionResult MsgIndex(string getName, string getText, DateTime? getTime, string getState, int page = 1)

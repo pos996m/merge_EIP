@@ -9,6 +9,7 @@
 
 namespace merge_EIP.Models
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
@@ -17,8 +18,14 @@ namespace merge_EIP.Models
         public int messageboardNumber { get; set; }
         public string employeeID { get; set; }
         public bool watchState { get; set; }
-    
+
+        // 自己自訂
+        public string employeeName { get; set; }
+
+
+        [JsonIgnore]
         public virtual Employee Employee { get; set; }
+        [JsonIgnore]
         public virtual messageBoard messageBoard { get; set; }
     }
 }

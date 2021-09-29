@@ -11,7 +11,8 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class messageBoard
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,6 +31,7 @@ namespace merge_EIP.Models
         public string assignDepartment { get; set; }
         public bool goTop { get; set; }
         public bool toCalendar { get; set; }
+        [DisplayFormat(DataFormatString ="{0:yyyy-MM-ddThh:mm}",ApplyFormatInEditMode =true)]
         public Nullable<System.DateTime> toMsgDate { get; set; }
         public string messageTitle { get; set; }
     

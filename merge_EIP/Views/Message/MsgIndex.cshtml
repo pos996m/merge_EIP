@@ -7,10 +7,31 @@
 @using PagedList.Mvc
 
 @model IPagedList<merge_EIP.Models.messageBoard>
+<link href="~/Content/Tooltip.css" rel="stylesheet" />
 <link href="~/Content/PagedList.css" rel="stylesheet" />
 <style>
     .pagination {
         margin: 0 0 1rem 0;
+    }
+
+    .bg-lightblue {
+        background-color: #dcebf8;
+    }
+
+    .bg-lightgreen {
+        background-color: #ebfce8;
+    }
+
+    .bg-lightred {
+        background-color: #fbe8e8;
+    }
+
+    .swal2-popup {
+        width: 20rem;
+    }
+
+    .swal2-html-container {
+        text-align: initial;
     }
 </style>
 
@@ -45,6 +66,7 @@
     </div>
     @{
         string thisEID = Convert.ToString(Session["ID"]);
+        string thisPosID = Convert.ToString(Session["PosID"]);
     }
 
     <div class="row">
@@ -53,29 +75,33 @@
             string allColor = "";
             if (item.State == "所有人")
             {
-                allColor = "bg-info";
+                allColor = "bg-lightblue";
             }
             else if (item.State == "部門")
             {
-                allColor = "bg-success";
+                allColor = "bg-lightgreen";
             }
             else
             {
-                allColor = "bg-danger";
+                allColor = "bg-lightred";
             }
 
-            <div class="col-12 col-md-4 p-2" title="發布時間 : @item.messageDate">
-                <div class="card border-primary mb-3 @allColor">
-                    <div class="card-header ">
-                        @if (item.toCalendar)
-                        {
-                            <i class="far fa-calendar-alt float-right text-secondary" title="行事曆顯示" style="margin:0rem 0rem 0rem 1rem"></i>
-                        }
-                        @if (item.goTop)
-                        {
-                            <i class="fas fa-level-up-alt float-right text-secondary" title="置頂"></i>
-                        }
-                        <div class="h5 m-0">
+            <div class="col-12 col-md-6 col-lg-3 p-2" title="發布時間 : @item.messageDate">
+                <div class="card mb-3 shadow-sm">
+                    <div class="card-header @allColor">
+                        <div class="float-right">
+                            @if (item.goTop)
+                            {
+                                <i class="fas fa-level-up-alt text-secondary w3s-tooltip"><span class="w3s-tooltiptext">留言置頂</span></i>
+                            }
+                            @if (item.toCalendar)
+                            {
+                                <i class="far fa-calendar-alt text-secondary w3s-tooltip" style="margin:0rem 0rem 0rem 0.5rem">
+                                    <span class="w3s-tooltiptext">指派至行事曆</span>
+                                </i>
+                            }
+                        </div>
+                        <div class="h5 m-0" style="font-weight: bold">
 
                             @Html.DisplayFor(modelItem => item.Employee.Department.departmentName)@Html.DisplayFor(modelItem => item.Employee.Position.positionName)
                             @Html.DisplayFor(modelItem => item.Employee.Name)
@@ -101,10 +127,15 @@
                             {
                                 <span>指派時間: @Html.DisplayFor(modelItem => item.toMsgDate)</span>
                             }
+                            else
+                            {
+                                <span>指派時間: 無</span>
+                            }
                         </small>
                     </div>
-                    <div class="card-body text-primary">
-                        <h5 class="card-title">@Html.DisplayFor(modelItem => item.messageTitle)</h5>
+                    <div class="card-body ">
+                        @*text-primary*@
+                        <h6 class="card-title" style="font-weight: 600">@Html.DisplayFor(modelItem => item.messageTitle)</h6>
                         <p class="card-text">
                             @Html.DisplayFor(modelItem => item.messageText)
                         </p>
@@ -112,8 +143,38 @@
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">
-                            @Html.DisplayFor(modelItem => item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.watchState == true).ToList().Count)
-                            人已確認
+                            @{
+                                int watchcnt = item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.watchState == true).ToList().Count;
+                                int allwatchcnt = item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber).ToList().Count;
+                            }
+                            @if (thisPosID == "0")
+                            {
+                                <a href="" data-msgnum="@item.messageboardNumber" data-msgstate="@item.State" class="float-left" onclick="watchCheck(event); return false">
+                                    @if (watchcnt == allwatchcnt)
+                                    {
+                                        @:全部
+                                    }
+                                    else
+                                    {
+                                        @watchcnt
+                                    }
+                                    人已確認
+                                </a>
+                            }
+                            else
+                            {
+                                <span>
+                                    @if (watchcnt == allwatchcnt)
+                                    {
+                                        <b>全部</b>
+                                    }
+                                    else
+                                    {
+                                        <b>@watchcnt</b>
+                                    }
+                                    人已確認
+                                </span>
+                            }
                             @{
                                 var checkMsg = item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.employeeID == thisEID).FirstOrDefault();
                                 if (checkMsg != null)
@@ -163,6 +224,45 @@
         }
     }
 
+    function watchCheck(e) {
+        const msgnum = e.target.getAttribute("data-msgnum");
+        const msgstate = e.target.getAttribute("data-msgstate");
+        console.log(msgnum);
+        let trueList = [];
+        let falseList = [];
+
+        const xhttp = new XMLHttpRequest();
+        xhttp.open("GET", "/api/MsgCheckAPI" + encodeURI(`?num=${msgnum}&state=${msgstate}`), true);
+        xhttp.send();
+        // 要取得JSON要等他load完才拿得到
+        xhttp.onload = () => {
+            dataShow = JSON.parse(xhttp.responseText);
+            console.log(dataShow);
+            for (var i = 0; i < dataShow.length; i++) {
+                if (dataShow[i].watchState == true) {
+                    trueList.push(dataShow[i].employeeName);
+                } else {
+                    falseList.push(dataShow[i].employeeName);
+                }
+            }
+            console.log(trueList);
+            console.log(falseList);
+            let Liststr = "<h4>未確認</h4><ul>";
+            for (var i = 0; i < falseList.length; i++) {
+                Liststr += `<li>${falseList[i]}</li>`
+            }
+            Liststr += "</ul><h4>已確認</h4><ul>"
+            for (var i = 0; i < trueList.length; i++) {
+                Liststr += `<li>${trueList[i]}</li>`
+            }
+            Liststr += "</ul>"
+
+            Swal.fire({
+                html: Liststr,
+            })
+        }
+    }
+
     const mylist = $(".pagination");
     mylist.click((e) => {
         console.log(e.target.innerHTML);
@@ -185,7 +285,6 @@
                 document.location.href = Nmh + `&page=${e.target.getAttribute("href").charAt(e.target.getAttribute("href").length - 1)}`;
             }
         }
-
         return false;
     })
 

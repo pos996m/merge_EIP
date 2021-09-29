@@ -115,4 +115,18 @@
             $("#forPerson").hide();
         }
     })
+
+    if ($('#toCalendar').is(":checked")) {
+        $("#toMsgDate").attr("required", "required")
+    }
+
+    $("#toCalendar").click((e) => {
+        if ($('#toCalendar').is(":checked")) {
+            $("#toMsgDate").attr("required", "required")
+            console.log("打勾")
+        } else {
+            $("#toMsgDate").removeAttr('required')
+            console.log("不打勾")
+        }
+    });
 </script>
