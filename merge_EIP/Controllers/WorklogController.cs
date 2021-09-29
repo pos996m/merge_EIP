@@ -14,7 +14,7 @@ namespace merge_EIP.Controllers
         // GET: Worklog
         // 代辦事項
         // 幾筆資料一頁
-        int pageSize = 6;
+        int pageSize = 9;
 
         public ActionResult Todolist(int page = 1)
         {

@@ -8,33 +8,41 @@
 
 @model IPagedList<merge_EIP.Models.messageBoard>
 <link href="~/Content/PagedList.css" rel="stylesheet" />
+<style>
+    .pagination {
+        margin: 0 0 1rem 0;
+    }
+</style>
+
 
 <div class="container custom-gutters">
     <br />
     <h2>留言板</h2>
 
-    @using (Html.BeginForm())
-    {
-        <a href="/Message/Fnewmsg" class="btn btn-FB m-1">新增留言</a>
-        <a class="btn btn-FB" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-            顯示搜尋選單
-        </a>
-        <div class="collapse" id="collapseExample">
-            <input class="col-6 col-md-2 m-1" type="text" id="getName" name="getName" placeholder="查詢發布者" />
-            <input class="col-6 col-md-2 m-1" type="text" id="getText" name="getText" placeholder="查詢內文" />
-            <input class="col-8 col-md-2 m-1" type="date" id="getTime" name="getTime" placeholder="查詢發布時間" />
-            <select id="getState" name="getState" class="form-control m-1 p-1 col-4 col-md-1 h-auto" style="display:inline-block">
-                <option value="全部" id="getState">全部</option>
-                <option value="所有人">所有人</option>
-                <option value="主管">主管</option>
-                <option value="部門">部門</option>
-                <option value="私人">私人</option>
-            </select>
-            <button type="button" class="btn btn-FB m-1" onclick="onSelect()">搜尋</button>
-            @*<a href="/Message/MsgIndex" class="btn btn-FB m-1">搜尋</a>*@
-        </div>
-    }
-    <br>
+    <div style="margin:0 0 1rem 0">
+        @using (Html.BeginForm())
+        {
+            <a href="/Message/Fnewmsg" class="btn btn-FB m-1">新增留言</a>
+            <a class="btn btn-FB m-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                顯示搜尋選單
+            </a>
+            <a href="/Message/MsgIndex" class="btn btn-FB m-1"><i class="fas fa-redo-alt"></i></a>
+            <div class="collapse" id="collapseExample">
+                <input class="col-6 col-md-2 m-1" type="text" id="getName" name="getName" placeholder="查詢發布者" />
+                <input class="col-6 col-md-2 m-1" type="text" id="getText" name="getText" placeholder="查詢內文" />
+                <input class="col-8 col-md-2 m-1" type="date" id="getTime" name="getTime" placeholder="查詢發布時間" />
+                <select id="getState" name="getState" class="form-control m-1 p-1 col-4 col-md-1 h-auto" style="display:inline-block">
+                    <option value="全部" id="getState">全部</option>
+                    <option value="所有人">所有人</option>
+                    <option value="主管">主管</option>
+                    <option value="部門">部門</option>
+                    <option value="私人">私人</option>
+                </select>
+                <button type="button" class="btn btn-FB m-1" onclick="onSelect()">搜尋</button>
+                @*<a href="/Message/MsgIndex" class="btn btn-FB m-1">搜尋</a>*@
+            </div>
+        }
+    </div>
     @{
         string thisEID = Convert.ToString(Session["ID"]);
     }
@@ -42,16 +50,30 @@
     <div class="row">
         @foreach (var item in Model)
         {
-            <div class="col-12 col-md-4" title="發布時間 : @item.messageDate">
-                <div class="card border-primary mb-3">
-                    <div class="card-header">
+            string allColor = "";
+            if (item.State == "所有人")
+            {
+                allColor = "bg-info";
+            }
+            else if (item.State == "部門")
+            {
+                allColor = "bg-success";
+            }
+            else
+            {
+                allColor = "bg-danger";
+            }
+
+            <div class="col-12 col-md-4 p-2" title="發布時間 : @item.messageDate">
+                <div class="card border-primary mb-3 @allColor">
+                    <div class="card-header ">
                         @if (item.toCalendar)
                         {
                             <i class="far fa-calendar-alt float-right text-secondary" title="行事曆顯示" style="margin:0rem 0rem 0rem 1rem"></i>
                         }
                         @if (item.goTop)
                         {
-                            <i class="fas fa-level-up-alt float-right text-secondary" title="置頂" ></i>
+                            <i class="fas fa-level-up-alt float-right text-secondary" title="置頂"></i>
                         }
                         <div class="h5 m-0">
 
@@ -92,7 +114,16 @@
                         <small class="text-muted">
                             @Html.DisplayFor(modelItem => item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.watchState == true).ToList().Count)
                             人已確認
-                            <a href="#" class="float-right" style = "margin:0rem 0rem 0rem 1rem">確認</a>
+                            @{
+                                var checkMsg = item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.employeeID == thisEID).FirstOrDefault();
+                                if (checkMsg != null)
+                                {
+                                    if (checkMsg.watchState != true || checkMsg.employeeID != thisEID)
+                                    {
+                                        <a href="" onclick="checkMsg(event, '@item.messageboardNumber')" class="float-right" style="margin:0rem 0rem 0rem 1rem">確認</a>
+                                    }
+                                }
+                            }
                             @if (item.employeeID == thisEID)
                             {
                                 @Html.ActionLink("編輯貼文", "Setmsg", new { id = item.messageboardNumber }, new { @class = "float-right" })
@@ -104,8 +135,9 @@
         }
     </div>
     @Html.PagedListPager(Model, page => Url.Action("MsgIndex", new { page }))
+    <br>
+    <br>
 </div>
-
 
 <script>
     function onSelect(e) {
@@ -113,10 +145,21 @@
         const getText = $("#getText").val();
         const getTime = $("#getTime").val();
         const getState = $("#getState").val();
-        if (getState == "全部") {
+        if (getState == "全部" && getName == "" && getText == "" && getTime == "") {
             document.location.href = "/Message/MsgIndex";
         } else {
             document.location.href = "/Message/MsgIndex" + `?getName=${getName}&getText=${getText}&getTime=${getTime}&getState=${getState}`;
+        }
+    }
+
+    function checkMsg(e, num) {
+        let checkHref = document.location.href;
+        if (checkHref.indexOf("?") < 0) {
+            document.location.href = "/Message/Check" + `?num=${num}`;
+        } else {
+            let newCheck = checkHref.substring(checkHref.indexOf("?"), checkHref.length);
+            console.log(newCheck)
+            document.location.href = "/Message/Check" + `${newCheck}&num=${num}`;
         }
     }
 
@@ -128,18 +171,18 @@
         console.log(myhref);
         if (myhref.indexOf("page=") < 0) {
             if (myhref.indexOf("?") < 0) {
-                document.location.href = myhref + `?page=${e.target.innerHTML}`;
+                document.location.href = myhref + `?page=${e.target.getAttribute("href").charAt(e.target.getAttribute("href").length - 1)}`;
             } else {
-                document.location.href = myhref + `&page=${e.target.innerHTML}`;
+                document.location.href = myhref + `&page=${e.target.getAttribute("href").charAt(e.target.getAttribute("href").length - 1)}`;
             }
         } else {
             if (myhref.indexOf("&") < 0) {
                 let Nmh = myhref.substring(myhref.lastIndexOf("?"), myhref - myhref.lastIndexOf("?"))
-                document.location.href = Nmh + `?page=${e.target.innerHTML}`;
+                document.location.href = Nmh + `?page=${e.target.getAttribute("href").charAt(e.target.getAttribute("href").length - 1)}`;
             } else {
                 console.log(myhref.substring(myhref.lastIndexOf("&"), myhref - myhref.lastIndexOf("&")))
                 let Nmh = myhref.substring(myhref.lastIndexOf("&"), myhref - myhref.lastIndexOf("&"))
-                document.location.href = Nmh + `&page=${e.target.innerHTML}`;
+                document.location.href = Nmh + `&page=${e.target.getAttribute("href").charAt(e.target.getAttribute("href").length - 1)}`;
             }
         }
 

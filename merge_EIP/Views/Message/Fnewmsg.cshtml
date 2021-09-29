@@ -21,39 +21,7 @@
                             @Session["Dep"]@Session["Pos"] @Session["Name"]
                         </div>
                     </div>
-                    @{
-                        string PosID = Convert.ToString(Session["PosID"]);
-                    }
-                    @if (PosID == "0")
-                    {
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.goTop, htmlAttributes: new { @class = "control-label col-5 col-md-4" })
-                            @Html.EditorFor(model => model.goTop, new { htmlAttributes = new { style = "width:1.5rem; height:1.5rem" } })
-                        </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.toCalendar, htmlAttributes: new { @class = "control-label col-5 col-md-4" })
-                            @Html.EditorFor(model => model.toCalendar, new { htmlAttributes = new { style = "width:1.5rem; height:1.5rem" } })
-                        </div>
-                    }
-
-                    @*<div class="form-group">
-                            @Html.LabelFor(model => model.messageDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                            <div class="col-md-10">
-                                @Html.EditorFor(model => model.messageDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
-                                @Html.ValidationMessageFor(model => model.messageDate, "", new { @class = "text-danger" })
-                            </div>
-                        </div>*@
-
-                    <div class="form-group">
-                        @Html.LabelFor(model => model.toMsgDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                        <div class="col-md-10">
-                            @Html.EditorFor(model => model.toMsgDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
-                            @Html.ValidationMessageFor(model => model.toMsgDate, "", new { @class = "text-danger" })
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
                     <div class="form-group">
                         @Html.LabelFor(model => model.messageTitle, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
@@ -67,6 +35,24 @@
                         <div class="col-md-10">
                             @Html.EditorFor(model => model.messageText, new { htmlAttributes = new { @class = "form-control", required = "required" } })
                             @Html.ValidationMessageFor(model => model.messageText, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <div class="col-12 col-md-6">
+
+                    @{
+                        string PosID = Convert.ToString(Session["PosID"]);
+                    }
+
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.toMsgDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.toMsgDate, new { htmlAttributes = new { @class = "form-control", type = "datetime-local" } })
+                            @Html.ValidationMessageFor(model => model.toMsgDate, "", new { @class = "text-danger" })
                         </div>
                     </div>
 
@@ -89,6 +75,20 @@
                             @Html.ValidationMessageFor(model => model.assignPerson, "", new { @class = "text-danger" })
                         </div>
                     </div>
+
+                    @if (PosID == "0")
+                    {
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.goTop, htmlAttributes: new { @class = "control-label col-5 col-md-4" })
+                            @Html.EditorFor(model => model.goTop, new { htmlAttributes = new { style = "width:1.5rem; height:1.5rem" } })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.toCalendar, htmlAttributes: new { @class = "control-label col-5 col-md-4" })
+                            @Html.EditorFor(model => model.toCalendar, new { htmlAttributes = new { style = "width:1.5rem; height:1.5rem" } })
+                        </div>
+                    }
+
                 </div>
 
 
@@ -96,8 +96,10 @@
                 <br>
                 <div class="form-group col-12">
                     <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="留言" class="btn btn-FB" />
-                        @Html.ActionLink("取消", "MsgIndex", new { }, new { @class = "btn btn-secondary" })
+                        <div class="float-right">
+                            <input type="submit" value="留言" class="btn btn-FB" />
+                            @Html.ActionLink("取消", "MsgIndex", new { }, new { @class = "btn btn-secondary" })
+                        </div>
                     </div>
                 </div>
             </div>

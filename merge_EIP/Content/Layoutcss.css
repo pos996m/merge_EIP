@@ -10,10 +10,12 @@
 
 html, body {
     height: 100%;
+    overflow: scroll;
 }
 
 body {
     background-color: var(--bodyBG);
+/*    line-height:1.15;*/
 }
 
 .bg-container {

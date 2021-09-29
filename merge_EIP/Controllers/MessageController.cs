@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -22,6 +23,8 @@ namespace merge_EIP.Controllers
             string PosID = Convert.ToString(Session["PosID"]);
             string DepID = Convert.ToString(Session["DepID"]);
 
+            Console.WriteLine(getName);
+
             // 先撈所有可看見的
             var showMsg = db.messageBoard.Where(x => x.State == "所有人" || x.assignDepartment == DepID || x.assignPerson == EID || x.employeeID == EID)
                 .OrderByDescending(x => x.goTop).ThenByDescending(x => x.messageDate).ToList();
@@ -38,7 +41,7 @@ namespace merge_EIP.Controllers
             if (getTime != null)
             {
                 string getTimeStr = Convert.ToDateTime(getTime).ToString("yyyy-MM-dd");
-                showMsg = showMsg.Where(x => x.messageDate.ToString("yyyy-MM-dd") == getTimeStr).ToList();
+                showMsg = showMsg.Where(x => x.messageDate.ToString("yyyy-MM-dd") == getTimeStr || Convert.ToDateTime(x.toMsgDate).ToString("yyyy-MM-dd") == getTimeStr).ToList();
             }
             if (getState != null && getState != "全部")
             {
@@ -51,14 +54,8 @@ namespace merge_EIP.Controllers
                     showMsg = showMsg.Where(x => x.State == getState).ToList();
                 }
             }
-            //var requestType = Request.RequestType;
-            //if(requestType == "POST")
-            //{
-            //    page = 1;
-            //}
 
             int currpag = page < 1 ? 1 : page;
-
             var result = showMsg.ToPagedList(currpag, pageSize);
 
             Console.WriteLine(getName + getText + getTime + getState);
@@ -70,7 +67,7 @@ namespace merge_EIP.Controllers
         public ActionResult Fnewmsg()
         {
             string DepID = Convert.ToString(Session["DepID"]);
-            ViewBag.assignPerson = new SelectList(db.Employee.Where(x=>x.departmentID == DepID), "employeeID", "Name");
+            ViewBag.assignPerson = new SelectList(db.Employee.Where(x => x.departmentID == DepID), "employeeID", "Name");
             return View();
         }
 
@@ -85,6 +82,10 @@ namespace merge_EIP.Controllers
             messageBoard.employeeName = Ename;
             messageBoard.messageDate = DateTime.Now;
 
+            if (messageBoard.State != "私人")
+            {
+                messageBoard.assignPerson = null;
+            }
             if (messageBoard.State == "部門")
             {
                 messageBoard.assignDepartment = Edep;
@@ -110,18 +111,71 @@ namespace merge_EIP.Controllers
 
         public ActionResult Setmsg(int? id)
         {
-            string myEID = Convert.ToString(Session["ID"]);
-            string DepID = Convert.ToString(Session["DepID"]);
-
-            messageBoard message = db.messageBoard.Find(id);
-            // 如果這筆資料不是留言主，則不能修改
-            if(message.employeeID != myEID)
+            if (Session["id"] != null)
             {
-                return RedirectToAction("MsgIndex");
+
+                string myEID = Convert.ToString(Session["ID"]);
+                string DepID = Convert.ToString(Session["DepID"]);
+
+                messageBoard message = db.messageBoard.Find(id);
+                // 如果這筆資料不是留言主，則不能修改
+                if (message.employeeID != myEID)
+                {
+                    return RedirectToAction("MsgIndex");
+                }
+                ViewBag.assignPerson = new SelectList(db.Employee.Where(x => x.departmentID == DepID), "employeeID", "Name");
+                return View(message);
+            }
+            else
+            {
+                return RedirectToAction("Logout", "Login");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult Setmsg(messageBoard messageBoard)
+        {
+            string Edep = Convert.ToString(Session["DepID"]);
+            int thisnumber = messageBoard.messageboardNumber;
+            var thisMsg = db.messageBoard.Find(thisnumber);
+
+            // 匯入資料
+            thisMsg.toMsgDate = messageBoard.toMsgDate;
+            thisMsg.messageTitle = messageBoard.messageTitle;
+            thisMsg.messageText = messageBoard.messageText;
+            thisMsg.State = messageBoard.State;
+            if (messageBoard.State == "部門")
+            {
+                thisMsg.assignDepartment = Edep;
+            }
+            thisMsg.assignPerson = messageBoard.assignPerson;
+            thisMsg.goTop = messageBoard.goTop;
+            thisMsg.toCalendar = messageBoard.toCalendar;
+
+            // 把觀看重置
+            var checkAll = db.watchCount.Where(x => x.messageboardNumber == messageBoard.messageboardNumber).ToList();
+
+            for (int i = 0; i < checkAll.Count; i++)
+            {
+                checkAll[i].watchState = false;
             }
 
-            ViewBag.assignPerson = new SelectList(db.Employee.Where(x => x.departmentID == DepID), "employeeID", "Name");
-            return View(message);
+            db.SaveChanges();
+            return RedirectToAction("MsgIndex");
         }
+
+        public ActionResult Check(int num, string getName, string getText, DateTime? getTime, string getState, int? page)
+        {
+            string EID = Convert.ToString(Session["ID"]);
+            var crin = db.watchCount.Where(x => x.messageboardNumber == num && x.employeeID == EID).FirstOrDefault();
+            crin.watchState = true;
+            db.SaveChanges();
+
+
+            return Redirect($"/Message/MsgIndex?getName={getName}&getText={getText}&getTime={getTime}&getState={getState}&page={page}");
+
+            //return RedirectToAction("MsgIndex",new { getName= getName, getText= getText, getTime= getTime, getState= getState, page = page });
+        }
+
     }
 }
