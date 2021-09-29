@@ -7,7 +7,13 @@
             heightAuto: false,
             title: "登入失敗",
             text: "帳號密碼不可空白",
-            icon: "error"
+            icon: "error",
+            showClass: {
+                popup: 'animate__animated animate__pulse'
+            },
+            hideClass: {
+                popup: 'animate__animated animate__fadeOutUp'
+            }
         })
         //標題 
         //訊息內容(可省略)
