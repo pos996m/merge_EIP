@@ -64,7 +64,7 @@ namespace merge_EIP.Controllers
                 calDatas.Add(new CalData
                 {
                     num = item.dayoffNumber,
-                    title = "請假",
+                    title = $"{item.employeeName} 請假",
                     start = Convert.ToDateTime(item.startDate).ToString("yyyy-MM-ddThh:mm"),
                     end = Convert.ToDateTime(item.endDate).ToString("yyyy-MM-ddThh:mm"),
                     color = "red",

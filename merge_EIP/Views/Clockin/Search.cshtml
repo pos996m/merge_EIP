@@ -5,7 +5,12 @@
 
 @model IPagedList<merge_EIP.Models.punchIn>
 <link href="~/Content/PagedList.css" rel="stylesheet" />
-
+<style>
+    .row {
+        margin-right: 0;
+        margin-left: 0;
+    }
+</style>
 
 @{
     ViewBag.Title = "打卡記錄查詢";
@@ -112,9 +117,9 @@
                             {
                                 <td></td>
                             }
-                        <td>
-                            @Html.DisplayFor(modelItem => item.State)
-                        </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.State)
+                            </td>
                             @if (item.bodyTemperature > 37.5m)
                             {
                                 <td class="text-danger">

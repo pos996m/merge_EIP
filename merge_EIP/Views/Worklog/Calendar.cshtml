@@ -9,6 +9,20 @@
     html,body{
         height:auto;
     }
+    .fc-view-harness {
+        box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
+    }
+    .text-noLine {
+        text-decoration: line-through;
+    }
+
+    .text-overhide {
+        text-overflow: ellipsis;
+    }
+
+    .fc-daygrid-event-harness {
+        cursor: pointer;
+    }
 </style>
 <div class="container">
 <h2>Calendar</h2>
@@ -39,6 +53,7 @@
             dataShow = JSON.parse(xhttp.responseText);
             console.log(dataShow);
             calshowrender(dataShow);
+            $(".fc-event-title").addClass("text-overhide");
         }
     });
 

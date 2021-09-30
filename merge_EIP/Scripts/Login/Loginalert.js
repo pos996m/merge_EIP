@@ -13,7 +13,8 @@
             },
             hideClass: {
                 popup: 'animate__animated animate__fadeOutUp'
-            }
+            },
+            textAlign: "left"
         })
         //標題 
         //訊息內容(可省略)

@@ -8,25 +8,52 @@
     --footerColor: #fff;
 }
 
+html {
+/*    overflow: -moz-hidden-unscrollable;*/
+    height: 100%;
+}
+
+body::-webkit-scrollbar {
+/*    display: none;*/
+}
+
+body {
+    /*    -ms-overflow-style: none;*/
+    height: 100%;
+    /*    width: calc(100vw + 18px);*/
+    /*    overflow: auto;*/
+/*        overflow: hidden;*/
+}
+
 html, body {
     height: 100%;
-    overflow: scroll;
+/*    overflow: scroll;*/
+}
+
+.con-height {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    left: 0;
+    margin: auto;
+    overflow:auto;
+    padding-bottom:5rem;
 }
 
 body {
     background-color: var(--bodyBG);
-/*    line-height:1.15;*/
+    /*    line-height:1.15;*/
 }
 
 .bg-container {
     background-color: var(--containerBG);
 }
 
-@media screen and (max-width: 1110px) {
+/*@media screen and (max-width: 1110px) {
     html, body {
         height: auto;
     }
-}
+}*/
 
 @media screen and (min-width: 800px) {
     .p-33 {
@@ -51,13 +78,13 @@ table {
     white-space: nowrap;
 }
 
-td {
+.table td {
     border-right: 1px solid transparent !important;
     border-left: 1px solid transparent !important;
     border-top: 1px solid transparent !important;
 }
 
-th {
+.table th {
     border-right: 1px solid transparent !important;
     border-left: 1px solid transparent !important;
     border-top: 1px solid transparent !important;
