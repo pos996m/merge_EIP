@@ -2,105 +2,84 @@
 @{
     ViewBag.Title = "Games";
 }
-<style>
-    .container {
-        position: relative;
-        width: 100%;
-    }
+<link href="~/Content/gameStyle.css" rel="stylesheet" />
 
-    .image {
-        display: block;
-        @*width: 100%;*@
-        @*height: auto;*@
-    }
-
-    .overlay {
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        width: 100%;
-        @*max-width:605px;*@
-        @*opacity: 1;*@
-        transition: .5s ease;
-        background-color: rgb(255 255 255 / 0.85);
-        background-blend-mode: screen;
-        display: none;
-        @*margin-right: 15px;*@
-        @*margin-left: 15px;*@
-    }
-
-    .col-12:hover .overlay {
-        @*opacity: 1;*@
-        display: block;
-    }
-
-    .text {
-        @*color: black;*@
-        width: 80%;
-        font-size: 1rem;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        -webkit-transform: translate(-50%, -50%);
-        -ms-transform: translate(-50%, -50%);
-        transform: translate(-50%, -50%);
-        text-align: center;
-        @*background-color:white*@
-        @*text-shadow: rgb(255, 252, 252) 0px 0px 6px;*@
-        font-weight:bold
-    }
-    .game-img {
-        max-height: 100%;
-        max-width: 100%;
-        width: auto;
-        height: auto;
-        @*position: absolute;*@
-    }
-    .play-btn {
-        font-size: 1.5rem;
-        border-radius: 30px;
-        width:6rem;
-        height:3rem;
-    }
-</style>
 
 <div class="container">
+    <br>
     <h2>Games</h2>
     <hr>
     @*跑跑方塊人*@
-    <div class="row">
-        <div class="col-12 col-md-6 ">
-            <div style="max-height: 340px; overflow: hidden;">
-                <img src="~/Content/images/index/men.gif" alt="Avatar" class="image game-img">
-            </div>
-            <div class="overlay">
-                <div class="text">
-                    遊戲說明：<br>使用方向鍵（↑）或點擊進行跳躍障礙物。
-                    <br><br>
-                    <button class="btn btn-FB play-btn" style="font-size:1.5rem">Play</button>
+    <div class="row shaow-game m-md-3">
+
+        <div class="col-12 col-md-6 p-3">
+            <div style="position:relative">
+                <div style="max-height: 340px; overflow: hidden;">
+                    <img src="~/Content/images/index/men.gif" alt="Avatar" class="image game-img">
+                </div>
+                <div class="overlay">
+                    <div class="text">
+                        <h2>跑跑方塊人</h2><hr>
+                        遊戲說明：<br>使用方向鍵（↑）或點擊進行跳躍障礙物。
+                        <br><br>
+                        <button onclick="RungameShow()" class="btn btn-FB play-btn" style="font-size:1.5rem">Play</button>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-md-6">
-            <div style="max-height: 340px; overflow: hidden; ">
-                <img src="~/Content/images/index/cat.gif" alt="Avatar" class="image game-img">
-                <div class="overlay">
-                    <div class="text">
-                        遊戲說明：<br>使用方向鍵（←）與（→）或點擊屏幕左右側，進行方向控制。
-                        <br><br>
-                        <button class="btn btn-FB play-btn">Play</button>
-                    </div>
-                </div>
-
+            @* 這裡要放排行榜 *@
+        <div class="col-12 col-md-6 p-3">
+            <div class="col-12">
+                <h3 class="text-center">排行榜</h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                </ul>
             </div>
         </div>
     </div>
 
-
-    <div class="row">
+    <div class="row shaow-game m-md-3">
+        <div class="col-12 col-md-6 p-3">
+            <div style="position:relative">
+                <div style="max-height: 400px; overflow: hidden;">
+                    <img src="~/Content/images/index/cat.gif" alt="Avatar" class="image game-img">
+                    <div class="overlay ">
+                        <div class="text">
+                            <h2>貪吃貓</h2><hr>
+                            遊戲說明：<br>使用方向鍵（←）與（→）或點擊屏幕左右側，進行方向控制。
+                            <br><br>
+                            <button onclick="snykebtn()" class="btn btn-FB play-btn">Play</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            @* 這裡要放排行榜 *@
+        <div class="col-12 col-md-6 p-3">
+            <div class="col-12">
+                <h3 class="text-center">排行榜</h3>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">An item</li>
+                    <li class="list-group-item">A second item</li>
+                    <li class="list-group-item">A third item</li>
+                    <li class="list-group-item">A fourth item</li>
+                    <li class="list-group-item">And a fifth one</li>
+                </ul>
+            </div>
+        </div>
 
     </div>
 </div>
+<br>
+<br>
+<br>
+<script src="~/Scripts/gameJS/phaser.min.js"></script>
+<script src="~/Scripts/gameJS/runGame.js"></script>
+<script src="~/Scripts/gameJS/snakegmae.js"></script>
+<script>
+    $('#sort-table').bootstrapTable();
+</script>

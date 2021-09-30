@@ -125,6 +125,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\clockin.css" />
+    <Content Include="Content\gameStyle.css" />
     <Content Include="Content\images\cateat\backmenu.png" />
     <Content Include="Content\images\cateat\bg_2.png" />
     <Content Include="Content\images\cateat\cat_2.png" />
@@ -133,6 +134,10 @@
     <Content Include="Content\images\cateat\startgame_2.png" />
     <Content Include="Content\images\cateat\start_2.png" />
     <Content Include="Content\images\cateat\tryagain.png" />
+    <Content Include="Content\images\gameAudio\jump06.mp3" />
+    <Content Include="Content\images\gameAudio\jump12.mp3" />
+    <Content Include="Content\images\gameAudio\touch.mp3" />
+    <Content Include="Content\images\gameAudio\yisell6.mp3" />
     <Content Include="Content\images\index\cat.gif" />
     <Content Include="Content\images\index\cateat_1.PNG" />
     <Content Include="Content\images\index\men.gif" />
@@ -1835,6 +1840,9 @@
     <Content Include="Scripts\Form\buttonShow.js" />
     <Content Include="Scripts\FullCalendar\main.min.css" />
     <Content Include="Scripts\FullCalendar\main.min.js" />
+    <Content Include="Scripts\gameJS\phaser.min.js" />
+    <Content Include="Scripts\gameJS\runGame.js" />
+    <Content Include="Scripts\gameJS\snakegmae.js" />
     <Content Include="Scripts\index.js.flow" />
     <Content Include="Scripts\esm\popper.min.js.map" />
     <Content Include="Scripts\esm\popper.js.map" />
