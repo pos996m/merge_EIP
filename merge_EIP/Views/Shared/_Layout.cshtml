@@ -70,7 +70,7 @@
                 <div class="dropdown-menu dropdown-menu-right p-3 text-muted" aria-labelledby="navbarDropdown"
                      style="max-width: 15rem; ">
                     <p class="mb-0">使用者 :</p>
-                    <p class="">@Session["Name"]</p>
+                    <p class="">@Session["Name"] @Session["ID"]</p>
                     <p class="mb-0">部門資訊 :</p>
                     <p class="">@Session["Dep"]@Session["Pos"]</p>
                     <p>@Html.ActionLink("登出", "Logout", "Login", new { }, new { @class = "dropdown-item btn btn-FB", style = "text-align:center;" })</p>

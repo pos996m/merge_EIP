@@ -1,4 +1,9 @@
-﻿* {
+﻿:root {
+    --mainColor: rgb(53 75 105);
+    --mainColorhover: rgb(80 113 158);
+}
+
+* {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -14,9 +19,10 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: url(img/room2.jpeg);
+    background-image: url(img/office.jpg);
     background-repeat: no-repeat;
     background-size: cover;
+    background-position:center
 }
 
 /* 登入窗格的響應，如果畫面大就放大 */
@@ -52,7 +58,7 @@ body {
 .login {
     border: 10px solid #fff;
     border-radius: 10px;
-    background-color: #3b5998;
+    background-color: var(--mainColor);
     opacity: 0.8;
     box-shadow: 0 0 60px #000;
     display: flex;
@@ -94,6 +100,6 @@ body {
 }
 
     .btn:hover {
-        background-color: #3b5998;
+        background-color: var(--mainColor);
         color: white;
     }

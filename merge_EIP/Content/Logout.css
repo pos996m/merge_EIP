@@ -1,4 +1,9 @@
-﻿/* 畫面高度 */
+﻿:root {
+    --mainColor: rgb(53 75 105);
+    --mainColorhover: rgb(80 113 158);
+}
+
+/* 畫面高度 */
 html, body {
     height: 100%;
 }
@@ -24,15 +29,15 @@ body {
 }
 
 .btn-FB {
-    background-color: #3b5998;
+    background-color: var(--mainColor);
 /*    border: solid 1px #3b5998;*/
     color: white;
 }
 
 .btn-FB:hover {
-    background-color: rgb(228 228 228);
+    background-color: var(--mainColorhover);
 /*  border: solid 1px dimgrey;*/
-    color: dimgrey;
+/*    color: white;*/
 }
 
 /* 取消連結底線 */

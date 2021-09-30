@@ -1,6 +1,8 @@
 ﻿:root {
-    --mainColor: #3b5998;
-    --mainColorhover: #263960;
+    /*    --mainColor: #3b5998;*/
+    --mainColor: rgb(53 75 105);
+    /*    --mainColorhover: #263960;*/
+    --mainColorhover: rgb(80 113 158);
     --bodyBG: rgb(228 228 228);
     --containerBG: #f8f9fa;
     --navTimeColor: #fff;
@@ -9,12 +11,12 @@
 }
 
 html {
-/*    overflow: -moz-hidden-unscrollable;*/
+    /*    overflow: -moz-hidden-unscrollable;*/
     height: 100%;
 }
 
 body::-webkit-scrollbar {
-/*    display: none;*/
+    /*    display: none;*/
 }
 
 body {
@@ -22,12 +24,12 @@ body {
     height: 100%;
     /*    width: calc(100vw + 18px);*/
     /*    overflow: auto;*/
-/*        overflow: hidden;*/
+    /*        overflow: hidden;*/
 }
 
 html, body {
     height: 100%;
-/*    overflow: scroll;*/
+    /*    overflow: scroll;*/
 }
 
 .con-height {
@@ -36,8 +38,8 @@ html, body {
     right: 0;
     left: 0;
     margin: auto;
-    overflow:auto;
-    padding-bottom:5rem;
+    overflow: auto;
+    padding-bottom: 5rem;
 }
 
 body {
@@ -123,11 +125,15 @@ table {
 
     /* 整個nav */
     .nav-link:hover {
-        /*        color: lightblue;*/
-        color: white;
-        /*        text-shadow: 0px 0px 15px var(--mainColorhover);*/
+                color: lightblue;
+/*        color: var(--mainColorhover);*/
+
+/*        color: white;*/
+        /*        text-shadow: 2px 2px 15px var(--mainColorhover);*/
+        /*        box-shadow: 0px 0px 8px var(--mainColorhover);*/
         border-radius: 5px;
-        background-color: var(--mainColorhover);
+        /*        font-weight:bold;*/
+/*        background-color: var(--mainColorhover);*/
     }
 
 .nav-item + nav-link {
@@ -143,7 +149,7 @@ table {
 .footer {
     position: fixed;
     /*    left: 0;*/
-    font-size:0.9rem;
+    font-size: 0.9rem;
     bottom: 0;
     width: 100%;
     background-color: var(--mainColor);

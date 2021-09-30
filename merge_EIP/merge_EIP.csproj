@@ -125,6 +125,7 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\clockin.css" />
+    <Content Include="Content\img\office.jpg" />
     <Content Include="Content\Layoutcss.css" />
     <Content Include="Content\img\hide.png" />
     <Content Include="Content\img\open.png" />
