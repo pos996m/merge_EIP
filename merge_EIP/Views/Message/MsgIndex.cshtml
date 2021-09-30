@@ -47,7 +47,7 @@
             <a class="btn btn-FB m-1" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                 顯示搜尋選單
             </a>
-            <a href="/Message/MsgIndex" class="btn btn-FB m-1"><i class="fas fa-redo-alt"></i></a>
+            <a href="/Message/MsgIndex" class="btn btn-FB m-1" title="刷新"><i class="fas fa-redo-alt" title="刷新"></i></a>
             <div class="collapse" id="collapseExample">
                 <input class="col-6 col-md-2 m-1" type="text" id="getName" name="getName" placeholder="查詢發布者" />
                 <input class="col-6 col-md-2 m-1" type="text" id="getText" name="getText" placeholder="查詢內文" />
@@ -268,6 +268,10 @@
     mylist.click((e) => {
         console.log(e.target.innerHTML);
         console.log(e.target.getAttribute("href"));
+        if (e.target.getAttribute("href") == null) {
+            return false;
+        }
+
         let myhref = document.location.href;
         console.log(myhref);
         if (myhref.indexOf("page=") < 0) {

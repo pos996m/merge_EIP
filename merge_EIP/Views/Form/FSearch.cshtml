@@ -44,6 +44,9 @@
 <script src="~/Scripts/colResizable/colResizable-1.6.min.js"></script>
 
 <script>
+    $(document).ready(() => {
+
+
     let EID = $("#EID").text();
     let PosID = $("#PosID").text();
     console.log(EID);
@@ -79,7 +82,8 @@
                 return '第' + currentPage + '頁&nbsp;&nbsp;共' + totalPageCount + '頁';
             }
         })
-    }
+        }
+    })
 
 
     @*@foreach (var item in Model.leave)

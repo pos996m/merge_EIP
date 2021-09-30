@@ -4,7 +4,7 @@
     /*    --mainColorhover: #263960;*/
     --mainColorhover: rgb(80 113 158);
     --bodyBG: rgb(228 228 228);
-    --containerBG: #f8f9fa;
+    --containerBG: rgb(248 249 250);
     --navTimeColor: #fff;
     --navColor: #fff;
     --footerColor: #fff;
@@ -13,6 +13,14 @@
 html {
     /*    overflow: -moz-hidden-unscrollable;*/
     height: 100%;
+}
+
+.container-xl{
+    max-width:1300px;
+}
+
+.container {
+    max-width: 1300px;
 }
 
 body::-webkit-scrollbar {
@@ -25,6 +33,16 @@ body {
     /*    width: calc(100vw + 18px);*/
     /*    overflow: auto;*/
     /*        overflow: hidden;*/
+    /* 底變白 */
+    /*    background-color: rgb(255 255 255 / 0.7);
+    background-blend-mode: screen;*/
+    /* 底變深 */
+    background-color: rgb(0 0 0 / 0.35);
+    background-blend-mode: darken;
+    background-image: url(img/office.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center
 }
 
 html, body {
@@ -43,7 +61,7 @@ html, body {
 }
 
 body {
-    background-color: var(--bodyBG);
+    /*    background-color: var(--bodyBG);*/
     /*    line-height:1.15;*/
 }
 
@@ -125,15 +143,14 @@ table {
 
     /* 整個nav */
     .nav-link:hover {
-                color: lightblue;
-/*        color: var(--mainColorhover);*/
-
-/*        color: white;*/
+        color: lightblue;
+        /*        color: var(--mainColorhover);*/
+        /*        color: white;*/
         /*        text-shadow: 2px 2px 15px var(--mainColorhover);*/
         /*        box-shadow: 0px 0px 8px var(--mainColorhover);*/
         border-radius: 5px;
         /*        font-weight:bold;*/
-/*        background-color: var(--mainColorhover);*/
+        /*        background-color: var(--mainColorhover);*/
     }
 
 .nav-item + nav-link {
@@ -158,4 +175,19 @@ table {
     z-index: 2;
     padding: 0.75rem;
     white-space: nowrap;
+}
+
+.btn-primary {
+    background-color: var(--mainColor);
+    border-color: var(--mainColor);
+}
+
+    .btn-primary.disabled, .btn-primary:disabled {
+        background-color: var(--mainColor);
+        border-color: var(--mainColor);
+    }
+
+.page-item.active .page-link {
+    background-color: var(--mainColor);
+    border-color: var(--mainColor);
 }

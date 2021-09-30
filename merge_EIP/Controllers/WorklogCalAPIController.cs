@@ -35,9 +35,9 @@ namespace merge_EIP.Controllers
                 });
             }
 
-            // 再撈行事曆
-            var toDoListAll = db.Backlog.Where(x => x.employeeID == EID && x.checkState == false).ToList();
+            // 再撈待辦事項
             // 如果狀態是打勾就不顯示到行事曆
+            var toDoListAll = db.Backlog.Where(x => x.employeeID == EID && x.checkState == false).ToList();
             foreach (Backlog item in toDoListAll)
             {
                 string timeSpan = "";

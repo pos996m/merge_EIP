@@ -125,6 +125,32 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\clockin.css" />
+    <Content Include="Content\images\cateat\backmenu.png" />
+    <Content Include="Content\images\cateat\bg_2.png" />
+    <Content Include="Content\images\cateat\cat_2.png" />
+    <Content Include="Content\images\cateat\love_2.png" />
+    <Content Include="Content\images\cateat\over_2.png" />
+    <Content Include="Content\images\cateat\startgame_2.png" />
+    <Content Include="Content\images\cateat\start_2.png" />
+    <Content Include="Content\images\cateat\tryagain.png" />
+    <Content Include="Content\images\index\cat.gif" />
+    <Content Include="Content\images\index\cateat_1.PNG" />
+    <Content Include="Content\images\index\men.gif" />
+    <Content Include="Content\images\index\mengo.PNG" />
+    <Content Include="Content\images\mengo\bg\bg1_1.png" />
+    <Content Include="Content\images\mengo\bg\bg2_1.png" />
+    <Content Include="Content\images\mengo\bg\bg3_1.png" />
+    <Content Include="Content\images\mengo\bg\bg4_1.png" />
+    <Content Include="Content\images\mengo\bg\footer_1.png" />
+    <Content Include="Content\images\mengo\f_player.png" />
+    <Content Include="Content\images\mengo\player_f.png" />
+    <Content Include="Content\images\mengo\showman.png" />
+    <Content Include="Content\images\mengo\ui\btn-play-again_1.png" />
+    <Content Include="Content\images\mengo\ui\btn-press-start_1.png" />
+    <Content Include="Content\images\mengo\ui\btn-try-again_1.png" />
+    <Content Include="Content\images\mengo\ui\player-end_1.png" />
+    <Content Include="Content\images\mengo\ui\txt-game-over_1.png" />
+    <Content Include="Content\images\mengo\ui\txt-title_1.png" />
     <Content Include="Content\img\office.jpg" />
     <Content Include="Content\Layoutcss.css" />
     <Content Include="Content\img\hide.png" />
@@ -1885,6 +1911,7 @@
     <Content Include="Models\EIPModel.edmx.diagram">
       <DependentUpon>EIPModel.edmx</DependentUpon>
     </Content>
+    <Content Include="Content\images\mengo\.DS_Store" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
@@ -1994,6 +2021,7 @@
     <Compile Include="Controllers\FormController.cs" />
     <Compile Include="Controllers\FormImgAPIController.cs" />
     <Compile Include="Controllers\FormSearchAPIController.cs" />
+    <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\MsgCheckAPIController.cs" />
@@ -2086,6 +2114,7 @@
     <Content Include="Views\Message\Fnewmsg.cshtml" />
     <Content Include="Views\Message\Setmsg.cshtml" />
     <Content Include="Views\Worklog\Calendar.cshtml" />
+    <Content Include="Views\Game\Games.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
