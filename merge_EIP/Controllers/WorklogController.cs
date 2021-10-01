@@ -16,11 +16,31 @@ namespace merge_EIP.Controllers
         // 幾筆資料一頁
         int pageSize = 7;
 
-        public ActionResult Todolist(int page = 1)
+        public ActionResult Todolist(int? id,int page = 1)
         {
+            string EID = Convert.ToString(Session["ID"]);
+
+
             if (Session["ID"] != null)
             {
-                string EID = Convert.ToString(Session["ID"]);
+                if(id != null)
+                {
+                    Backlog selectList = db.Backlog.Find(id);
+
+                    if (selectList.employeeID == EID)
+                    {
+                        List<Backlog> selectListAll = new List<Backlog>() { selectList };
+                        int selectcurrpag = page < 1 ? 1 : page;
+                        var selectresult = selectListAll.ToPagedList(selectcurrpag, pageSize);
+
+                        return View(selectresult);
+                    }
+                    else
+                    {
+                        return Redirect("/Worklog/Todolist");
+                    }
+                }
+
                 // OrderBy後面加 .ThenBy(x => x.backlogDate) 次排序 (ThenByDescending 次排序遞減)
                 var crin = db.Backlog.Where(x => x.employeeID == EID).OrderByDescending(x => x.backlogDate).ToList();
 
@@ -48,7 +68,8 @@ namespace merge_EIP.Controllers
             backlog.checkState = false;
             db.Backlog.Add(backlog);
             db.SaveChanges();
-            return RedirectToAction("Todolist",new {Page = currpag });
+            return Redirect("/Worklog/Todolist");
+            //return RedirectToAction("Todolist",new {Page = currpag });
         }
 
         // 刪除代辦事項

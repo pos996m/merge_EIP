@@ -17,11 +17,29 @@ namespace merge_EIP.Controllers
         int pageSize = 8;
 
         // GET: Message
-        public ActionResult MsgIndex(string getName, string getText, DateTime? getTime, string getState, int page = 1)
+        public ActionResult MsgIndex(int? id,string getName, string getText, DateTime? getTime, string getState, int page = 1)
         {
             string EID = Convert.ToString(Session["ID"]);
             string PosID = Convert.ToString(Session["PosID"]);
             string DepID = Convert.ToString(Session["DepID"]);
+
+            if (id != null)
+            {
+                messageBoard selectMsg = db.messageBoard.Find(id);
+
+                if(selectMsg.State == "所有人" || selectMsg.assignDepartment == DepID || selectMsg.assignPerson == EID || selectMsg.employeeID == EID)
+                {
+                List<messageBoard> selectMsgList = new List<messageBoard>() { selectMsg };
+                int selectcurrpag = page < 1 ? 1 : page;
+                var selectresult = selectMsgList.ToPagedList(selectcurrpag, pageSize);
+
+                return View(selectresult);
+                }
+                else
+                {
+                    return Redirect("/Message/MsgIndex");
+                }
+            }
 
             Console.WriteLine(getName);
 

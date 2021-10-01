@@ -1,6 +1,7 @@
 ﻿:root {
     /*    --mainColor: #3b5998;*/
     --mainColor: rgb(53 75 105);
+    --NFmainColor: rgb(53 75 105);
     /*    --mainColorhover: #263960;*/
     --mainColorhover: rgb(80 113 158);
     --bodyBG: rgb(228 228 228);
@@ -30,11 +31,6 @@ html {
 }
 
 body {
-    /*    -ms-overflow-style: none;*/
-    /*    height: 100%;*/
-    /*    width: calc(100vw + 18px);*/
-    /*    overflow: auto;*/
-    /*        overflow: hidden;*/
     /* 底變白 */
     /*    background-color: rgb(255 255 255 / 0.7);
     background-blend-mode: screen;*/
@@ -50,6 +46,7 @@ body {
 html, body {
     height: 100%;
     overflow: hidden;
+/*    padding-bottom:45.5px;*/
 }
 
 .con-height {
@@ -62,20 +59,24 @@ html, body {
     padding-bottom: 5rem;
 }
 
-body {
-    /*    background-color: var(--bodyBG);*/
-    /*    line-height:1.15;*/
-}
-
 .bg-container {
     background-color: var(--containerBG);
 }
 
-/*@media screen and (max-width: 1110px) {
-    html, body {
-        height: auto;
-    }
-}*/
+/* 隱藏滾動條 但還能滾動 */
+/*chrome 和Safari*/
+.con-height::-webkit-scrollbar {
+    width: 0 !important
+}
+/*IE 10+*/
+.con-height {
+    -ms-overflow-style: none;
+}
+/*Firefox*/
+.con-height {
+    overflow: -moz-scrollbars-none;
+}
+/* 隱藏滾動條 但還能滾動 */
 
 @media screen and (min-width: 800px) {
     .p-33 {
@@ -113,7 +114,8 @@ table {
 }
 
 .navbar {
-    background-color: var(--mainColor);
+    background-color: var(--NFmainColor);
+    color: var(--navColor);
     /* 浮動 */
     /*    position: fixed;
     width: 100%;
@@ -153,14 +155,21 @@ table {
 
     /* 整個nav */
     .nav-link:hover {
-        color: lightblue;
+        color: var(--mainColorhover);
         /*        color: var(--mainColorhover);*/
         /*        color: white;*/
         /*        text-shadow: 2px 2px 15px var(--mainColorhover);*/
         /*        box-shadow: 0px 0px 8px var(--mainColorhover);*/
-        border-radius: 5px;
+        /*        border-radius: 5px;*/
         /*        font-weight:bold;*/
         /*        background-color: var(--mainColorhover);*/
+    }
+.navbar-brand {
+    color: var(--navColor);
+}
+
+    .navbar-brand:hover {
+        color: var(--mainColorhover);
     }
 
 .nav-item + nav-link {
@@ -179,7 +188,7 @@ table {
     font-size: 0.9rem;
     bottom: 0;
     width: 100%;
-    background-color: var(--mainColor);
+    background-color: var(--NFmainColor);
     color: var(--footerColor);
     text-align: center;
     z-index: 2;
@@ -191,6 +200,16 @@ table {
     background-color: var(--mainColor);
     border-color: var(--mainColor);
 }
+
+    .btn-primary:hover {
+        background-color: var(--mainColorhover);
+        border-color: var(--mainColorhover);
+    }
+
+    .btn-primary:active {
+        background-color: var(--mainColorhover);
+        border-color: var(--mainColorhover);
+    }
 
     .btn-primary.disabled, .btn-primary:disabled {
         background-color: var(--mainColor);

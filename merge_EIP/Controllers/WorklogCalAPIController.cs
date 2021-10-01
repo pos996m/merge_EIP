@@ -30,7 +30,7 @@ namespace merge_EIP.Controllers
                     num = item.messageboardNumber,
                     title = item.messageTitle,
                     start = Convert.ToDateTime(item.toMsgDate).ToString("yyyy-MM-ddThh:mm"),
-                    color = "blue",
+                    color = "rgb(65 139 202/0.7)",
                     state = "留言板"
                 });
             }
@@ -52,22 +52,20 @@ namespace merge_EIP.Controllers
                     num = item.backlogNumber,
                     title = item.backlogTxet,
                     start = Convert.ToDateTime(item.backlogDate).ToString("yyyy-MM-dd") + timeSpan,
-                    color = "green",
-                    state = "留言板"
+                    color = "rgb(28 176 154/0.7)",
+                    state = "待辦事項"
                 });
             }
 
             // 取得請假
-            var dayOffAll = db.dayOff.Where(x => x.State == "同意" && x.Employee.departmentID == DepID).ToList();
-            foreach (dayOff item in dayOffAll)
+            var dayOffAll = db.punchIn.Where(x => x.State == "請假" && x.Employee.departmentID == DepID).ToList();
+            foreach (punchIn item in dayOffAll)
             {
                 calDatas.Add(new CalData
                 {
-                    num = item.dayoffNumber,
-                    title = $"{item.employeeName} 請假",
-                    start = Convert.ToDateTime(item.startDate).ToString("yyyy-MM-ddThh:mm"),
-                    end = Convert.ToDateTime(item.endDate).ToString("yyyy-MM-ddThh:mm"),
-                    color = "red",
+                    title = $"{item.Employee.Name} 請假",
+                    start = Convert.ToDateTime(item.punchinDate).ToString("yyyy-MM-dd"),
+                    color = "rgb(217 84 79/0.7)",
                     state = "請假"
                 });
             }

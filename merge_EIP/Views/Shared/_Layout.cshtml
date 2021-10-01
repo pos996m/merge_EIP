@@ -60,14 +60,14 @@
     }
     <div class="navbar navbar-expand-md navbar-inverse navbar-fixed-top">
         <div class="container">
-            <a class="navbar-brand" style="color: #fff;"><b>EIP系統</b></a>
+            <a href="/Clockin/index" class="navbar-brand"><b>EIP系統</b></a>
             <!-- 縮排成漢堡鈕 -->
             <div class="nav-item dropdown float-right">
                 <a class="nav-link dropdown-toggle pull-right" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                    aria-haspopup="true" aria-expanded="false">
                     @*<img src="~/Content/img/people.png"
                         style="width: 30px;height: 25px;">*@
-                    <i class="fas fa-user" style="color:white;"></i>
+                    <i class="fas fa-user"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right p-3 text-muted" aria-labelledby="navbarDropdown"
                      style="max-width: 15rem; ">
@@ -119,15 +119,16 @@
                     }
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false">工作日誌</a>
+                           aria-haspopup="true" aria-expanded="false">工作管家</a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("留言板", "MsgIndex", "Message", new { }, new { @class = "dropdown-item" })
                             @Html.ActionLink("代辦事項", "Todolist", "Worklog", new { }, new { @class = "dropdown-item" })
                             @Html.ActionLink("行事曆", "Calendar", "Worklog", new { }, new { @class = "dropdown-item" })
                         </div>
                     </li>
-                    <li class="nav-item">
+                    @*<li class="nav-item">
                         @Html.ActionLink("留言板", "MsgIndex", "Message", new { }, new { @class = "nav-link" })
-                    </li>
+                    </li>*@
                     <li class="nav-item">
                         @Html.ActionLink("訂餐系統", "About", "Home", new { }, new { @class = "nav-link" })
                     </li>
@@ -151,7 +152,7 @@
     <div class="container-xl bg-container shadow-lg con-height">
         @RenderBody()
     </div>
-    <footer>
+    <footer style="display:block">
         <div>
             <div class="footer">
                 Copyright © 2021 SMIT14 team3 All right reserved.

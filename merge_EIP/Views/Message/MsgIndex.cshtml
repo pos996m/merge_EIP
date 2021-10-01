@@ -15,15 +15,19 @@
     }
 
     .bg-lightblue {
-        background-color: #dcebf8;
+        @*background-color: #dcebf8;*@
+        background-color: rgb(65 139 202/0.7);
+        @*background-color: var(--mainColor);*@
     }
 
     .bg-lightgreen {
-        background-color: #ebfce8;
+        @*background-color: #ebfce8;*@
+        background-color: rgb(28 176 154/0.7);
     }
 
     .bg-lightred {
-        background-color: #fbe8e8;
+        @*background-color: #fbe8e8;*@
+        background-color: rgb(217 84 79/0.7);
     }
 
     .swal2-popup {
@@ -33,10 +37,15 @@
     .swal2-html-container {
         text-align: initial;
     }
+
+    .head-text-color {
+        @*color: dimgrey !important;*@
+        color: rgb(255 255 255/0.85) !important;
+    }
 </style>
 
 
-<div class="container custom-gutters">
+<div class="container custom-gutters p-4">
     <br />
     <h2>留言板</h2>
 
@@ -87,16 +96,16 @@
             }
 
             <div class="col-12 col-md-6 col-lg-3 p-2" title="發布時間 : @item.messageDate">
-                <div class="card mb-3 shadow-sm">
-                    <div class="card-header @allColor">
+                <div class="card mb-3 shadow-sm ">
+                    <div class="card-header @allColor" style="color:white">
                         <div class="float-right">
                             @if (item.goTop)
                             {
-                                <i class="fas fa-level-up-alt text-secondary w3s-tooltip"><span class="w3s-tooltiptext">留言置頂</span></i>
+                                <i class="fas fa-level-up-alt head-text-color w3s-tooltip"><span class="w3s-tooltiptext">留言置頂</span></i>
                             }
                             @if (item.toCalendar)
                             {
-                                <i class="far fa-calendar-alt text-secondary w3s-tooltip" style="margin:0rem 0rem 0rem 0.5rem">
+                                <i class="far fa-calendar-alt head-text-color w3s-tooltip" style="margin:0rem 0rem 0rem 0.5rem">
                                     <span class="w3s-tooltiptext">指派至行事曆</span>
                                 </i>
                             }
@@ -122,7 +131,7 @@
                             }
                         </div>
                         @*<small class="text-muted m-0">發布時間: @Html.DisplayFor(modelItem => item.messageDate)</small><br>*@
-                        <small class="text-muted m-0">
+                        <small class="text-muted m-0 head-text-color">
                             @if (item.toMsgDate != null)
                             {
                                 <span>指派時間: @Html.DisplayFor(modelItem => item.toMsgDate)</span>

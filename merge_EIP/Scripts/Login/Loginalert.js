@@ -1,20 +1,19 @@
-﻿$("#demo3").click(() => {
-
+﻿function btnsubmit() {
     var thePwd = document.getElementById("userPWD").value;
+    var theUesr = document.getElementById("userID").value;
     var flag1 = false, flag2 = false;
-    if (thePwd == "") {
+    if (thePwd == "" || theUesr=="") {
         Swal.fire({
             heightAuto: false,
             title: "登入失敗",
             text: "帳號密碼不可空白",
             icon: "error",
-            showClass: {
-                popup: 'animate__animated animate__pulse'
-            },
-            hideClass: {
-                popup: 'animate__animated animate__fadeOutUp'
-            },
-            textAlign: "left"
+            //showClass: {
+            //    popup: 'animate__animated animate__pulse'
+            //},
+            //hideClass: {
+            //    popup: 'animate__animated animate__fadeOutUp'
+            //},
         })
         //標題 
         //訊息內容(可省略)
@@ -23,6 +22,10 @@
     } else {
         document.form1.submit();
     }
+}
+$("#demo3").click(() => {
+
+    
     // 密碼長度為>=6
     //else if (thePwd.length >= 6) {
     //    for (i = 0; i < thePwd.length; i++) {

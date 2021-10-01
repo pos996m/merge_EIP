@@ -32,7 +32,7 @@
 
 </head>
 
-<body>
+<body >
     <div class="container">
         <div class="row">
             <div class="card center login">
@@ -48,7 +48,7 @@
                             <input class="myfilter" type="password" name="password" id="userPWD" placeholder=" 請輸入登入密碼">
                         </div><br>
                         <div>
-                            <button type="button" id="demo3" class="btn btn-light float-right">
+                            <button onclick="btnsubmit()" type="button" id="demo3" class="btn btn-light float-right">
                                 登入
                             </button>
                         </div>
@@ -70,7 +70,7 @@
             })
         </script>
     }
-    else if(ViewBag.mypost == "POST")
+    else if (ViewBag.mypost == "POST")
     {
         <script>
             Swal.fire({
@@ -80,7 +80,7 @@
                 icon: "success",
                 showConfirmButton: false
             })
-            setTimeout(() => { document.location.href="/Clockin/Index" }, 1000)
+            setTimeout(() => { document.location.href = "/Clockin/Index" }, 1000)
         </script>
     }
 </body>

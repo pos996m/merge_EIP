@@ -142,6 +142,8 @@
     <Content Include="Content\images\index\cateat_1.PNG" />
     <Content Include="Content\images\index\men.gif" />
     <Content Include="Content\images\index\mengo.PNG" />
+    <Content Include="Content\images\index\Rshow.gif" />
+    <Content Include="Content\images\index\Sshow.gif" />
     <Content Include="Content\images\mengo\bg\bg1_1.png" />
     <Content Include="Content\images\mengo\bg\bg2_1.png" />
     <Content Include="Content\images\mengo\bg\bg3_1.png" />
@@ -2030,6 +2032,7 @@
     <Compile Include="Controllers\FormImgAPIController.cs" />
     <Compile Include="Controllers\FormSearchAPIController.cs" />
     <Compile Include="Controllers\GameController.cs" />
+    <Compile Include="Controllers\GameSorceAPIController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\MsgCheckAPIController.cs" />
@@ -2076,6 +2079,7 @@
     <Compile Include="Models\Funding.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\gameScoreAll.cs" />
     <Compile Include="Models\gameRecord.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>

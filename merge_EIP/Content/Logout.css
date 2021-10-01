@@ -10,7 +10,11 @@ html, body {
 /* 讓畫面垂直置中 */
 body {
     align-items: center;
-    display: flex
+    display: flex;
+    background-image: url(img/office.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center
 }
 
 .con {

@@ -3,6 +3,12 @@
         showConfirmButton: false,
         html: `<div id="phaser"></div>`,
         showCloseButton: true
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.close) {
+            console.log("已關閉");
+            // 要重新整理頁面
+            document.location.href = "/Game/Games";
+        }
     })
     snykegame();
 }
@@ -213,6 +219,17 @@ function snykegame() {
                 if (sorceTrue) {
                     // 放呼叫API
                     console.log("HI 我撞到了");
+
+                    const EID = $("#EID").text();
+
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.open("POST", "/api/GameSorceAPI" + encodeURI(`?EID=${EID}&sorce=${sorceInt}&type=貪吃貓`), true);
+                    xhttp.send();
+                    // 要取得JSON要等他load完才拿得到
+                    xhttp.onload = () => {
+                        console.log(xhttp.responseText);
+                    }
+
                     sorceTrue = false;
                 }
                 this.over_title = this.add.image(330, 240, 'over_title');

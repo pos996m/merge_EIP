@@ -3,6 +3,12 @@
         showConfirmButton: false,
         html: `<div id="myrungame"></div>`,
         showCloseButton: true
+    }).then((result) => {
+        if (result.dismiss === Swal.DismissReason.backdrop || result.dismiss === Swal.DismissReason.close) {
+            console.log("已關閉");
+            document.location.href = "/Game/Games";
+            // 要重新整理頁面
+        }
     })
     Rungame();
 }
@@ -193,6 +199,15 @@ function Rungame() {
                 if (myAPItrue) {
                     console.log("撞到後會顯示嗎?")
                     // 呼叫API
+                    const EID = $("#EID").text();
+
+                    const xhttp = new XMLHttpRequest();
+                    xhttp.open("POST", "/api/GameSorceAPI" + encodeURI(`?EID=${EID}&sorce=${sorceInt}&type=跑跑方塊人`), true);
+                    xhttp.send();
+                    // 要取得JSON要等他load完才拿得到
+                    xhttp.onload = () => {
+                        console.log(xhttp.responseText);
+                    }
                     myAPItrue = false;
                 }
                 this.sound.play('touch');
