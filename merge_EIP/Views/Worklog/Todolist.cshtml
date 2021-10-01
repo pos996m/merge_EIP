@@ -20,9 +20,9 @@
     }
 </style>
 
-<div class="container">
+<div class="container p-33">
     <br />
-    <h2>待辦事項</h2>
+    <h2 style=" box-shadow: 0px -15px 0px rgb(28 176 154/0.7)">待辦事項</h2>
     @using (Html.BeginForm())
     {
         <p>
@@ -32,8 +32,8 @@
             <input type="submit" name="btn" value="新增" class="btn btn-FB" />
         </p>
     }
-    <div class="table-responsive">
-        <table class="table mylist" id="sort-table">
+    <div class="table-responsive " >
+        <table class="table mylist" id="sort-table" >
             <thead>
                 <tr>
                     <th data-sortable="true">

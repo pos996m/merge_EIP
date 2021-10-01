@@ -30,7 +30,7 @@ namespace merge_EIP.Controllers
                     num = item.messageboardNumber,
                     title = item.messageTitle,
                     start = Convert.ToDateTime(item.toMsgDate).ToString("yyyy-MM-ddThh:mm"),
-                    color = "rgb(65 139 202/0.7)",
+                    color = "rgb(65 139 202/1)",
                     state = "留言板"
                 });
             }
@@ -52,7 +52,7 @@ namespace merge_EIP.Controllers
                     num = item.backlogNumber,
                     title = item.backlogTxet,
                     start = Convert.ToDateTime(item.backlogDate).ToString("yyyy-MM-dd") + timeSpan,
-                    color = "rgb(28 176 154/0.7)",
+                    color = "rgb(217 84 79/1)",
                     state = "待辦事項"
                 });
             }
@@ -65,7 +65,7 @@ namespace merge_EIP.Controllers
                 {
                     title = $"{item.Employee.Name} 請假",
                     start = Convert.ToDateTime(item.punchinDate).ToString("yyyy-MM-dd"),
-                    color = "rgb(217 84 79/0.7)",
+                    color = "rgb(239 172 79/1)",
                     state = "請假"
                 });
             }
