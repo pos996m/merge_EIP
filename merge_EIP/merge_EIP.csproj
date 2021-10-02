@@ -2033,6 +2033,7 @@
     <Compile Include="Controllers\FormSearchAPIController.cs" />
     <Compile Include="Controllers\GameController.cs" />
     <Compile Include="Controllers\GameSorceAPIController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\MsgCheckAPIController.cs" />
@@ -2127,6 +2128,7 @@
     <Content Include="Views\Message\Setmsg.cshtml" />
     <Content Include="Views\Worklog\Calendar.cshtml" />
     <Content Include="Views\Game\Games.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

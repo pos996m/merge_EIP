@@ -1,0 +1,82 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<link href="~/Content/Home.css" rel="stylesheet" />
+
+<div class="container p-33">
+    <h2>首頁</h2>
+    <hr />
+    <div class="row ">
+        @*<div class="col-12 ">
+                <div class="col-12 home-banner bg-info"></div>
+            </div>*@
+        <div class="col-6 col-md-6 col-xl-3 home-margin">
+            <div class="col-12 home-btn p-3" style="background-color: var(--yellowColor)">
+                <div class="home-row home-con">
+                    <div><i class="fas fa-clock home-iconsize"></i></div>
+                    <div>今日打卡狀態<div class="home-btn-main">09:00</div></div>
+                </div>
+                @*<div class="home-row float-right">
+                        <div style="margin: 0rem 0.7rem; font-size: 0.9rem">上班打卡<div> 09:00:00</div></div>
+                        <div style="margin: 0rem 0.7rem; font-size: 0.9rem ">下班打卡<div> 18:00:00</div></div>
+                        <div style="margin: 0rem 0.7rem; font-size: 0.9rem ">體溫<div> 36.5度</div></div>
+                    </div>*@
+            </div>
+        </div>
+        <div class="col-6 col-md-6 col-xl-3 home-margin">
+            <div class="col-12 home-btn p-3" style="background-color: var(--blueColor)">
+
+                <div class="home-row">
+                    <div><i class="fas fa-file-alt home-iconsize"></i></div>
+                    <div>待審核表單<div class="home-btn-main">5 筆</div></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6 col-md-6 col-xl-3 home-margin">
+            <div class="col-12 home-btn p-3" style="background-color: var(--redColor)">
+
+                <div class="home-row">
+                    <div><i class="fas fa-clipboard-list home-iconsize"></i></div>
+                    <div>今日待辦事項<div class="home-btn-main">3 筆</div></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6 col-md-6 col-xl-3 home-margin">
+            <div class="col-12 home-btn p-3" style="background-color: var(--greenColor)">
+
+                <div class="home-row">
+                    <div><i class="fas fa-hamburger home-iconsize"></i></div>
+                    <div>開放中訂餐<div class="home-btn-main">2 團</div></div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <div class="container p-3 shadow-lg">
+        <div class="row">
+
+            @*這邊放袋子們*@
+            <div class="col-12 col-md-6 col-xl-4 home-margin">
+                <div class="col-12 home-Msg bg-danger">
+                    輪播公告
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-4 home-margin">
+                <div class="col-12 home-Msg bg-danger">
+                    留言板通知
+                </div>
+            </div>
+            <div class="col-12 col-md-6 col-xl-4 home-margin">
+                <div class="col-12 home-Msg bg-danger">
+                    本周表單申請狀況
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

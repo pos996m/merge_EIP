@@ -1,0 +1,68 @@
+﻿.col-12 {
+/*    padding-left: 7.5px;
+    padding-right: 7.5px;
+   */
+}
+
+.home-banner {
+    height: 15rem
+}
+
+.home-btn {
+    height: 10rem;
+    color: white;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    padding: 2.6rem 1rem !important;
+    word-wrap: break-word;
+}
+
+.home-row {
+    display: flex;
+    margin-bottom: 15px;
+    justify-content: center; /*水平置中*/
+    align-items: center; /*垂直置中*/
+}
+
+/*主要文字*/
+.home-btn-main {
+    font-size: 2.2rem;
+    font-weight: bold;
+    line-height: 1.2;
+    text-align:center;
+}
+
+/*Icon*/
+.home-iconsize {
+    font-size: 4rem;
+    margin-right: 1.5rem;
+}
+
+.home-margin {
+    margin-bottom: 30px;
+}
+
+.home-Msg {
+    height: 30rem
+}
+
+/*手機板*/
+@media screen and (max-width: 575px) {
+    .home-btn {
+        padding: 1rem 1rem !important;
+    }
+    .home-row {
+        flex-wrap: wrap;
+    }
+    .home-iconsize {
+        font-size:3rem;
+        margin-right: 2rem;
+        margin-left: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    .home-btn-main {
+        font-size: 2.2rem;
+        font-weight: bold;
+        line-height: 1;
+    }
+}

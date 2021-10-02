@@ -127,6 +127,8 @@ namespace merge_EIP.Controllers
             return RedirectToAction("MsgIndex");
         }
 
+
+        // 編輯
         public ActionResult Setmsg(int? id)
         {
             if (Session["id"] != null)
@@ -182,6 +184,7 @@ namespace merge_EIP.Controllers
             return RedirectToAction("MsgIndex");
         }
 
+        // 確認關看
         public ActionResult Check(int num, string getName, string getText, DateTime? getTime, string getState, int? page)
         {
             string EID = Convert.ToString(Session["ID"]);
@@ -193,6 +196,26 @@ namespace merge_EIP.Controllers
             return Redirect($"/Message/MsgIndex?getName={getName}&getText={getText}&getTime={getTime}&getState={getState}&page={page}");
 
             //return RedirectToAction("MsgIndex",new { getName= getName, getText= getText, getTime= getTime, getState= getState, page = page });
+        }
+
+        // 刪除留言板
+        public ActionResult Delmsg(int? id)
+        {
+            messageBoard backlog = db.messageBoard.Find(id);
+            var watchCount = db.watchCount.Where(x=>x.messageboardNumber == id).ToList();
+
+            // 先刪除所有確認觀看
+            foreach (watchCount item in watchCount)
+            {
+                db.watchCount.Remove(item);
+            }
+
+            // 再刪除留言板
+            db.messageBoard.Remove(backlog);
+            db.SaveChanges();
+
+            return RedirectToAction("MsgIndex");
+            //return Redirect("/Message/MsgIndex");
         }
 
     }
