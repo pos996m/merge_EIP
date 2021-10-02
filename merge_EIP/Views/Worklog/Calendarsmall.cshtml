@@ -1,0 +1,235 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Calendarsmall</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    @* JQ3.4.1 *@
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="https://unpkg.com/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/Scripts/bootstrap.js"></script>
+    @* bs4 *@
+    <link href="~/Content/bootstrap.css" rel="stylesheet" type="text/css" />
+    @* table *@
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+    <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/page-jump-to/bootstrap-table-page-jump-to.min.css"
+          rel="stylesheet">
+    <script src="~/Scripts/colResizable/colResizable-1.6.min.js"></script>
+    <script src="~/Scripts/bootstrap-table.min.js"></script>
+    @* icon *@
+    <link href="~/Scripts/fontawesome-free-5.15.4-web/css/all.css" rel="stylesheet" />
+    @* sweetalert *@
+    <script src="~/Scripts/sweetaleat/sweetalert2@11.js"></script>
+    @*Layout css*@
+    @*<link href="~/Content/Layoutcss.css" rel="stylesheet" />*@
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+    <link href="~/Scripts/FullCalendar/main.min.css" rel="stylesheet" />
+    <script src="~/Scripts/FullCalendar/main.min.js"></script>
+
+    <link href="~/Content/Tooltip.css" rel="stylesheet" />
+    <script src="https://unpkg.com/tooltip.js/dist/umd/tooltip.min.js"></script>
+
+    <style>
+        :root {
+            /*    --mainColor: #3b5998;*/
+            --mainColor: rgb(53 75 105);
+            --NFmainColor: rgb(53 75 105);
+            /*    --mainColorhover: #263960;*/
+            --mainColorhover: rgb(80 113 158);
+            --bodyBG: rgb(228 228 228);
+            --containerBG: rgb(248 249 250);
+            --navTimeColor: #fff;
+            --navColor: #fff;
+            --footerColor: #fff;
+            --blueColor: rgb(65 139 202/0.85);
+            --greenColor: rgb(28 176 154/0.85);
+            --redColor: rgb(217 84 79/0.85);
+            --yellowColor: rgb(237 174 79/0.85);
+        }
+
+        body {
+            background-color: rgb(0 0 0 /0);
+            height: 50rem;
+        }
+
+        .btn-primary {
+            background-color: var(--mainColor);
+            border-color: var(--mainColor);
+        }
+
+            .btn-primary:hover {
+                background-color: var(--mainColorhover);
+                border-color: var(--mainColorhover);
+            }
+
+            .btn-primary:active {
+                background-color: var(--mainColorhover);
+                border-color: var(--mainColorhover);
+            }
+
+            .btn-primary.disabled, .btn-primary:disabled {
+                background-color: var(--mainColor);
+                border-color: var(--mainColor);
+            }
+
+        .fc-view-harness {
+            box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
+        }
+
+        .text-noLine {
+            text-decoration: line-through;
+        }
+
+        .text-overhide {
+            text-overflow: ellipsis;
+        }
+
+        .fc-daygrid-event-harness {
+            cursor: pointer;
+        }
+
+        .navbar-fixed-left {
+            width: 140px;
+            position: fixed;
+            border-radius: 0;
+            height: 100%;
+        }
+
+            .navbar-fixed-left .navbar-nav > li {
+                float: none; /* Cancel default li float: left */
+                width: 139px;
+            }
+
+            .navbar-fixed-left + .container {
+                padding-left: 160px;
+            }
+
+            /* On using dropdown menu (To right shift popuped) */
+            .navbar-fixed-left .navbar-nav > li > .dropdown-menu {
+                margin-top: -50px;
+                margin-left: 140px;
+            }
+
+        .swal2-container {
+            height: 100% !important;
+        }
+    </style>
+</head>
+<body>
+    <div id="mylode"></div>
+    <div class="container p-33" id="myhide">
+
+        <span id="EID" style="display:none">@Session["ID"]</span>
+        <span id="DepID" style="display:none">@Session["DepID"]</span>
+            <div id="calendar" style="height:10rem"></div>
+            <br />
+            <br />
+            <br />
+            <br />
+    </div>
+
+
+    <script>
+        $("myhide").hide();
+
+        $(document).ready(() => {
+            console.log("ready");
+
+            const EID = $("#EID").text();
+            const DepID = $("#DepID").text();
+
+            const xhttp = new XMLHttpRequest();
+            xhttp.open("GET", "/api/WorklogCalAPI" + encodeURI(`?EID=${EID}&DepID=${DepID}`), true);
+            xhttp.send();
+            // 要取得JSON要等他load完才拿得到
+            xhttp.onload = () => {
+                // 解析API回傳JSON
+                dataShow = JSON.parse(xhttp.responseText);
+                console.log(dataShow);
+                calshowrender(dataShow);
+                $(".fc-event-title").addClass("text-overhide");
+            }
+        });
+
+        function calshowrender(dataList) {
+            var calendarEl = document.getElementById("calendar");
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                height: 300,
+                headerToolbar: false,
+                businessHours: true, // display business hours
+                selectable: true,
+                titleFormat: {
+                    year: "numeric",
+                    month: "2-digit",
+                },
+                @*dateClick: function (info) {
+                    // 點擊格子
+                },*@
+                eventClick: function (info) {
+
+                    // 如果藏的類別是 留言板 轉跳到 該留言，如果是 待辦事項 就轉跳 該待辦
+                    if (info.event._def.extendedProps.state == "留言板") {
+                        window.open(`/Message/MsgIndex/${info.event._def.extendedProps.num}`);
+                        @*document.location.href =*@
+                    } else if (info.event._def.extendedProps.state == "待辦事項") {
+                        window.open(`/Worklog/Todolist/${info.event._def.extendedProps.num}`);
+                        @*document.location.href = `/Worklog/Todolist/${info.event._def.extendedProps.num}`*@
+                    }
+                },
+                // 使用 bootstrap 做為樣式
+                themeSystem: "bootstrap",
+
+                // 放入data顯示
+                events: dataList,
+                // 改點點樣式
+                eventDisplay: "list-item",
+
+                eventDidMount: function (eventInfo) {
+                    $("#myhide").show();
+                    $("#mylode").hide();
+                    console.log(eventInfo);
+                    $(eventInfo.el).tooltip({
+                        title: eventInfo.event._def.title,
+                        html: true,
+                        placement: 'top',
+                        trigger: 'hover',
+                        container: 'body'
+                    });
+                },
+
+                @*eventMouseEnter: function (calEvent, jsEvent) {
+                    var tooltip = '<div class="tooltipevent" style="width:100px;height:100px;background:#ccc;position:absolute;z-index:10001;">' + calEvent.title + '</div>';
+                    $("body").append(tooltip);
+                    $(this).mouseover(function (e) {
+                        $(this).css('z-index', 10000);
+                        $('.tooltipevent').fadeIn('500');
+                        $('.tooltipevent').fadeTo('10', 1.9);
+                    }).mousemove(function (e) {
+                        $('.tooltipevent').css('top', e.pageY + 10);
+                        $('.tooltipevent').css('left', e.pageX + 20);
+                    });
+                },
+
+                eventMouseLeave: function (calEvent, jsEvent) {
+                    $(this).css('z-index', 8);
+                    $('.tooltipevent').remove();
+                },*@
+            });
+
+            calendar.render();
+            @*calendar.setOption('height', 300);*@
+        }
+            @*$('#calendar').fullCalendar('option', 'height', 350);*@
+    </script>
+</body>
+</html>

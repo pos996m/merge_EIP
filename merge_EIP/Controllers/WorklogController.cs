@@ -86,5 +86,10 @@ namespace merge_EIP.Controllers
         {
             return View();
         }
+
+        public ActionResult Calendarsmall()
+        {
+            return View();
+        }
     }
 }

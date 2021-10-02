@@ -126,6 +126,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\clockin.css" />
     <Content Include="Content\gameStyle.css" />
+    <Content Include="Content\Home.css" />
     <Content Include="Content\images\cateat\backmenu.png" />
     <Content Include="Content\images\cateat\bg_2.png" />
     <Content Include="Content\images\cateat\cat_2.png" />
@@ -2129,6 +2130,7 @@
     <Content Include="Views\Worklog\Calendar.cshtml" />
     <Content Include="Views\Game\Games.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Worklog\Calendarsmall.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

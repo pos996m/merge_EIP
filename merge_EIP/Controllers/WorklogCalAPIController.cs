@@ -28,7 +28,7 @@ namespace merge_EIP.Controllers
                 calDatas.Add(new CalData
                 {
                     num = item.messageboardNumber,
-                    title = item.messageTitle,
+                    title = item.messageTitle + " (留言板)",
                     start = Convert.ToDateTime(item.toMsgDate).ToString("yyyy-MM-ddThh:mm"),
                     color = "rgb(65 139 202/1)",
                     state = "留言板"
@@ -50,7 +50,7 @@ namespace merge_EIP.Controllers
                 calDatas.Add(new CalData
                 {
                     num = item.backlogNumber,
-                    title = item.backlogTxet,
+                    title = item.backlogTxet +" (待辦事項)",
                     start = Convert.ToDateTime(item.backlogDate).ToString("yyyy-MM-dd") + timeSpan,
                     color = "rgb(217 84 79/1)",
                     state = "待辦事項"

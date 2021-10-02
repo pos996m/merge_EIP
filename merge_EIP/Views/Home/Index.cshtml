@@ -1,19 +1,22 @@
 ﻿
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "首頁";
 }
 
 <link href="~/Content/Home.css" rel="stylesheet" />
-
+<link href="~/Content/Tooltip.css" rel="stylesheet" />
 <div class="container p-33">
-    <h2>首頁</h2>
-    <hr />
+    @*<h2>首頁</h2>
+        <hr />*@
+    <br />
+    @*<br />*@
+    <marquee direction="right" height="30" scrollamount="6" style="color:blue;">防疫期間請配戴口罩，勤洗手，保持社交距離</marquee>
     <div class="row ">
         @*<div class="col-12 ">
                 <div class="col-12 home-banner bg-info"></div>
             </div>*@
         <div class="col-6 col-md-6 col-xl-3 home-margin">
-            <div class="col-12 home-btn p-3" style="background-color: var(--yellowColor)">
+            <div class="col-12 home-btn p-3 shadow-sm" style="background-color: var(--yellowColor)">
                 <div class="home-row home-con">
                     <div><i class="fas fa-clock home-iconsize"></i></div>
                     <div>今日打卡狀態<div class="home-btn-main">09:00</div></div>
@@ -57,26 +60,68 @@
         </div>
 
     </div>
-    <div class="container p-3 shadow-lg">
-        <div class="row">
+    <div class="row" style=" padding-left: 7.5px; padding-right: 7.5px ">
 
-            @*這邊放袋子們*@
-            <div class="col-12 col-md-6 col-xl-4 home-margin">
+        @*這邊放袋子們*@
+        @*<div class="col-12 col-md-6 col-xl-4 home-margin">
                 <div class="col-12 home-Msg bg-danger">
                     輪播公告
                 </div>
+            </div>*@
+        <div class="col-12 col-md-6 col-xl-7 home-margin p-4 shadow" style="padding: 1.5rem !important; background-color: rgb(128 128 128/0.05); ">
+            <h3 style="text-align:center;">未確認留言</h3>
+            <div class="col-12 home-Msg">
+                <ul class="list-group list-group-flush shadow-sm">
+                    <li class="list-group-item">
+                        @*<b>From xxx to xxx</b>*@
+                        <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                        <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                            <span class="w3s-tooltiptext">指派至行事曆</span>
+                        </i>
+                        <b class="home-msgtext">內文</b>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                        <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                            <span class="w3s-tooltiptext">指派至行事曆</span>
+                        </i>
+                        <b class="home-msgtext">內文 </b>
+                    </li>
+                </ul>
             </div>
-            <div class="col-12 col-md-6 col-xl-4 home-margin">
-                <div class="col-12 home-Msg bg-danger">
-                    留言板通知
-                </div>
-            </div>
-            <div class="col-12 col-md-6 col-xl-4 home-margin">
-                <div class="col-12 home-Msg bg-danger">
-                    本周表單申請狀況
-                </div>
+        </div>
+        <div class="col-12 col-md-6 col-xl-5 home-margin shadow" style="padding: 1.5rem 0.4rem !important; background-color: rgb(128 128 128/0.1); ">
+            <h3 style="text-align:center;">行事曆</h3>
+            <div class="col-12 home-Msg">
+                <br />
+                <iframe src="/Worklog/Calendarsmall" style="border: 0 ;width:100%" height="400" frameborder="0" scrolling="no"></iframe>
+                <br />
+                @*<iframe src="https://calendar.google.com/calendar/embed?src=zh-tw.taiwan%23holiday%40group.v.calendar.google.com&ctz=Asia%2FTaipei" style="border: 0" height="350" frameborder="0" scrolling="no"></iframe>*@
+                <!--<ul class="list-group list-group-flush">
+                <li class="list-group-item" style="background-color:rgb(0 0 0 /0)">-->
+                @*<b>From xxx to xxx</b>*@
+                <!--<i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                        <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                            <span class="w3s-tooltiptext">指派至行事曆</span>
+                        </i>
+                        <b style="padding: 0 1.5rem; font-size: 1.5rem;">內文</b>
+                    </li>
+                    <li class="list-group-item">
+                        <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                        <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                            <span class="w3s-tooltiptext">指派至行事曆</span>
+                        </i>
+                        <b style="padding: 0 1.5rem; font-size: 1.5rem;">內文 </b>
+                    </li>
+                </ul>-->
             </div>
         </div>
     </div>
 
 </div>
+
+<script>
+    $(".w3s-tooltip").hover(() => {
+        $(".home-Msg").css("overflow", "inherit");
+    })
+</script>
