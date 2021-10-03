@@ -46,6 +46,8 @@
     <Property Name="totalDay" Type="nvarchar" MaxLength="50" />
     <Property Name="Reason" Type="nvarchar" MaxLength="255" />
     <Property Name="filePath" Type="nvarchar(max)" />
+    <Property Name="Auditdate" Type="date" />
+    <Property Name="fcheck" Type="bit" />
   </EntityType>
   <EntityType Name="Department">
     <Key>
@@ -85,6 +87,8 @@
     <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
     <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+    <Property Name="Auditdate" Type="date" />
+    <Property Name="fcheck" Type="bit" />
   </EntityType>
   <EntityType Name="gameRecord">
     <Key>
@@ -170,6 +174,42 @@
     <Property Name="repunchTimeOut" Type="time" Precision="0" />
     <Property Name="Reason" Type="nvarchar" MaxLength="255" Nullable="false" />
     <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="Auditdate" Type="date" />
+    <Property Name="fcheck" Type="bit" />
+  </EntityType>
+  <EntityType Name="tOrder">
+    <Key>
+      <PropertyRef Name="fOrderId" />
+    </Key>
+    <Property Name="fOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="fStoreID" Type="int" Nullable="false" />
+    <Property Name="fStartDate" Type="date" Nullable="false" />
+    <Property Name="fEndDate" Type="date" />
+    <Property Name="fStartTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="fEndTime" Type="time" Precision="0" Nullable="false" />
+    <Property Name="fType" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="fStatus" Type="nvarchar" MaxLength="10" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tOrderDetail">
+    <Key>
+      <PropertyRef Name="OrderDetailId" />
+    </Key>
+    <Property Name="OrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fOrderId" Type="int" Nullable="false" />
+    <Property Name="DetailEID" Type="varchar" MaxLength="15" Nullable="false" />
+    <Property Name="fFood" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fPrice" Type="int" Nullable="false" />
+    <Property Name="fQty" Type="int" Nullable="false" />
+    <Property Name="fNote" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="tShop">
+    <Key>
+      <PropertyRef Name="fStoreID" />
+    </Key>
+    <Property Name="fStoreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="fStore" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="fImagePath" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
   <EntityType Name="watchCount">
     <Key>
@@ -194,6 +234,8 @@
     <Property Name="overtimeHours" Type="nvarchar" MaxLength="50" Nullable="false" />
     <Property Name="State" Type="nvarchar" MaxLength="5" Nullable="false" />
     <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+    <Property Name="Auditdate" Type="date" />
+    <Property Name="fcheck" Type="bit" />
   </EntityType>
   <Association Name="FK_Backlog_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
@@ -375,6 +417,54 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_tOrder_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="tOrder" Type="Self.tOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="tOrder">
+        <PropertyRef Name="employeeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tOrder_tShop">
+    <End Role="tShop" Type="Self.tShop" Multiplicity="1" />
+    <End Role="tOrder" Type="Self.tOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tShop">
+        <PropertyRef Name="fStoreID" />
+      </Principal>
+      <Dependent Role="tOrder">
+        <PropertyRef Name="fStoreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tOrderDetail_Employee">
+    <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+    <End Role="tOrderDetail" Type="Self.tOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Employee">
+        <PropertyRef Name="employeeID" />
+      </Principal>
+      <Dependent Role="tOrderDetail">
+        <PropertyRef Name="DetailEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_tOrderDetail_tOrder">
+    <End Role="tOrder" Type="Self.tOrder" Multiplicity="1" />
+    <End Role="tOrderDetail" Type="Self.tOrderDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tOrder">
+        <PropertyRef Name="fOrderId" />
+      </Principal>
+      <Dependent Role="tOrderDetail">
+        <PropertyRef Name="fOrderId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_watchCount_Employee">
     <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
     <End Role="watchCount" Type="Self.watchCount" Multiplicity="*" />
@@ -425,6 +515,9 @@
     <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="punchIn" EntityType="Self.punchIn" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="rePunchin" EntityType="Self.rePunchin" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tOrder" EntityType="Self.tOrder" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tOrderDetail" EntityType="Self.tOrderDetail" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tShop" EntityType="Self.tShop" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="watchCount" EntityType="Self.watchCount" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="workOvertime" EntityType="Self.workOvertime" Schema="dbo" store:Type="Tables" />
     <AssociationSet Name="FK_Backlog_Employee" Association="Self.FK_Backlog_Employee">
@@ -486,6 +579,22 @@
     <AssociationSet Name="FK_rePunchin_Employee" Association="Self.FK_rePunchin_Employee">
       <End Role="Employee" EntitySet="Employee" />
       <End Role="rePunchin" EntitySet="rePunchin" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tOrder_Employee" Association="Self.FK_tOrder_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="tOrder" EntitySet="tOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tOrder_tShop" Association="Self.FK_tOrder_tShop">
+      <End Role="tShop" EntitySet="tShop" />
+      <End Role="tOrder" EntitySet="tOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tOrderDetail_Employee" Association="Self.FK_tOrderDetail_Employee">
+      <End Role="Employee" EntitySet="Employee" />
+      <End Role="tOrderDetail" EntitySet="tOrderDetail" />
+    </AssociationSet>
+    <AssociationSet Name="FK_tOrderDetail_tOrder" Association="Self.FK_tOrderDetail_tOrder">
+      <End Role="tOrder" EntitySet="tOrder" />
+      <End Role="tOrderDetail" EntitySet="tOrderDetail" />
     </AssociationSet>
     <AssociationSet Name="FK_watchCount_Employee" Association="Self.FK_watchCount_Employee">
       <End Role="Employee" EntitySet="Employee" />

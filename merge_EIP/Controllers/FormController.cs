@@ -263,12 +263,20 @@ namespace merge_EIP.Controllers
         {
             var temp = db.dayOff.Where(m => m.dayoffNumber == fId).FirstOrDefault();
             temp.State = "同意";
+            temp.Auditdate = DateTime.Today;
 
             for (DateTime i = temp.startDate.Date; i <= temp.endDate.Date; i = i.AddDays(1))
             {
                 string thisTime = i.ToString("yyyy-MM-dd");
                 var Yestemp = db.punchIn.Where(x => x.punchinDate.ToString().Contains(thisTime) && x.employeeID == temp.employeeID).FirstOrDefault();
-                Yestemp.State = "請假";
+                if (temp.Type == "公差")
+                {
+                    Yestemp.State = "公差";
+                }
+                else
+                {
+                    Yestemp.State = "請假";
+                }
             }
 
             db.SaveChanges();
@@ -402,7 +410,7 @@ namespace merge_EIP.Controllers
             {
                 inputUpdate.clockIn = temp.repunchTimeIn;
             }
-            
+
             if (temp.repunchTimeOut != null)
             {
                 inputUpdate.clockOut = temp.repunchTimeOut;

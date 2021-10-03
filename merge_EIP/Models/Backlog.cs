@@ -11,14 +11,20 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Backlog
     {
         public int backlogNumber { get; set; }
         public string employeeID { get; set; }
         public string backlogTxet { get; set; }
+
+        [DataType(DataType.Date)]
         public System.DateTime backlogDate { get; set; }
+
         public bool checkState { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         public Nullable<System.TimeSpan> backlogTime { get; set; }
     
         public virtual Employee Employee { get; set; }

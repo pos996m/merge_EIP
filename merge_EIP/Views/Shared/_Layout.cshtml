@@ -110,7 +110,7 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 @Html.ActionLink("申請紀錄查詢", "FSearch", "Form", new { }, new { @class = "dropdown-item" })
-                                @Html.ActionLink("請假單", "Leave", "Form", new { }, new { @class = "dropdown-item" })
+                                @Html.ActionLink("公差請假單", "Leave", "Form", new { }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("加班單", "Overtime", "Form", new { }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("補卡申請", "rePunch", "Form", new { }, new { @class = "dropdown-item" })
                                 @Html.ActionLink("經費申請", "Funding", "Form", new { }, new { @class = "dropdown-item" })
@@ -130,7 +130,7 @@
                         @Html.ActionLink("留言板", "MsgIndex", "Message", new { }, new { @class = "nav-link" })
                     </li>*@
                     <li class="nav-item">
-                        @Html.ActionLink("訂餐系統", "About", "Home", new { }, new { @class = "nav-link" })
+                        @Html.ActionLink("訂餐系統", "Index", "Ordermeal", new { }, new { @class = "nav-link" })
                     </li>
                     <li class="nav-item">
                         @Html.ActionLink("小遊戲", "Games", "Game", new { }, new { @class = "nav-link" })

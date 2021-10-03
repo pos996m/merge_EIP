@@ -2038,6 +2038,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\MsgCheckAPIController.cs" />
+    <Compile Include="Controllers\OrdermealController.cs" />
     <Compile Include="Controllers\WorklogCalAPIController.cs" />
     <Compile Include="Controllers\WorklogController.cs" />
     <Compile Include="Controllers\WorklogListAPIController.cs" />
@@ -2101,6 +2102,15 @@
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Search.cs" />
+    <Compile Include="Models\tOrder.cs">
+      <DependentUpon>EIPModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tOrderDetail.cs">
+      <DependentUpon>EIPModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\tShop.cs">
+      <DependentUpon>EIPModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\watchCount.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
@@ -2131,6 +2141,8 @@
     <Content Include="Views\Game\Games.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Worklog\Calendarsmall.cshtml" />
+    <Content Include="Views\Ordermeal\Index.cshtml" />
+    <Content Include="Views\Ordermeal\Open.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -2141,6 +2153,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Image\" />
+    <Folder Include="Menu\" />
     <Folder Include="Views\From\" />
   </ItemGroup>
   <ItemGroup>

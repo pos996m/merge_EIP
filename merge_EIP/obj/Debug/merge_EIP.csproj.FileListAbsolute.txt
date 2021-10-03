@@ -82,7 +82,6 @@ D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\zh-Hant\System.Web.Mvc.reso
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\zh-Hant\System.Net.Http.Formatting.resources.dll
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\zh-Hant\System.Web.Http.resources.dll
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\zh-Hant\System.Web.Http.WebHost.resources.dll
-D:\資策會教材\大專題\merge_EIP\merge_EIP\obj\Debug\merge_EIP.csproj.AssemblyReference.cache
 D:\資策會教材\大專題\merge_EIP\merge_EIP\obj\Debug\merge_EIP.csproj.CoreCompileInputs.cache
 D:\資策會教材\大專題\merge_EIP\merge_EIP\obj\Debug\merge_EIP.csproj.CopyComplete
 D:\資策會教材\大專題\merge_EIP\merge_EIP\obj\Debug\merge_EIP.dll
@@ -97,3 +96,4 @@ D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\PagedList.Mvc.dll
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\PagedList.xml
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\PagedList.Mvc.xml
 D:\資策會教材\大專題\merge_EIP\merge_EIP\bin\zh-Hant\EntityFramework.SqlServer.resources.dll
+D:\資策會教材\大專題\merge_EIP\merge_EIP\obj\Debug\merge_EIP.csproj.AssemblyReference.cache

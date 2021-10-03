@@ -31,6 +31,8 @@ namespace merge_EIP.Models
             this.workOvertime = new HashSet<workOvertime>();
             this.messageBoard1 = new HashSet<messageBoard>();
             this.watchCount = new HashSet<watchCount>();
+            this.tOrder = new HashSet<tOrder>();
+            this.tOrderDetail = new HashSet<tOrderDetail>();
         }
     
         public string employeeID { get; set; }
@@ -78,5 +80,9 @@ namespace merge_EIP.Models
         public virtual ICollection<messageBoard> messageBoard1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<watchCount> watchCount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tOrder> tOrder { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tOrderDetail> tOrderDetail { get; set; }
     }
 }

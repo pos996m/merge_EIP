@@ -31,8 +31,10 @@ namespace merge_EIP.Models
         public string assignDepartment { get; set; }
         public bool goTop { get; set; }
         public bool toCalendar { get; set; }
-        [DisplayFormat(DataFormatString ="{0:yyyy-MM-ddThh:mm}",ApplyFormatInEditMode =true)]
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-ddThh:mm}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> toMsgDate { get; set; }
+
         public string messageTitle { get; set; }
     
         public virtual Employee Employee { get; set; }

@@ -1,10 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "假單申請表";
+    ViewBag.Title = "公差假單申請表";
 }
 <div class="container p-33">
     <br />
-    <h2>假單申請表</h2>
+    <h2>公差假單申請表</h2>
     <hr />
 
     @model merge_EIP.Models.dayOff
@@ -55,14 +55,14 @@
                         @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
                         <div class="col-md-10">
                             <select id="fType" name="Type" class="form-control">
-                                <option value="補休假" name="Type" id="fType">補休假</option>
-                                <option value="特別休假">特別休假</option>
-                                <option value="普通傷病假">普通傷病假</option>
-                                <option value="生病傷病假">生病傷病假</option>
+                                <option value="公差" name="Type" id="fType">公差</option>
+                                <option value="補休">補休</option>
+                                <option value="特休">特休</option>
+                                <option value="傷病假">傷病假</option>
                                 <option value="生理假">生理假</option>
-                                <option value="事假">事假</option>
-                                <option value="公差">公差</option>
                                 <option value="公假">公假</option>
+                                <option value="事假">事假</option>
+                                <option value="喪假">喪假</option>
                             </select>
                         </div>
                     </div>
@@ -166,4 +166,6 @@
         console.log(end);
         console.log()
     })
+
+
 </script>

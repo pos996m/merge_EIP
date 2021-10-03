@@ -51,6 +51,8 @@
           <Property Name="totalDay" Type="nvarchar" MaxLength="50" />
           <Property Name="Reason" Type="nvarchar" MaxLength="255" />
           <Property Name="filePath" Type="nvarchar(max)" />
+          <Property Name="Auditdate" Type="date" />
+          <Property Name="fcheck" Type="bit" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -90,6 +92,8 @@
           <Property Name="Type" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
           <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+          <Property Name="Auditdate" Type="date" />
+          <Property Name="fcheck" Type="bit" />
         </EntityType>
         <EntityType Name="gameRecord">
           <Key>
@@ -175,6 +179,42 @@
           <Property Name="repunchTimeOut" Type="time" Precision="0" />
           <Property Name="Reason" Type="nvarchar" MaxLength="255" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="Auditdate" Type="date" />
+          <Property Name="fcheck" Type="bit" />
+        </EntityType>
+        <EntityType Name="tOrder">
+          <Key>
+            <PropertyRef Name="fOrderId" />
+          </Key>
+          <Property Name="fOrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="employeeID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="fStoreID" Type="int" Nullable="false" />
+          <Property Name="fStartDate" Type="date" Nullable="false" />
+          <Property Name="fEndDate" Type="date" />
+          <Property Name="fStartTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="fEndTime" Type="time" Precision="0" Nullable="false" />
+          <Property Name="fType" Type="nvarchar" MaxLength="10" Nullable="false" />
+          <Property Name="fStatus" Type="nvarchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="tOrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fOrderId" Type="int" Nullable="false" />
+          <Property Name="DetailEID" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="fFood" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fPrice" Type="int" Nullable="false" />
+          <Property Name="fQty" Type="int" Nullable="false" />
+          <Property Name="fNote" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="tShop">
+          <Key>
+            <PropertyRef Name="fStoreID" />
+          </Key>
+          <Property Name="fStoreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fStore" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="fImagePath" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
         <EntityType Name="watchCount">
           <Key>
@@ -199,6 +239,8 @@
           <Property Name="overtimeHours" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="State" Type="nvarchar" MaxLength="5" Nullable="false" />
           <Property Name="Reason" Type="nvarchar" MaxLength="50" />
+          <Property Name="Auditdate" Type="date" />
+          <Property Name="fcheck" Type="bit" />
         </EntityType>
         <Association Name="FK_Backlog_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
@@ -380,6 +422,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_tOrder_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="tOrder" Type="Self.tOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employeeID" />
+            </Principal>
+            <Dependent Role="tOrder">
+              <PropertyRef Name="employeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tOrder_tShop">
+          <End Role="tShop" Type="Self.tShop" Multiplicity="1" />
+          <End Role="tOrder" Type="Self.tOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tShop">
+              <PropertyRef Name="fStoreID" />
+            </Principal>
+            <Dependent Role="tOrder">
+              <PropertyRef Name="fStoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tOrderDetail_Employee">
+          <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
+          <End Role="tOrderDetail" Type="Self.tOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employeeID" />
+            </Principal>
+            <Dependent Role="tOrderDetail">
+              <PropertyRef Name="DetailEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tOrderDetail_tOrder">
+          <End Role="tOrder" Type="Self.tOrder" Multiplicity="1" />
+          <End Role="tOrderDetail" Type="Self.tOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tOrder">
+              <PropertyRef Name="fOrderId" />
+            </Principal>
+            <Dependent Role="tOrderDetail">
+              <PropertyRef Name="fOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_watchCount_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
           <End Role="watchCount" Type="Self.watchCount" Multiplicity="*" />
@@ -430,6 +520,9 @@
           <EntitySet Name="Position" EntityType="Self.Position" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="punchIn" EntityType="Self.punchIn" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="rePunchin" EntityType="Self.rePunchin" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tOrder" EntityType="Self.tOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tOrderDetail" EntityType="Self.tOrderDetail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tShop" EntityType="Self.tShop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="watchCount" EntityType="Self.watchCount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="workOvertime" EntityType="Self.workOvertime" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Backlog_Employee" Association="Self.FK_Backlog_Employee">
@@ -491,6 +584,22 @@
           <AssociationSet Name="FK_rePunchin_Employee" Association="Self.FK_rePunchin_Employee">
             <End Role="Employee" EntitySet="Employee" />
             <End Role="rePunchin" EntitySet="rePunchin" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tOrder_Employee" Association="Self.FK_tOrder_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="tOrder" EntitySet="tOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tOrder_tShop" Association="Self.FK_tOrder_tShop">
+            <End Role="tShop" EntitySet="tShop" />
+            <End Role="tOrder" EntitySet="tOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tOrderDetail_Employee" Association="Self.FK_tOrderDetail_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="tOrderDetail" EntitySet="tOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tOrderDetail_tOrder" Association="Self.FK_tOrderDetail_tOrder">
+            <End Role="tOrder" EntitySet="tOrder" />
+            <End Role="tOrderDetail" EntitySet="tOrderDetail" />
           </AssociationSet>
           <AssociationSet Name="FK_watchCount_Employee" Association="Self.FK_watchCount_Employee">
             <End Role="Employee" EntitySet="Employee" />
@@ -559,6 +668,8 @@
           <Property Name="filePath" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_dayOff_Employee" FromRole="dayOff" ToRole="Employee" />
           <Property Name="submitDate" Type="DateTime" Precision="3" />
+          <Property Name="Auditdate" Type="DateTime" Precision="0" />
+          <Property Name="fcheck" Type="Boolean" />
         </EntityType>
         <EntityType Name="Department">
           <Key>
@@ -603,6 +714,8 @@
           <NavigationProperty Name="workOvertime" Relationship="Self.FK_workOvertime_Employee" FromRole="Employee" ToRole="workOvertime" />
           <NavigationProperty Name="messageBoard1" Relationship="FormModelModel.FK_messageBoard_EmployeeAss" FromRole="Employee" ToRole="messageBoard" />
           <NavigationProperty Name="watchCount" Relationship="FormModelModel.FK_watchCount_Employee" FromRole="Employee" ToRole="watchCount" />
+          <NavigationProperty Name="tOrder" Relationship="FormModelModel.FK_tOrder_Employee" FromRole="Employee" ToRole="tOrder" />
+          <NavigationProperty Name="tOrderDetail" Relationship="FormModelModel.FK_tOrderDetail_Employee" FromRole="Employee" ToRole="tOrderDetail" />
         </EntityType>
         <EntityType Name="Funding">
           <Key>
@@ -617,6 +730,8 @@
           <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Funding_Employee" FromRole="Funding" ToRole="Employee" />
           <Property Name="submitDate" Type="DateTime" Precision="3" />
+          <Property Name="Auditdate" Type="DateTime" Precision="0" />
+          <Property Name="fcheck" Type="Boolean" />
         </EntityType>
         <EntityType Name="gameRecord">
           <Key>
@@ -712,6 +827,8 @@
           <Property Name="State" Type="String" MaxLength="10" FixedLength="false" Unicode="true" Nullable="false" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_rePunchin_Employee" FromRole="rePunchin" ToRole="Employee" />
           <Property Name="submitDate" Type="DateTime" Precision="3" />
+          <Property Name="Auditdate" Type="DateTime" Precision="0" />
+          <Property Name="fcheck" Type="Boolean" />
         </EntityType>
         <EntityType Name="workOvertime">
           <Key>
@@ -728,6 +845,8 @@
           <Property Name="Reason" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_workOvertime_Employee" FromRole="workOvertime" ToRole="Employee" />
           <Property Name="submitDate" Type="DateTime" Precision="3" />
+          <Property Name="Auditdate" Type="DateTime" Precision="0" />
+          <Property Name="fcheck" Type="Boolean" />
         </EntityType>
         <Association Name="FK_Backlog_Employee">
           <End Role="Employee" Type="Self.Employee" Multiplicity="1" />
@@ -985,6 +1104,25 @@
             <End Role="messageBoard" EntitySet="messageBoard" />
             <End Role="watchCount" EntitySet="watchCount" />
           </AssociationSet>
+          <EntitySet Name="tOrder" EntityType="FormModelModel.tOrder" />
+          <EntitySet Name="tOrderDetail" EntityType="FormModelModel.tOrderDetail" />
+          <EntitySet Name="tShop" EntityType="FormModelModel.tShop" />
+          <AssociationSet Name="FK_tOrder_Employee" Association="FormModelModel.FK_tOrder_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="tOrder" EntitySet="tOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tOrderDetail_Employee" Association="FormModelModel.FK_tOrderDetail_Employee">
+            <End Role="Employee" EntitySet="Employee" />
+            <End Role="tOrderDetail" EntitySet="tOrderDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tOrder_tShop" Association="FormModelModel.FK_tOrder_tShop">
+            <End Role="tShop" EntitySet="tShop" />
+            <End Role="tOrder" EntitySet="tOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_tOrderDetail_tOrder" Association="FormModelModel.FK_tOrderDetail_tOrder">
+            <End Role="tOrder" EntitySet="tOrder" />
+            <End Role="tOrderDetail" EntitySet="tOrderDetail" />
+          </AssociationSet>
         </EntityContainer>
         <Association Name="FK_messageBoard_EmployeeAss">
           <End Type="FormModelModel.Employee" Role="Employee" Multiplicity="0..1" />
@@ -1045,6 +1183,94 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="tOrder">
+          <Key>
+            <PropertyRef Name="fOrderId" />
+          </Key>
+          <Property Name="fOrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="employeeID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="fStoreID" Type="Int32" Nullable="false" />
+          <Property Name="fStartDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="fEndDate" Type="DateTime" Precision="0" />
+          <Property Name="fStartTime" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="fEndTime" Type="Time" Nullable="false" Precision="0" />
+          <Property Name="fType" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="fStatus" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="FormModelModel.FK_tOrder_Employee" FromRole="tOrder" ToRole="Employee" />
+          <NavigationProperty Name="tShop" Relationship="FormModelModel.FK_tOrder_tShop" FromRole="tOrder" ToRole="tShop" />
+          <NavigationProperty Name="tOrderDetail" Relationship="FormModelModel.FK_tOrderDetail_tOrder" FromRole="tOrder" ToRole="tOrderDetail" />
+        </EntityType>
+        <EntityType Name="tOrderDetail">
+          <Key>
+            <PropertyRef Name="OrderDetailId" />
+          </Key>
+          <Property Name="OrderDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fOrderId" Type="Int32" Nullable="false" />
+          <Property Name="DetailEID" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="fFood" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fPrice" Type="Int32" Nullable="false" />
+          <Property Name="fQty" Type="Int32" Nullable="false" />
+          <Property Name="fNote" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Employee" Relationship="FormModelModel.FK_tOrderDetail_Employee" FromRole="tOrderDetail" ToRole="Employee" />
+          <NavigationProperty Name="tOrder" Relationship="FormModelModel.FK_tOrderDetail_tOrder" FromRole="tOrderDetail" ToRole="tOrder" />
+        </EntityType>
+        <EntityType Name="tShop">
+          <Key>
+            <PropertyRef Name="fStoreID" />
+          </Key>
+          <Property Name="fStoreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fStore" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fImagePath" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="tOrder" Relationship="FormModelModel.FK_tOrder_tShop" FromRole="tShop" ToRole="tOrder" />
+        </EntityType>
+        <Association Name="FK_tOrder_Employee">
+          <End Type="FormModelModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="FormModelModel.tOrder" Role="tOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employeeID" />
+            </Principal>
+            <Dependent Role="tOrder">
+              <PropertyRef Name="employeeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tOrderDetail_Employee">
+          <End Type="FormModelModel.Employee" Role="Employee" Multiplicity="1" />
+          <End Type="FormModelModel.tOrderDetail" Role="tOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Employee">
+              <PropertyRef Name="employeeID" />
+            </Principal>
+            <Dependent Role="tOrderDetail">
+              <PropertyRef Name="DetailEID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tOrder_tShop">
+          <End Type="FormModelModel.tShop" Role="tShop" Multiplicity="1" />
+          <End Type="FormModelModel.tOrder" Role="tOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tShop">
+              <PropertyRef Name="fStoreID" />
+            </Principal>
+            <Dependent Role="tOrder">
+              <PropertyRef Name="fStoreID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_tOrderDetail_tOrder">
+          <End Type="FormModelModel.tOrder" Role="tOrder" Multiplicity="1" />
+          <End Type="FormModelModel.tOrderDetail" Role="tOrderDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tOrder">
+              <PropertyRef Name="fOrderId" />
+            </Principal>
+            <Dependent Role="tOrderDetail">
+              <PropertyRef Name="fOrderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1087,6 +1313,8 @@
           <EntitySetMapping Name="dayOff">
             <EntityTypeMapping TypeName="FormModelModel.dayOff">
               <MappingFragment StoreEntitySet="dayOff">
+                <ScalarProperty Name="fcheck" ColumnName="fcheck" />
+                <ScalarProperty Name="Auditdate" ColumnName="Auditdate" />
                 <ScalarProperty Name="submitDate" ColumnName="submitDate" />
                 <ScalarProperty Name="dayoffNumber" ColumnName="dayoffNumber" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -1132,6 +1360,8 @@
           <EntitySetMapping Name="Funding">
             <EntityTypeMapping TypeName="FormModelModel.Funding">
               <MappingFragment StoreEntitySet="Funding">
+                <ScalarProperty Name="fcheck" ColumnName="fcheck" />
+                <ScalarProperty Name="Auditdate" ColumnName="Auditdate" />
                 <ScalarProperty Name="submitDate" ColumnName="submitDate" />
                 <ScalarProperty Name="applicationNumber" ColumnName="applicationNumber" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -1221,6 +1451,8 @@
           <EntitySetMapping Name="rePunchin">
             <EntityTypeMapping TypeName="FormModelModel.rePunchin">
               <MappingFragment StoreEntitySet="rePunchin">
+                <ScalarProperty Name="fcheck" ColumnName="fcheck" />
+                <ScalarProperty Name="Auditdate" ColumnName="Auditdate" />
                 <ScalarProperty Name="submitDate" ColumnName="submitDate" />
                 <ScalarProperty Name="repunchID" ColumnName="repunchID" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -1236,6 +1468,8 @@
           <EntitySetMapping Name="workOvertime">
             <EntityTypeMapping TypeName="FormModelModel.workOvertime">
               <MappingFragment StoreEntitySet="workOvertime">
+                <ScalarProperty Name="fcheck" ColumnName="fcheck" />
+                <ScalarProperty Name="Auditdate" ColumnName="Auditdate" />
                 <ScalarProperty Name="submitDate" ColumnName="submitDate" />
                 <ScalarProperty Name="overtimeNumber" ColumnName="overtimeNumber" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -1255,6 +1489,43 @@
                 <ScalarProperty Name="watchState" ColumnName="watchState" />
                 <ScalarProperty Name="employeeID" ColumnName="employeeID" />
                 <ScalarProperty Name="messageboardNumber" ColumnName="messageboardNumber" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tOrder">
+            <EntityTypeMapping TypeName="FormModelModel.tOrder">
+              <MappingFragment StoreEntitySet="tOrder">
+                <ScalarProperty Name="fStatus" ColumnName="fStatus" />
+                <ScalarProperty Name="fType" ColumnName="fType" />
+                <ScalarProperty Name="fEndTime" ColumnName="fEndTime" />
+                <ScalarProperty Name="fStartTime" ColumnName="fStartTime" />
+                <ScalarProperty Name="fEndDate" ColumnName="fEndDate" />
+                <ScalarProperty Name="fStartDate" ColumnName="fStartDate" />
+                <ScalarProperty Name="fStoreID" ColumnName="fStoreID" />
+                <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+                <ScalarProperty Name="fOrderId" ColumnName="fOrderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tOrderDetail">
+            <EntityTypeMapping TypeName="FormModelModel.tOrderDetail">
+              <MappingFragment StoreEntitySet="tOrderDetail">
+                <ScalarProperty Name="fNote" ColumnName="fNote" />
+                <ScalarProperty Name="fQty" ColumnName="fQty" />
+                <ScalarProperty Name="fPrice" ColumnName="fPrice" />
+                <ScalarProperty Name="fFood" ColumnName="fFood" />
+                <ScalarProperty Name="DetailEID" ColumnName="DetailEID" />
+                <ScalarProperty Name="fOrderId" ColumnName="fOrderId" />
+                <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tShop">
+            <EntityTypeMapping TypeName="FormModelModel.tShop">
+              <MappingFragment StoreEntitySet="tShop">
+                <ScalarProperty Name="fImagePath" ColumnName="fImagePath" />
+                <ScalarProperty Name="fStore" ColumnName="fStore" />
+                <ScalarProperty Name="fStoreID" ColumnName="fStoreID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

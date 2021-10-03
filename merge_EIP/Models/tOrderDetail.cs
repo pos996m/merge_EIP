@@ -9,20 +9,20 @@
 
 namespace merge_EIP.Models
 {
-    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     
-    public partial class watchCount
+    public partial class tOrderDetail
     {
-        public int messageboardNumber { get; set; }
-        public string employeeID { get; set; }
-        public bool watchState { get; set; }
-        public string employeeName { get; set; }
-
-        [JsonIgnore]
+        public int OrderDetailId { get; set; }
+        public int fOrderId { get; set; }
+        public string DetailEID { get; set; }
+        public string fFood { get; set; }
+        public int fPrice { get; set; }
+        public int fQty { get; set; }
+        public string fNote { get; set; }
+    
         public virtual Employee Employee { get; set; }
-        [JsonIgnore]
-        public virtual messageBoard messageBoard { get; set; }
+        public virtual tOrder tOrder { get; set; }
     }
 }

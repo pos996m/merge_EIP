@@ -37,6 +37,8 @@
     <EntitySetMapping Name="dayOff">
       <EntityTypeMapping TypeName="FormModelModel.dayOff">
         <MappingFragment StoreEntitySet="dayOff">
+          <ScalarProperty Name="fcheck" ColumnName="fcheck" />
+          <ScalarProperty Name="Auditdate" ColumnName="Auditdate" />
           <ScalarProperty Name="submitDate" ColumnName="submitDate" />
           <ScalarProperty Name="dayoffNumber" ColumnName="dayoffNumber" />
           <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -82,6 +84,8 @@
     <EntitySetMapping Name="Funding">
       <EntityTypeMapping TypeName="FormModelModel.Funding">
         <MappingFragment StoreEntitySet="Funding">
+          <ScalarProperty Name="fcheck" ColumnName="fcheck" />
+          <ScalarProperty Name="Auditdate" ColumnName="Auditdate" />
           <ScalarProperty Name="submitDate" ColumnName="submitDate" />
           <ScalarProperty Name="applicationNumber" ColumnName="applicationNumber" />
           <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -171,6 +175,8 @@
     <EntitySetMapping Name="rePunchin">
       <EntityTypeMapping TypeName="FormModelModel.rePunchin">
         <MappingFragment StoreEntitySet="rePunchin">
+          <ScalarProperty Name="fcheck" ColumnName="fcheck" />
+          <ScalarProperty Name="Auditdate" ColumnName="Auditdate" />
           <ScalarProperty Name="submitDate" ColumnName="submitDate" />
           <ScalarProperty Name="repunchID" ColumnName="repunchID" />
           <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -186,6 +192,8 @@
     <EntitySetMapping Name="workOvertime">
       <EntityTypeMapping TypeName="FormModelModel.workOvertime">
         <MappingFragment StoreEntitySet="workOvertime">
+          <ScalarProperty Name="fcheck" ColumnName="fcheck" />
+          <ScalarProperty Name="Auditdate" ColumnName="Auditdate" />
           <ScalarProperty Name="submitDate" ColumnName="submitDate" />
           <ScalarProperty Name="overtimeNumber" ColumnName="overtimeNumber" />
           <ScalarProperty Name="employeeID" ColumnName="employeeID" />
@@ -205,6 +213,43 @@
           <ScalarProperty Name="watchState" ColumnName="watchState" />
           <ScalarProperty Name="employeeID" ColumnName="employeeID" />
           <ScalarProperty Name="messageboardNumber" ColumnName="messageboardNumber" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tOrder">
+      <EntityTypeMapping TypeName="FormModelModel.tOrder">
+        <MappingFragment StoreEntitySet="tOrder">
+          <ScalarProperty Name="fStatus" ColumnName="fStatus" />
+          <ScalarProperty Name="fType" ColumnName="fType" />
+          <ScalarProperty Name="fEndTime" ColumnName="fEndTime" />
+          <ScalarProperty Name="fStartTime" ColumnName="fStartTime" />
+          <ScalarProperty Name="fEndDate" ColumnName="fEndDate" />
+          <ScalarProperty Name="fStartDate" ColumnName="fStartDate" />
+          <ScalarProperty Name="fStoreID" ColumnName="fStoreID" />
+          <ScalarProperty Name="employeeID" ColumnName="employeeID" />
+          <ScalarProperty Name="fOrderId" ColumnName="fOrderId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tOrderDetail">
+      <EntityTypeMapping TypeName="FormModelModel.tOrderDetail">
+        <MappingFragment StoreEntitySet="tOrderDetail">
+          <ScalarProperty Name="fNote" ColumnName="fNote" />
+          <ScalarProperty Name="fQty" ColumnName="fQty" />
+          <ScalarProperty Name="fPrice" ColumnName="fPrice" />
+          <ScalarProperty Name="fFood" ColumnName="fFood" />
+          <ScalarProperty Name="DetailEID" ColumnName="DetailEID" />
+          <ScalarProperty Name="fOrderId" ColumnName="fOrderId" />
+          <ScalarProperty Name="OrderDetailId" ColumnName="OrderDetailId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tShop">
+      <EntityTypeMapping TypeName="FormModelModel.tShop">
+        <MappingFragment StoreEntitySet="tShop">
+          <ScalarProperty Name="fImagePath" ColumnName="fImagePath" />
+          <ScalarProperty Name="fStore" ColumnName="fStore" />
+          <ScalarProperty Name="fStoreID" ColumnName="fStoreID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

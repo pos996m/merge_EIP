@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="93a18896bc2f493dbc810a061d1b3c85" Name="Diagram1">
+      <Diagram DiagramId="93a18896bc2f493dbc810a061d1b3c85" Name="Diagram1" ZoomLevel="75">
         <EntityTypeShape EntityType="FormModelModel.Backlog" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.BusinessTrip" Width="1.5" PointX="5.25" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.Calendar" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
@@ -14,9 +14,9 @@
         <EntityTypeShape EntityType="FormModelModel.Funding" Width="1.5" PointX="5.25" PointY="15" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.gameRecord" Width="1.5" PointX="5.25" PointY="18.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.messageBoard" Width="1.5" PointX="5.25" PointY="22" IsExpanded="true" />
-        <EntityTypeShape EntityType="FormModelModel.Order" Width="1.5" PointX="1.375" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.Order" Width="1.5" PointX="0.75" PointY="25.25" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.Position" Width="1.5" PointX="0.75" PointY="17.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="FormModelModel.punchIn" Width="1.5" PointX="7.5" PointY="25.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="FormModelModel.punchIn" Width="1.5" PointX="10.625" PointY="23.5" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.rePunchin" Width="1.5" PointX="5.25" PointY="26" IsExpanded="true" />
         <EntityTypeShape EntityType="FormModelModel.workOvertime" Width="1.5" PointX="5.25" PointY="29.125" IsExpanded="true" />
         <AssociationConnector Association="FormModelModel.FK_Backlog_Employee" ManuallyRouted="false" />
@@ -30,14 +30,53 @@
         <AssociationConnector Association="FormModelModel.FK_messageBoard_Employee" ManuallyRouted="false" ></AssociationConnector>
         <AssociationConnector Association="FormModelModel.FK_Order_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="FormModelModel.FK_Order_OrderEmployee" ManuallyRouted="false" />
-        <AssociationConnector Association="FormModelModel.FK_punchIn_Employee" ManuallyRouted="false" />
+        <AssociationConnector Association="FormModelModel.FK_punchIn_Employee" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.5" PointY="21.310414491617834" />
+          <ConnectorPoint PointX="6.8560824535710649" PointY="21.310414491617834" />
+          <ConnectorPoint PointX="7.022749120237731" PointY="21.310414491617834" />
+          <ConnectorPoint PointX="7.25" PointY="21.310414491617834" />
+          <ConnectorPoint PointX="7.25" PointY="23.1254007150241" />
+          <ConnectorPoint PointX="11.375" PointY="23.1254007150241" />
+          <ConnectorPoint PointX="11.375" PointY="23.5" />
+        </AssociationConnector>
         <AssociationConnector Association="FormModelModel.FK_rePunchin_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="FormModelModel.FK_workOvertime_Employee" ManuallyRouted="false" />
         <AssociationConnector Association="FormModelModel.FK_messageBoard_EmployeeAss" />
         <EntityTypeShape EntityType="FormModelModel.watchCount" Width="1.5" PointX="7.5" PointY="20.375" />
-        <AssociationConnector Association="FormModelModel.FK_messageBoard_Department" />
+        <AssociationConnector Association="FormModelModel.FK_messageBoard_Department" ManuallyRouted="true" >
+          <ConnectorPoint PointX="1.5" PointY="21.985433756510417" />
+          <ConnectorPoint PointX="1.5" PointY="23.976481526692709" />
+          <ConnectorPoint PointX="2.75" PointY="23.976481526692709" />
+          <ConnectorPoint PointX="2.75" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="3.240885104166666" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="3.4075517708333329" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="3.627608541666667" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="3.794275208333334" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="3.8404993229166671" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="4.007165989583334" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="4.0533901041666676" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="4.2200567708333336" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="4.875" PointY="25.572863226996535" />
+          <ConnectorPoint PointX="4.875" PointY="25.180968004638679" />
+          <ConnectorPoint PointX="5.25" PointY="25.180968004638679" />
+        </AssociationConnector>
         <AssociationConnector Association="FormModelModel.FK_watchCount_Employee" />
         <AssociationConnector Association="FormModelModel.FK_watchCount_messageBoard" />
+        <EntityTypeShape EntityType="FormModelModel.tOrder" Width="1.5" PointX="8.25" PointY="17" />
+        <EntityTypeShape EntityType="FormModelModel.tOrderDetail" Width="1.5" PointX="10.5" PointY="19.625" />
+        <EntityTypeShape EntityType="FormModelModel.tShop" Width="1.5" PointX="8.25" PointY="14.375" />
+        <AssociationConnector Association="FormModelModel.FK_tOrder_Employee" />
+        <AssociationConnector Association="FormModelModel.FK_tOrderDetail_Employee" ManuallyRouted="true" >
+          <ConnectorPoint PointX="4.5" PointY="20.680452041625976" />
+          <ConnectorPoint PointX="6.939415786904398" PointY="20.680452041625976" />
+          <ConnectorPoint PointX="6.939415786904398" PointY="22.784404296874996" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="22.784404296874996" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="22.784404296874996" />
+          <ConnectorPoint PointX="10.937500499999999" PointY="22.784404296874996" />
+          <ConnectorPoint PointX="10.937500499999999" PointY="22.284404296874996" />
+        </AssociationConnector>
+        <AssociationConnector Association="FormModelModel.FK_tOrder_tShop" />
+        <AssociationConnector Association="FormModelModel.FK_tOrderDetail_tOrder" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

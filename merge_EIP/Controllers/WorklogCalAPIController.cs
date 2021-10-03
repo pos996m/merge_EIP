@@ -50,7 +50,7 @@ namespace merge_EIP.Controllers
                 calDatas.Add(new CalData
                 {
                     num = item.backlogNumber,
-                    title = item.backlogTxet +" (待辦事項)",
+                    title = item.backlogTxet + " (待辦事項)",
                     start = Convert.ToDateTime(item.backlogDate).ToString("yyyy-MM-dd") + timeSpan,
                     color = "rgb(217 84 79/1)",
                     state = "待辦事項"
@@ -58,16 +58,29 @@ namespace merge_EIP.Controllers
             }
 
             // 取得請假
-            var dayOffAll = db.punchIn.Where(x => x.State == "請假" && x.Employee.departmentID == DepID).ToList();
+            var dayOffAll = db.punchIn.Where(x => x.State != null && x.Employee.departmentID == DepID).ToList();
             foreach (punchIn item in dayOffAll)
             {
-                calDatas.Add(new CalData
+                if (item.State == "公差")
                 {
-                    title = $"{item.Employee.Name} 請假",
-                    start = Convert.ToDateTime(item.punchinDate).ToString("yyyy-MM-dd"),
-                    color = "rgb(239 172 79/1)",
-                    state = "請假"
-                });
+                    calDatas.Add(new CalData
+                    {
+                        title = $"{item.Employee.Name} 出公差",
+                        start = Convert.ToDateTime(item.punchinDate).ToString("yyyy-MM-dd"),
+                        color = "rgb(239 172 79/1)",
+                        state = "出公差"
+                    });
+                }
+                else
+                {
+                    calDatas.Add(new CalData
+                    {
+                        title = $"{item.Employee.Name} 請假",
+                        start = Convert.ToDateTime(item.punchinDate).ToString("yyyy-MM-dd"),
+                        color = "rgb(239 172 79/1)",
+                        state = "請假"
+                    });
+                }
             }
 
 

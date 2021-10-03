@@ -1,0 +1,199 @@
+﻿@model merge_EIP.Models.tOrder
+@using merge_EIP.Models
+
+@{
+    FormModelEntities db = new FormModelEntities();
+    ViewBag.Title = "Add";
+}
+
+<style>
+    .form-control {
+        width: 280px;
+    }
+
+    .frame {
+        height: 500px; /*can be anything*/
+        width: 800px; /*can be anything*/
+        position: relative;
+    }
+
+    img {
+        max-height: 100%;
+        max-width: 100%;
+        width: 800px;
+        border: 0px;
+        outline: 0px;
+    }
+
+    .my-img {
+        @*background-image: url('add.gif');*@
+        background-repeat: no-repeat;
+        display: inline-block;
+        @*width: 27px;*@
+        @*height: 27px;*@
+    }
+</style>
+
+<div class="container p-33">
+    <br />
+    <h2>發起團體訂餐</h2>
+    <hr />
+    <div class="row">
+        <form method="post" action="@Url.Action("Open")" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="fName" class="control-label col-12">開團人 @Session["Name"]</label>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-12">
+                    <select id="choose" class="form-control">
+                        <option>現有商店</option>
+                        <option>新增商店</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-horizontal">
+                @*現有餐廳*@
+                <div class="form-group" id="current">
+                    <label for="fStore" class="control-label col-12">商店</label>
+                    <div class="col-12">
+                        @Html.DropDownList("fStoreID", null, htmlAttributes: new { @class = "form-control" })
+                        @*@Html.DropDownListFor(m => m.fStoreID, Model.tShop.fStore, "---Select Employee---", new { Class = "ddlStyle", onchange = "SelectedIndexChanged()" })*@
+                    </div>
+                </div>
+
+                @*新增餐廳+上傳菜單 先隱藏*@
+                <div class="form-group" id="newstore" style="display:none">
+                    <label class="control-label col-12" for="fNewStore">新增餐廳</label>
+                    <div class="col-12">
+                        <input type="text" id="fNewStore" name="fNewStore" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group" id="upload" style="display:none">
+                    <label class="control-label col-12" for="fImagePath">上傳菜單</label>
+                    <div class="col-12">
+                        <input type="file" name="ImageFile" id="FileUp"  />
+
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fType" class="control-label col-12">類型</label>
+                    <div class="col-12">
+                        <select id="fType" name="fType" class="form-control">
+                            <option name="fType" value="午餐">午餐</option>
+                            <option name="fType" value="晚餐">晚餐</option>
+                            <option name="fType" value="團購">團購</option>
+                        </select>
+                    </div>
+                </div>
+
+                @*偵測到團購才顯示的結束日期*@
+                <div style="display:none" id="enddate" class="form-group">
+                    <label for="fEndDate" class="control-label col-12">截止日期</label>
+                    <div class="col-12">
+                        <input type="date" id="fEndDate" name="fEndDate" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="fEndTime" class="control-label col-12">截止時間</label>
+                    <div class="col-12">
+                        <input type="time" id="fEndTime" name="fEndTime" class="form-control" required="required"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-12">
+                        <small class="text-danger">@ViewBag.errtext</small><br />
+                        <input type="submit" value="送出" class="btn btn-FB" />
+                        @Html.ActionLink("取消", "Index", new { }, new { @class = "btn btn-secondary" })
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div>
+            <img id="preview" class="my-img">
+            <img id="nowpreview" class="my-img">
+        </div>
+        @*<div class="frame">
+            </div>*@
+    </div>
+    <br />
+    <br />
+    <br />
+</div>
+
+
+
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+<script>
+    var imgList = [];
+    @foreach (var item in db.tShop.ToList())
+    {
+        @:imgList.push('@item.fImagePath')
+    }
+
+    function changeImg() {
+        var selectid = $('#fStoreID').val();
+        $('#nowpreview').attr('src', imgList[selectid - 1].substring(1, imgList[selectid - 1].length));//读取的结果放入圖片
+    }
+    // 先執行一次
+    changeImg();
+    $("#fStoreID").on("change", () => {
+        changeImg();
+    })
+
+    $(document).ready(function () {
+
+        // 把圖片新建藏起來
+        $("#preview").hide();
+
+        $("#fType").on("change", (e) => {
+            var temp = $("#fType").val();
+            console.log(temp);
+            if (temp == "團購") {
+                $("#enddate").show();
+            }
+            else {
+                $("#enddate").hide();
+            };
+        });
+
+        $("#choose").on("change", (e) => {
+            var store = $("#choose").val();
+            console.log(store);
+            if (store == "新增商店") {
+                $("#newstore").show();
+                $("#upload").show();
+                $("#preview").show();
+                $("#nowpreview").hide();
+                $("#current").hide();
+                $("#FileUp").attr("required", "required");
+            }
+            else {
+                $("#newstore").hide();
+                $("#upload").hide();
+                $("#preview").hide();
+                $("#nowpreview").show();
+                $("#current").show();
+                $("#FileUp").removeAttr("required");
+            };
+        });
+    });
+
+
+    $('#FileUp').on('change', function (e) {
+        const file = this.files[0];//將上傳檔案轉換為base64字串
+
+        const fr = new FileReader();//建立FileReader物件
+        fr.onload = function (e) {
+            $('#preview').attr('src', e.target.result);//读取的结果放入圖片
+        };
+
+        // 使用 readAsDataURL 將圖片轉成 Base64
+        fr.readAsDataURL(file);
+    });
+</script>
+
