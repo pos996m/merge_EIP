@@ -12,38 +12,50 @@
     @*<br />*@
     <marquee direction="right" height="30" scrollamount="6" style="color:blue;">防疫期間請配戴口罩，勤洗手，保持社交距離</marquee>
     <div class="row ">
-        @*<div class="col-12 ">
-                <div class="col-12 home-banner bg-info"></div>
-            </div>*@
         <div class="col-6 col-md-6 col-xl-3 home-margin">
-            <div class="col-12 home-btn p-3 shadow-sm" style="background-color: var(--yellowColor)">
-                <div class="home-row home-con">
-                    <div><i class="fas fa-clock home-iconsize"></i></div>
-                    <div>今日打卡狀態<div class="home-btn-main">09:00</div></div>
+            @if (Convert.ToString(Session["PosID"]) == "3")
+            {
+                <div class="col-12 home-btn p-3 shadow-sm" style="background-color: var(--yellowColor)" onclick="document.location.href='/Clockin/Search'">
+                    <div class="home-row home-con">
+                        <div>今日尚未打卡<div class="home-btn-main">@ViewBag.clockin 人</div></div>
+                    </div>
                 </div>
-                @*<div class="home-row float-right">
-                        <div style="margin: 0rem 0.7rem; font-size: 0.9rem">上班打卡<div> 09:00:00</div></div>
-                        <div style="margin: 0rem 0.7rem; font-size: 0.9rem ">下班打卡<div> 18:00:00</div></div>
-                        <div style="margin: 0rem 0.7rem; font-size: 0.9rem ">體溫<div> 36.5度</div></div>
-                    </div>*@
-            </div>
+            }
+            else
+            {
+                <div class="col-12 home-btn p-3 shadow-sm" style="background-color: var(--yellowColor)" onclick="document.location.href='/Clockin'">
+                    <div class="home-row home-con">
+                        <div>今日打卡狀態<div class="home-btn-main">@ViewBag.clockin</div></div>
+                    </div>
+                </div>
+            }
         </div>
         <div class="col-6 col-md-6 col-xl-3 home-margin">
-            <div class="col-12 home-btn p-3" style="background-color: var(--blueColor)">
-
-                <div class="home-row">
-                    <div><i class="fas fa-file-alt home-iconsize"></i></div>
-                    <div>待審核表單<div class="home-btn-main">5 筆</div></div>
+            @if (Convert.ToString(Session["PosID"]) == "0")
+            {
+                <div class="col-12 home-btn p-3" style="background-color: var(--blueColor)" onclick="document.location.href='/Form/Approve'">
+                    <div class="home-row">
+                        <div><i class="fas fa-file-alt home-iconsize"></i></div>
+                        <div>待審核表單<div class="home-btn-main">@ViewBag.form 筆</div></div>
+                    </div>
                 </div>
-
-            </div>
+            }
+            else
+            {
+                <div class="col-12 home-btn p-3" style="background-color: var(--blueColor)" onclick="document.location.href='/Form/FSearch'">
+                    <div class="home-row">
+                        <div><i class="fas fa-file-alt home-iconsize"></i></div>
+                        <div>審核中表單<div class="home-btn-main">@ViewBag.form 筆</div></div>
+                    </div>
+                </div>
+            }
         </div>
         <div class="col-6 col-md-6 col-xl-3 home-margin">
             <div class="col-12 home-btn p-3" style="background-color: var(--redColor)">
 
                 <div class="home-row">
                     <div><i class="fas fa-clipboard-list home-iconsize"></i></div>
-                    <div>今日待辦事項<div class="home-btn-main">3 筆</div></div>
+                    <div>今日待辦事項<div class="home-btn-main">@ViewBag.todolist 筆</div></div>
                 </div>
 
             </div>
@@ -69,51 +81,56 @@
                 </div>
             </div>*@
         <div class="col-12 col-md-6 col-xl-7 home-margin p-4 shadow" style="padding: 1.5rem !important; background-color: rgb(128 128 128/0.05); ">
-            <h3 style="text-align:center;">未確認留言</h3>
+
+
             <div class="col-12 home-Msg">
-                <ul class="list-group list-group-flush shadow-sm">
-                    <li class="list-group-item">
-                        @*<b>From xxx to xxx</b>*@
-                        <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
-                        <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
-                            <span class="w3s-tooltiptext">指派至行事曆</span>
-                        </i>
-                        <b class="home-msgtext">內文</b>
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
-                        <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
-                            <span class="w3s-tooltiptext">指派至行事曆</span>
-                        </i>
-                        <b class="home-msgtext">內文 </b>
-                    </li>
-                </ul>
+                <div class="h-50 home-Msgoverflow">
+                    <h3 style="text-align:center;">未確認留言</h3>
+                    <ul class="list-group list-group-flush shadow-sm">
+                        <li class="list-group-item">
+                            @*<b>From xxx to xxx</b>*@
+                            <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                            <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                                <span class="w3s-tooltiptext">指派至行事曆</span>
+                            </i>
+                            <a href="" class="home-msgtext">內文</a>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                            <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                                <span class="w3s-tooltiptext">指派至行事曆</span>
+                            </i>
+                            <a href="" class="home-msgtext">內文 </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="h-50 home-Msgoverflow">
+                    <h3 style="text-align:center;">表單通知</h3>
+                    <ul class="list-group list-group-flush shadow-sm">
+                        <li class="list-group-item">
+                            <i class="fas fa-times text-secondary home-close"></i>
+                            <span class="home-msgtext">2021-10-01</span>
+                            <a href="" class="home-msgtext">請假單 已同意</a>
+                        </li>
+                        <li class="list-group-item">
+                            <i class="fas fa-times text-secondary home-close"></i>
+                            <span class="home-msgtext">2021-10-01</span>
+                            <a href="" class="home-msgtext">請假單 已退回</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
+
+
         </div>
         <div class="col-12 col-md-6 col-xl-5 home-margin shadow" style="padding: 1.5rem 0.4rem !important; background-color: rgb(128 128 128/0.1); ">
-            <h3 style="text-align:center;">行事曆</h3>
             <div class="col-12 home-Msg">
+                <h3 style="text-align:center;"><a href="/Worklog/Calendar" style="color: #212529;" title="查看完整行事曆">本月行事曆</a></h3>
                 <br />
-                <iframe src="/Worklog/Calendarsmall" style="border: 0 ;width:100%" height="400" frameborder="0" scrolling="no"></iframe>
+                <iframe src="/Worklog/Calendarsmall" style="border: 0; width: 100%; height:400px" frameborder="0" scrolling="no"></iframe>
+                @*<a class="float-right p-3" href="">查看完整行事曆</a>*@
                 <br />
                 @*<iframe src="https://calendar.google.com/calendar/embed?src=zh-tw.taiwan%23holiday%40group.v.calendar.google.com&ctz=Asia%2FTaipei" style="border: 0" height="350" frameborder="0" scrolling="no"></iframe>*@
-                <!--<ul class="list-group list-group-flush">
-                <li class="list-group-item" style="background-color:rgb(0 0 0 /0)">-->
-                @*<b>From xxx to xxx</b>*@
-                <!--<i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
-                        <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
-                            <span class="w3s-tooltiptext">指派至行事曆</span>
-                        </i>
-                        <b style="padding: 0 1.5rem; font-size: 1.5rem;">內文</b>
-                    </li>
-                    <li class="list-group-item">
-                        <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
-                        <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
-                            <span class="w3s-tooltiptext">指派至行事曆</span>
-                        </i>
-                        <b style="padding: 0 1.5rem; font-size: 1.5rem;">內文 </b>
-                    </li>
-                </ul>-->
             </div>
         </div>
     </div>
@@ -122,6 +139,8 @@
 
 <script>
     $(".w3s-tooltip").hover(() => {
-        $(".home-Msg").css("overflow", "inherit");
+        $(".home-Msgoverflow").css("overflow", "inherit");
+    }, () => {
+        $(".home-Msgoverflow").css("overflow", "auto");
     })
 </script>

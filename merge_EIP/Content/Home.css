@@ -3,6 +3,8 @@
     padding-right: 7.5px !important;
 }
 
+
+/* 留言與表單 List */
 .list-group-item {
     padding: 0.5rem 1.25rem;
     background-color: rgb(0 0 0 /0);
@@ -12,10 +14,12 @@
         background-color: rgb(65 139 202/0.1);
     }
 
-    .home-banner {
-        height: 15rem
-    }
+.home-banner {
+    height: 15rem
+}
 
+
+/* 上面區塊 (轉跳按鈕) */
 .home-btn {
     height: 10rem;
     color: white;
@@ -26,10 +30,23 @@
     cursor: pointer;
 }
 
-.home-msgtext {
+a {
+    color: #212529;
+}
+
+    a:hover {
+        color: #212529;
+    }
+
+/* 表單通知叉叉 */
+.home-close {
     cursor: pointer;
+}
+
+/* 通知與留言文字 */
+.home-msgtext {
     padding: 0 1.5rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .home-row {
@@ -50,10 +67,10 @@
     font-size: 2.2rem;
     font-weight: bold;
     line-height: 1.2;
-    text-align:center;
+    text-align: center;
 }
 
-/*Icon*/
+/* 上面大區塊 Icon*/
 .home-iconsize {
     font-size: 4rem;
     margin-right: 1.5rem;
@@ -65,7 +82,14 @@
 
 .home-Msg {
     height: 30rem;
-    overflow:auto;
+}
+
+.home-Msgoverflow {
+    overflow: auto;
+}
+
+.home-Msg::-webkit-scrollbar {
+    width: 0 !important
 }
 
 /*手機板*/
@@ -73,15 +97,18 @@
     .home-btn {
         padding: 1rem 1rem !important;
     }
+
     .home-row {
         flex-wrap: wrap;
     }
+
     .home-iconsize {
-        font-size:3rem;
+        font-size: 3rem;
         margin-right: 2rem;
         margin-left: 2rem;
         margin-bottom: 0.5rem;
     }
+
     .home-btn-main {
         font-size: 2.2rem;
         font-weight: bold;

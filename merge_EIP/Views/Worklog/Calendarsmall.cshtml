@@ -130,11 +130,15 @@
 
         <span id="EID" style="display:none">@Session["ID"]</span>
         <span id="DepID" style="display:none">@Session["DepID"]</span>
-            <div id="calendar" style="height:10rem"></div>
-            <br />
-            <br />
-            <br />
-            <br />
+        <div id="calendar" style="height:10rem"></div>
+        <br />
+        <br />
+        <br />
+        <br />            
+        <br />
+        <br />
+        <br />
+        <br />
     </div>
 
 
@@ -164,7 +168,7 @@
             var calendarEl = document.getElementById("calendar");
 
             var calendar = new FullCalendar.Calendar(calendarEl, {
-                height: 300,
+                height: 400,
                 headerToolbar: false,
                 businessHours: true, // display business hours
                 selectable: true,
