@@ -16,10 +16,10 @@ namespace merge_EIP.Controllers
         // 打卡主畫面
         public ActionResult Index()
         {
-            string date = DateTime.Now.ToString("yyyy-MM-dd");
+            DateTime date = DateTime.Today;
             ViewBag.test = date;
             string EID = Convert.ToString(Session["ID"]);
-            var products = db.punchIn.Where(x => x.punchinDate.ToString() == date && x.employeeID == EID).FirstOrDefault();
+            var products = db.punchIn.Where(x => x.punchinDate == date && x.employeeID == EID).FirstOrDefault();
 
             if (products != null)
             {
@@ -40,7 +40,7 @@ namespace merge_EIP.Controllers
         }
 
         // 幾筆資料一頁
-        int pageSize = 4;
+        int pageSize = 8;
 
         // 打卡查詢
         public ActionResult Search(string datetime, string myname, int page = 1)
@@ -80,8 +80,8 @@ namespace merge_EIP.Controllers
                 else
                 {
                     // 預設只出現今天的打卡狀態
-                    string toDay = DateTime.Now.ToString("yyyy-MM-dd");
-                    products = products.Where(x => x.punchinDate.ToString("yyyy-MM-dd") == toDay).ToList();
+                    DateTime toDay = DateTime.Today;
+                    products = products.Where(x => x.punchinDate <= toDay).ToList();
                 }
             }
             else
