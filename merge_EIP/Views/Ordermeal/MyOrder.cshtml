@@ -1,0 +1,79 @@
+﻿@model IEnumerable<merge_EIP.Models.tOrderDetail>
+
+@{
+    ViewBag.Title = "MyOrder";
+}
+
+<style>
+    .table th, .table td {
+        @*padding: 0.2rem 0.75rem;*@
+        vertical-align:middle;
+    }
+
+    .table td, .table th {
+        border-top: 0.2px solid rgb(128 128 128/0.2) !important;
+    }
+</style>
+
+<div class="container p-33">
+    <br />
+    <h2>MyOrder</h2>
+    <div class="">
+        @Html.ActionLink("返回", "Index", new { }, new { @class = "btn btn-secondary" })
+    </div>
+    <br />
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th>
+                    @*@Html.DisplayNameFor(model => model.fOrderId)*@
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fFood)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fQty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fNote)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+
+                <tr>
+                    <td>
+                        <a href="@Url.Action("Check")?id=@Html.DisplayFor(modelItem => item.fOrderId)">查看</a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fFood)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fNote)
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Edit")?id=@item.OrderDetailId" class="btn btn-FB m-1">編輯</a>
+                        <a href="@Url.Action("Delete")?id=@item.OrderDetailId" class="btn btn-secondary m-1" onclick="return confirm('確定要刪除訂單嗎?')"><i href="@Url.Action("Delete")?id=@item.OrderDetailId" class="far fa-trash-alt" style="color:white;"></i></a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

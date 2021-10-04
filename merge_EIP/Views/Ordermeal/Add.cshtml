@@ -1,0 +1,139 @@
+﻿@model List<merge_EIP.Models.tOrderDetail>
+
+@{
+    ViewBag.Title = "Add";
+}
+<style>
+    .form-control {
+        width: 180px;
+    }
+
+    td,th {
+        @*display: flex;
+        flex-wrap: wrap;*@
+        padding:0.5rem 1rem;
+    }
+
+    .btn-onright {
+        display: flex;
+        @*justify-content:right;*@
+    }
+</style>
+
+<div class="container p-33">
+    <br />
+    <h2>點餐</h2>
+    <hr />
+    @using (Html.BeginForm("Add", "Ordermeal", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+        <div class=" btn-onright">
+            <input type="submit" class="btn btn-FB m-1" value="送出" />
+            @Html.ActionLink("取消", "Index", new { }, new { @class = "btn btn-secondary m-1" })
+        </div>
+        <br />
+        <div class="table-responsive p-3 shadow rounded">
+            <table class="" id="dataTable">
+                <thead>
+                    <tr>
+                        <th class="">姓名</th>
+                        <th class="">餐點</th>
+                        <th class="">價格</th>
+                        <th class="">數量</th>
+                        <th class="">備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Count > 0)
+                    {
+
+                        int j = 0;
+                        foreach (var i in Model)
+                        {
+                            <tr>
+                                @Html.HiddenFor(model => model[j].fOrderId)
+                                @*<td>@Html.TextBoxFor(m => m[j].fName, htmlAttributes: new { @class = "form-control" })</td>*@
+                                <td class="">@Session["Name"]</td>
+                                <td class="">@Html.TextBoxFor(m => m[j].fFood, htmlAttributes: new { @class = "form-control ", required = "required" })</td>
+                                <td class="">@Html.TextBoxFor(m => m[j].fPrice, htmlAttributes: new { @class = "form-control ", required = "required" })</td>
+                                <td class="">@Html.TextBoxFor(m => m[j].fQty, htmlAttributes: new { @class = "form-control ", required = "required" })</td>
+                                <td class="">@Html.TextBoxFor(m => m[j].fNote, htmlAttributes: new { @class = "form-control " })</td>
+                                <td>
+                                    @if (j > 0)
+                                    {
+                                        <a href="#" id="remove" class="remove"><i class="far fa-trash-alt text-secondary"></i></a>
+                                    }
+                                </td>
+                            </tr>
+                            j++;
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+        <br />
+        <div class="text-center">
+            <a href="#" id="addNew"><i class="fas fa-plus-circle text-secondary" style="font-size:3rem"></i></a>
+        </div>
+        <br />
+    }
+    @*菜單圖片*@
+    <img style="max-width:100%" src="@Url.Content(ViewBag.Pic)" />
+    <br />
+    <br />
+    <br />
+</div>
+
+<script src="~/Scripts/jquery.validate.js"></script>
+@*<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>*@
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+<script src="~/Scripts/jquery.validate-vsdoc.js"></script>
+<script src="~/Scripts/jquery-3.4.1.js"></script>
+
+<script language="javascript">
+    $(document).ready(function () {
+
+        // 添加新的列
+        $("#addNew").click(function (e) {
+            e.preventDefault();
+            var $tableBody = $("#dataTable");
+            var $trLast = $tableBody.find("tr:last");
+            var $trNew = $trLast.clone();
+
+            var suffix = $trNew.find(':input:first').attr('name').match(/\d+/);
+            // 新增移除按鈕
+            $trNew.find("td:last").html('<a href="#" id="remove" class="remove"><i class="far fa-trash-alt text-secondary"></i></a>');
+            $.each($trNew.find(':input'), function (i, val) {
+                // 取代名字
+                var oldN = $(this).attr('name');
+                var newN = oldN.replace('[' + suffix + ']', '[' + (parseInt(suffix) + 1) + ']');
+                $(this).attr('name', newN);
+                // 取代值
+                var type = $(this).attr('type');
+                if (type.toLowerCase() == "text") {
+                    $(this).attr('value', '');
+                }
+
+                // If you have another Type then replace with default value
+                $(this).removeClass("input-validation-error");
+
+            });
+            $trLast.after($trNew);
+
+            // Re-assign Validation
+            var form = $("form")
+                .removeData("validator")
+                .removeData("unobtrusiveValidation");
+            $.validator.unobtrusive.parse(form);
+        });
+
+        // 移除
+        $('body').on("click", "a.remove", function (e) {
+            e.preventDefault();
+            $(this).parent().parent().remove();
+        });
+
+    });
+</script>
+

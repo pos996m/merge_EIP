@@ -16,11 +16,18 @@ namespace merge_EIP.Controllers
         // 開團首頁
         public ActionResult Index()
         {
-            var temp = db.tOrder.Where(m => m.fStatus.Contains("結束")).ToList();
-            var list = db.tOrder.Where(m => m.fStartDate == DateTime.Today || DateTime.Today <= m.fEndDate).ToList();
-            db.tOrder.Where(m => m.fWeek == DateTime.Today.DayOfWeek.ToString());
-            ViewBag.test = DateTime.Today.DayOfWeek.ToString();
-            return View(list);
+            if (Session["ID"] != null)
+            {
+                var temp = db.tOrder.Where(m => m.fStatus.Contains("結束")).ToList();
+                var list = db.tOrder.Where(m => m.fStartDate == DateTime.Today || DateTime.Today <= m.fEndDate).ToList();
+                db.tOrder.Where(m => m.fWeek == DateTime.Today.DayOfWeek.ToString());
+                ViewBag.test = DateTime.Today.DayOfWeek.ToString();
+                return View(list);
+            }
+            else
+            {
+                return RedirectToAction("Logout", "Login");
+            }
         }
 
         // 新增開團
@@ -87,21 +94,28 @@ namespace merge_EIP.Controllers
         }
 
         // 新增餐點
-        public ActionResult Add(int id)
+        public ActionResult Add(int? id)
         {
             //tOrderDetail detail = new tOrderDetail();
             //detail.fOrderId = id;
+            if (Session["ID"] != null)
+            {
+                List<tOrderDetail> od = new List<tOrderDetail> { new tOrderDetail { fOrderId = (int)id, DetailEID = Session["ID"].ToString(), fFood = "", fPrice = 0, fQty = 0, fNote = "" } };
 
-            List<tOrderDetail> od = new List<tOrderDetail> { new tOrderDetail { fOrderId = id, DetailEID = Session["ID"].ToString(), fFood = "", fPrice = 0, fQty = 0, fNote = "" } };
+                // 找出相對的餐廳圖片
+                var temp = db.tOrder.Where(m => m.fOrderId == id).FirstOrDefault();
+                // 商店名
+                ViewBag.temp = temp.tShop.fStore;
+                // 商店照片路徑
+                ViewBag.pic = temp.tShop.fImagePath;
 
-            // 找出相對的餐廳圖片
-            var temp = db.tOrder.Where(m => m.fOrderId == id).FirstOrDefault();
-            // 商店名
-            ViewBag.temp = temp.tShop.fStore;
-            // 商店照片路徑
-            ViewBag.pic = temp.tShop.fImagePath;
+                return View(od);
+            }
+            else
+            {
+                return RedirectToAction("Logout", "Login");
+            }
 
-            return View(od);
         }
 
         [HttpPost]
@@ -126,7 +140,7 @@ namespace merge_EIP.Controllers
         }
 
         // 查看訂單
-        public ActionResult Check(int id)
+        public ActionResult Check(int? id)
         {
             tOrderDetail od = new tOrderDetail();
 
@@ -134,7 +148,7 @@ namespace merge_EIP.Controllers
             var list = db.tOrderDetail.Where(m => m.fOrderId == id).ToList();
 
             // 撈訂購人不重複
-            var nameList = list.Select(p => p.DetailEID).Distinct().ToList();
+            var nameList = list.Select(p => p.Employee.Name).Distinct().ToList();
 
             // 總金額
             var total = list.Sum(x => x.fPrice * x.fQty);
@@ -156,6 +170,9 @@ namespace merge_EIP.Controllers
         // 管理訂單
         public ActionResult MyOrder()
         {
+            if (Session["ID"] != null)
+            {
+
             var EID = Session["ID"].ToString();
 
             // 取得tOrderDetail 是開放中的
@@ -176,11 +193,16 @@ namespace merge_EIP.Controllers
 
 
             return View(openOrder);
+            }
+            else
+            {
+                return RedirectToAction("Logout", "Login");
+            }
 
         }
 
         // 編輯訂單
-        public ActionResult Edit(int id)
+        public ActionResult Edit(int? id)
         {
             var edit = db.tOrderDetail.Where(m => m.OrderDetailId == id).FirstOrDefault();
             return View(edit);

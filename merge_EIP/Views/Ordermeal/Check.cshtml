@@ -1,0 +1,117 @@
+﻿@model IEnumerable<merge_EIP.Models.tOrderDetail>
+
+@{
+    ViewBag.Title = "Check";
+}
+
+<style>
+    .row {
+        justify-content: right; /*水平置中*/
+    }
+
+    .table td, .table th {
+        border-top: 0.2px solid rgb(128 128 128/0.2) !important;
+    }
+</style>
+
+<div class="container p-33 ">
+    <br />
+    <h2>查看訂單狀況</h2>
+    <div class="">
+        <button class="btn btn-FB m-1" onclick="outexcel()">匯出明細</button>
+        @Html.ActionLink("返回", "Index", new { }, new { @class = "btn btn-secondary m-1" })
+    </div>
+    <br />
+    @*<hr />*@
+
+    <div class="table-responsive">
+        <table class="table" id="orderall">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fFood)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fPrice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fQty)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fNote)
+                </th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fFood)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fPrice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fQty)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fNote)
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="row">
+        <div>
+            @*<h3>總結</h3>*@
+            <ul class="list-group list-group-flush">
+                @*<tr>
+                        <th>姓名</th>
+                        <th>總金額</th>
+                    </tr>*@
+
+
+                @foreach (var person in ViewBag.nameList)
+                {
+                    <li class="list-group-item" style="background-color:rgb(0 0 0 /0)">
+                        @person :
+                        @{
+                            var price = Model.Where(x => x.Employee.Name == person).Sum(y => y.fPrice * y.fQty);
+                        }
+                        共 @price 元
+                    </li>
+                }
+            </ul>
+            <hr />
+            <div class="h3 text-center">總計 @ViewBag.total 元</div>
+        </div>
+    </div>
+
+
+</div>
+
+<script>
+    function outexcel() {
+        var html = '&lt;meta http-equiv="content-type" content="application/vnd.ms-excel; charset=UTF-8" />&lt;title>Excel&lt;/title>';
+        var html = '';
+        html += '';
+        html += document.getElementById('orderall').outerHTML + '';
+        window.open('data:application/vnd.ms-excel,' + encodeURIComponent(html));
+
+
+        @*var a = document.createElement('a');
+        var data_type = 'data:application/vnd.ms-excel';
+        var table_div = document.getElementById('orderall').outerHTML + '';    //Your tab_text
+        var table_html = table_div.replace(/ /g, '%20');
+        a.href = data_type + ', ' + table_html;
+        //setting the file name
+        a.download = 'exported_table.xlsx';
+        //triggering the function
+        a.click();*@
+    }
+</script>

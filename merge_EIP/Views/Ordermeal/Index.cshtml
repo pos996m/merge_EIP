@@ -4,90 +4,98 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-@ViewBag.test
 
-<p>
-    @Html.ActionLink("開團", "Open")
-    @Html.ActionLink("管理訂單", "MyOrder")
-</p>
-<table class="table">
-    <tr>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.Employee.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.tShop.fStore)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fStartDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fEndDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fStartTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fEndTime)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.fStatus)
-        </th>
-        <th></th>
-    </tr>
+@*@ViewBag.test*@
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @if (Session["ID"].ToString() == item.employeeID && item.fStatus == "開放中")
-                {
-                    <a href="@Url.Action("Off")?id=@item.fOrderId" onclick="return confirm('確定要關閉訂單嗎?')">關閉訂單</a>
-                }
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Employee.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.tShop.fStore)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fStartDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fEndDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fStartTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fEndTime)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.fType)
-            </td>
-            <td id="status">
-                @Html.DisplayFor(modelItem => item.fStatus)
-            </td>
-            @if (Html.DisplayFor(modelItem => item.fStatus).ToString() == "已結束")
+<div class="container p-33">
+    <br />
+    <h2>訂餐首頁</h2>
+    <div class="">
+        @Html.ActionLink("開團", "Open", new { }, new { @class = "btn btn-FB m-1" })
+        @Html.ActionLink("管理訂單", "MyOrder", new { }, new { @class = "btn btn-FB m-1" })
+        <a href="/Ordermeal" class="btn btn-FB m-1" title="刷新"><i class="fas fa-redo-alt" title="刷新"></i></a>
+    </div>
+    <br />
+    <div class="table-responsive">
+        <table class="table">
+            <tr>
+                <th></th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Employee.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.tShop.fStore)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fStartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fEndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fStartTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fEndTime)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fType)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fStatus)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
             {
-                <td>
-                    @Html.ActionLink("查看餐點", "Check", new { id = item.fOrderId })
-                </td>
+                <tr>
+                    <td>
+                        @if (Session["ID"].ToString() == item.employeeID && item.fStatus == "開放中")
+                        {
+                            <a href="@Url.Action("Off")?id=@item.fOrderId" onclick="return confirm('確定要關閉訂單嗎?')">關閉訂單</a>
+                        }
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Employee.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tShop.fStore)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fStartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fEndDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fStartTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fEndTime)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fType)
+                    </td>
+                    <td id="status">
+                        @Html.DisplayFor(modelItem => item.fStatus)
+                    </td>
+                    @if (Html.DisplayFor(modelItem => item.fStatus).ToString() == "已結束")
+                    {
+                        <td>
+                            @Html.ActionLink("查看餐點", "Check", new { id = item.fOrderId })
+                        </td>
+                    }
+                    else
+                    {
+                        <td>
+                            @Html.ActionLink("新增餐點", "Add", new { id = item.fOrderId }) |
+                            @Html.ActionLink("查看餐點", "Check", new { id = item.fOrderId })
+                        </td>
+                    }
+                </tr>
             }
-            else
-            {
-                <td>
-                    @Html.ActionLink("新增餐點", "Add", new { id = item.fOrderId }) |
-                    @Html.ActionLink("查看餐點", "Check", new { id = item.fOrderId })
-                </td>
-            }
-        </tr>
-    }
 
-</table>
+        </table>
+    </div>
+</div>

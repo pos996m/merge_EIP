@@ -1928,6 +1928,9 @@
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\Layout\timer.js" />
     <Content Include="Scripts\Login\Loginalert.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
@@ -2143,6 +2146,10 @@
     <Content Include="Views\Worklog\Calendarsmall.cshtml" />
     <Content Include="Views\Ordermeal\Index.cshtml" />
     <Content Include="Views\Ordermeal\Open.cshtml" />
+    <Content Include="Views\Ordermeal\Add.cshtml" />
+    <Content Include="Views\Ordermeal\Check.cshtml" />
+    <Content Include="Views\Ordermeal\MyOrder.cshtml" />
+    <Content Include="Views\Ordermeal\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
