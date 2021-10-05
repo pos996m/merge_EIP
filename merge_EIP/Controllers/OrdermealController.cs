@@ -19,7 +19,7 @@ namespace merge_EIP.Controllers
             if (Session["ID"] != null)
             {
                 var temp = db.tOrder.Where(m => m.fStatus.Contains("結束")).ToList();
-                var list = db.tOrder.Where(m => m.fStartDate == DateTime.Today || DateTime.Today <= m.fEndDate).ToList();
+                var list = db.tOrder.Where(m => m.fStartDate <= DateTime.Today || DateTime.Today <= m.fEndDate).OrderByDescending(x => x.fStartDate).ToList();
                 db.tOrder.Where(m => m.fWeek == DateTime.Today.DayOfWeek.ToString());
                 ViewBag.test = DateTime.Today.DayOfWeek.ToString();
                 return View(list);
@@ -173,26 +173,28 @@ namespace merge_EIP.Controllers
             if (Session["ID"] != null)
             {
 
-            var EID = Session["ID"].ToString();
+                var EID = Session["ID"].ToString();
 
-            // 取得tOrderDetail 是開放中的
-            var openOrder = db.tOrderDetail.Where(x => x.tOrder.fStatus.Contains("開放") && x.DetailEID == EID).ToList();
-
-            ////所有訂單開放中的編號
-            //var temp = db.tOrder.Where(m => m.fStatus.Contains("開放")).ToList();
-
-            //// 細節
-            //List<tOrderDetail> test = new List<tOrderDetail>();
-            //foreach (var item in temp)
-            //{
-            //    // 取得Order的fId
-            //    test.AddRange(db.tOrderDetail.Where(x => x.fOrderId == item.fOrderId && x.DetailEID == EID).ToList());
-
-            //}
-            //return View(test);
+                // 取得tOrderDetail 是開放中的
+                //var openOrder = db.tOrderDetail.Where(x => x.tOrder.fStatus.Contains("開放") && x.DetailEID == EID).ToList();
+                var openOrder = db.tOrderDetail.Where(x => x.DetailEID == EID).OrderByDescending(x=>x.tOrder.fStartDate).ToList();
 
 
-            return View(openOrder);
+                ////所有訂單開放中的編號
+                //var temp = db.tOrder.Where(m => m.fStatus.Contains("開放")).ToList();
+
+                //// 細節
+                //List<tOrderDetail> test = new List<tOrderDetail>();
+                //foreach (var item in temp)
+                //{
+                //    // 取得Order的fId
+                //    test.AddRange(db.tOrderDetail.Where(x => x.fOrderId == item.fOrderId && x.DetailEID == EID).ToList());
+
+                //}
+                //return View(test);
+
+
+                return View(openOrder);
             }
             else
             {

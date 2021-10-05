@@ -69,11 +69,15 @@
                         @Html.DisplayFor(modelItem => item.fNote)
                     </td>
                     <td>
-                        <a href="@Url.Action("Edit")?id=@item.OrderDetailId" class="btn btn-FB m-1">編輯</a>
-                        <a href="@Url.Action("Delete")?id=@item.OrderDetailId" class="btn btn-secondary m-1" onclick="return confirm('確定要刪除訂單嗎?')"><i href="@Url.Action("Delete")?id=@item.OrderDetailId" class="far fa-trash-alt" style="color:white;"></i></a>
+                        @if (item.tOrder.fStatus.Contains("開放"))
+                        {
+                            <a href="@Url.Action("Edit")?id=@item.OrderDetailId" class="btn btn-FB m-1">編輯</a>
+                            <a href="@Url.Action("Delete")?id=@item.OrderDetailId" class="btn btn-secondary m-1" onclick="return delbtn(event)"><i href="@Url.Action("Delete")?id=@item.OrderDetailId" class="far fa-trash-alt" style="color:white;"></i></a>
+                        }
                     </td>
                 </tr>
             }
         </table>
     </div>
 </div>
+<script src="~/Scripts/worklog/SwalYN.js"></script>

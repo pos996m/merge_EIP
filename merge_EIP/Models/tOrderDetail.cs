@@ -11,15 +11,22 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class tOrderDetail
     {
         public int OrderDetailId { get; set; }
+        [Display(Name = "訂單編號")]
         public int fOrderId { get; set; }
+        [Display(Name = "點餐者員工編號")]
         public string DetailEID { get; set; }
+        [Display(Name = "品項")]
         public string fFood { get; set; }
+        [Display(Name = "單價")]
         public int fPrice { get; set; }
+        [Display(Name = "數量")]
         public int fQty { get; set; }
+        [Display(Name = "備註")]
         public string fNote { get; set; }
     
         public virtual Employee Employee { get; set; }

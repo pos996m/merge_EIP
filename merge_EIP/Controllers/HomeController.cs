@@ -39,7 +39,7 @@ namespace merge_EIP.Controllers
                 int FundingCnt = db.Funding.Where(x => x.State == "審核中" && x.employeeID == EID).Count();
                 int rePunchCnt = db.rePunchin.Where(x => x.State == "審核中" && x.employeeID == EID).Count();
                 // 主管顯示還有幾筆待審核
-                if(PosID == "0")
+                if (PosID == "0")
                 {
                     dayOffCnt = db.dayOff.Where(x => x.State == "審核中" && x.Employee.departmentID == DepID).Count();
                     workOvertimeCnt = db.workOvertime.Where(x => x.State == "審核中" && x.Employee.departmentID == DepID).Count();
@@ -53,12 +53,26 @@ namespace merge_EIP.Controllers
                 ViewBag.todolist = todolist;
 
                 // 訂餐員工主管都一樣
-                ViewBag.order = "";
-                return View();
+                int ordercnt = db.tOrder.Where(x => x.fStatus.Contains("開放")).Count();
+                ViewBag.order = ordercnt;
+
+                // 加入留言板class
+                HomeClass homeClass = new HomeClass()
+                {
+                    lMsgBd = db.messageBoard.Where(x => x.State == "所有人" || x.assignDepartment == DepID || x.assignPerson == EID || x.employeeID == EID)
+                .OrderByDescending(x => x.goTop).ThenByDescending(x => x.messageDate).ToList(),
+                    leave = db.dayOff.Where(x=>x.employeeID == EID && x.fcheck != true && x.State == "同意" || x.State == "退回").ToList(),
+                    OT = db.workOvertime.Where(x => x.employeeID == EID && x.fcheck != true && x.State == "同意" || x.State == "退回").ToList(),
+                    repunch = db.rePunchin.Where(x => x.employeeID == EID && x.fcheck != true && x.State == "同意" || x.State == "退回").ToList(),
+                    budget = db.Funding.Where(x => x.employeeID == EID && x.fcheck != true && x.State == "同意" || x.State == "退回").ToList(),
+                };
+
+
+                return View(homeClass);
             }
             else
             {
-                return RedirectToAction("Logout","Login");
+                return RedirectToAction("Logout", "Login");
             }
         }
     }

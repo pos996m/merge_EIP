@@ -1,4 +1,5 @@
-﻿
+﻿@model merge_EIP.Models.HomeClass
+
 @{
     ViewBag.Title = "首頁";
 }
@@ -44,7 +45,7 @@
             }
             else
             {
-                <div class="col-12 home-btn p-3" style="background-color: var(--blueColor)" onclick="document.location.href='/Form/FSearch'">
+                <div class="col-12 home-btn p-3" style="background-color: var(--blueColor)" onclick="document.location.href='/Form/Search'">
                     <div class="home-row">
                         <div><i class="fas fa-file-alt home-iconsize"></i></div>
                         <div>審核中表單<div class="home-btn-main">@ViewBag.form 筆</div></div>
@@ -53,7 +54,7 @@
             }
         </div>
         <div class="col-6 col-md-6 col-xl-3 home-margin">
-            <div class="col-12 home-btn p-3" style="background-color: var(--redColor)">
+            <div class="col-12 home-btn p-3" style="background-color: var(--redColor)" onclick="document.location.href='/Worklog/Todolist'">
 
                 <div class="home-row">
                     <div><i class="fas fa-clipboard-list home-iconsize"></i></div>
@@ -63,11 +64,11 @@
             </div>
         </div>
         <div class="col-6 col-md-6 col-xl-3 home-margin">
-            <div class="col-12 home-btn p-3" style="background-color: var(--greenColor)">
+            <div class="col-12 home-btn p-3" style="background-color: var(--greenColor)" onclick="document.location.href='/Ordermeal'">
 
                 <div class="home-row">
                     <div><i class="fas fa-hamburger home-iconsize"></i></div>
-                    <div>開放中訂餐<div class="home-btn-main">2 團</div></div>
+                    <div>開放中訂餐<div class="home-btn-main">@ViewBag.order 團</div></div>
                 </div>
 
             </div>
@@ -86,28 +87,43 @@
 
 
             <div class="col-12 home-Msg">
+                <h3 style="text-align:center;">未確認留言</h3>
                 <div class="h-50 home-Msgoverflow">
-                    <h3 style="text-align:center;">未確認留言</h3>
                     <ul class="list-group list-group-flush shadow-sm">
-                        <li class="list-group-item">
-                            @*<b>From xxx to xxx</b>*@
-                            <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
-                            <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
-                                <span class="w3s-tooltiptext">指派至行事曆</span>
-                            </i>
-                            <a href="" class="home-msgtext">內文</a>
-                        </li>
-                        <li class="list-group-item">
-                            <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
-                            <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
-                                <span class="w3s-tooltiptext">指派至行事曆</span>
-                            </i>
-                            <a href="" class="home-msgtext">內文 </a>
-                        </li>
+                        @foreach (var item in Model.lMsgBd)
+                        {
+                            var checkMsg = item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber).FirstOrDefault();
+                            if (checkMsg.watchState == false)
+                            {
+                                <li class="list-group-item">
+                                    <div class="float-left">
+                                        @if (item.goTop)
+                                        {
+                                            <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                                        }
+                                        @if (item.toCalendar)
+                                        {
+                                            <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                                                <span class="w3s-tooltiptext">指派至行事曆</span>
+                                            </i>
+                                        }
+                                    </div>
+                                    <span class="float-right" title="發布時間">@item.messageDate.ToString("yyyy-MM-dd")</span>
+                                    <a href="/Message/MsgIndex/@item.messageboardNumber" class="home-msgtext" title="@item.Employee.Department.departmentName@item.Employee.Position.positionName @item.Employee.Name 給:@item.State">@item.messageTitle</a>
+                                </li>
+                            }
+                        }
+                        @*<li class="list-group-item">
+                                <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                                <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                                    <span class="w3s-tooltiptext">指派至行事曆</span>
+                                </i>
+                                <a href="" class="home-msgtext">內文 </a>
+                            </li>*@
                     </ul>
                 </div>
+                <h3 style="text-align:center;">表單通知</h3>
                 <div class="h-50 home-Msgoverflow">
-                    <h3 style="text-align:center;">表單通知</h3>
                     <ul class="list-group list-group-flush shadow-sm">
                         <li class="list-group-item">
                             <i class="fas fa-times text-secondary home-close"></i>
@@ -140,9 +156,9 @@
 </div>
 
 <script>
-    $(".w3s-tooltip").hover(() => {
+    @*$(".w3s-tooltip").hover(() => {
         $(".home-Msgoverflow").css("overflow", "inherit");
     }, () => {
         $(".home-Msgoverflow").css("overflow", "auto");
-    })
+    })*@
 </script>

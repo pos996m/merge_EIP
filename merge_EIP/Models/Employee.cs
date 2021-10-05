@@ -11,7 +11,8 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Employee
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -35,19 +36,33 @@ namespace merge_EIP.Models
             this.tOrderDetail = new HashSet<tOrderDetail>();
         }
     
+        [Display(Name ="員工編號")]
         public string employeeID { get; set; }
+        [Display(Name = "姓名")]
         public string Name { get; set; }
+        [Display(Name = "性別")]
         public string Gender { get; set; }
+        [Display(Name = "部門編號")]
         public string departmentID { get; set; }
+        [Display(Name = "職位編號")]
         public string positionID { get; set; }
+        [Display(Name = "到職日期")]
         public System.DateTime onBoard { get; set; }
+        [Display(Name = "離職日期")]
         public Nullable<System.DateTime> terminationDate { get; set; }
+        [Display(Name = "帳號")]
         public string Account { get; set; }
+        [Display(Name = "密碼")]
         public string Password { get; set; }
+        [Display(Name = "電話")]
         public string Telephone { get; set; }
+        [Display(Name = "手機")]
         public string cellPhone { get; set; }
+        [Display(Name = "地址")]
         public string Address { get; set; }
+        [Display(Name = "緊急聯絡人")]
         public string emergencyContact { get; set; }
+        [Display(Name = "緊急聯絡人電話")]
         public string emergencyContactphone { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -12,27 +12,48 @@ namespace merge_EIP.Models
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.Web;
 
     public partial class dayOff
     {
+        [Display(Name = "假單編號")]
         public int dayoffNumber { get; set; }
+
+        [Display(Name = "員工編號")]
         public string employeeID { get; set; }
+
+        [Display(Name = "姓名")]
         public string employeeName { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "開始時間")]
         public System.DateTime startDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "結束時間")]
         public System.DateTime endDate { get; set; }
+
+
+        [Display(Name = "類別")]
         public string Type { get; set; }
+        [Display(Name = "狀態")]
         public string State { get; set; }
+        [Display(Name = "總時數")]
         public string totalDay { get; set; }
+        [Display(Name = "原因")]
         public string Reason { get; set; }
+        [Display(Name = "附件")]
         public string filePath { get; set; }
         public Nullable<System.DateTime> submitDate { get; set; }
         public Nullable<System.DateTime> Auditdate { get; set; }
         public Nullable<bool> fcheck { get; set; }
 
+        [Display(Name = "圖片路徑")]
         public HttpPostedFileBase ImageFile { get; set; }
 
         [JsonIgnore]
+        [Display(Name = "員工")]
         public virtual Employee Employee { get; set; }
     }
 }

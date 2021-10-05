@@ -11,17 +11,33 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class workOvertime
     {
         public int overtimeNumber { get; set; }
+        [Display(Name = "員工編號")]
         public string employeeID { get; set; }
+        [Display(Name = "姓名")]
         public string employeeName { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "日期")]
         public System.DateTime Date { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "開始時間")]
         public System.TimeSpan startTime { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "結束時間")]
         public System.TimeSpan expectTime { get; set; }
+
+        [Display(Name = "加班時數")]
         public string overtimeHours { get; set; }
+        [Display(Name = "狀態")]
         public string State { get; set; }
+        [Display(Name = "原因")]
         public string Reason { get; set; }
         public Nullable<System.DateTime> submitDate { get; set; }
         public Nullable<System.DateTime> Auditdate { get; set; }

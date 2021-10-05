@@ -11,16 +11,31 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class rePunchin
     {
         public int repunchID { get; set; }
+        [Display(Name = "員工編號")]
         public string employeeID { get; set; }
+        [Display(Name = "姓名")]
         public string employeeName { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "日期")]
         public System.DateTime repunchdate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "開始時間")]
         public Nullable<System.TimeSpan> repunchTimeIn { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "結束時間")]
         public Nullable<System.TimeSpan> repunchTimeOut { get; set; }
+
+        [Display(Name = "原因")] 
         public string Reason { get; set; }
+        [Display(Name = "狀態")]
         public string State { get; set; }
         public Nullable<System.DateTime> submitDate { get; set; }
         public Nullable<System.DateTime> Auditdate { get; set; }

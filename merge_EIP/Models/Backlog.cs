@@ -17,11 +17,14 @@ namespace merge_EIP.Models
     {
         public int backlogNumber { get; set; }
         public string employeeID { get; set; }
+        [Display(Name = "內容")]
         public string backlogTxet { get; set; }
 
         [DataType(DataType.Date)]
+        [Display(Name = "時間")]
         public System.DateTime backlogDate { get; set; }
 
+        [Display(Name = "確認")]
         public bool checkState { get; set; }
 
         [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]

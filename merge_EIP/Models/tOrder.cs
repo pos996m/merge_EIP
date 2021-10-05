@@ -21,15 +21,33 @@ namespace merge_EIP.Models
         {
             this.tOrderDetail = new HashSet<tOrderDetail>();
         }
-    
+
+        [Display(Name = "訂單編號")]
         public int fOrderId { get; set; }
+        [Display(Name = "員工編號")]
         public string employeeID { get; set; }
+        [Display(Name = "商店編號")]
         public int fStoreID { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "開始日期")]
         public System.DateTime fStartDate { get; set; }
+
+        [DataType(DataType.Date)]
+        [Display(Name = "結束日期")]
         public Nullable<System.DateTime> fEndDate { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "開始時間")]
         public System.TimeSpan fStartTime { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "結束時間")]
         public System.TimeSpan fEndTime { get; set; }
+
+        [Display(Name = "類型")]
         public string fType { get; set; }
+        [Display(Name = "狀態")]
         public string fStatus { get; set; }
 
         // tShop資料表要接收的值

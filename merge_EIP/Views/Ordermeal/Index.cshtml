@@ -3,7 +3,11 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<style>
+    .table td, .table th {
+        border-top: 0.2px solid rgb(128 128 128/0.2) !important;
+    }
+</style>
 
 @*@ViewBag.test*@
 
@@ -53,7 +57,7 @@
                     <td>
                         @if (Session["ID"].ToString() == item.employeeID && item.fStatus == "開放中")
                         {
-                            <a href="@Url.Action("Off")?id=@item.fOrderId" onclick="return confirm('確定要關閉訂單嗎?')">關閉訂單</a>
+                            <a href="@Url.Action("Off")?id=@item.fOrderId" onclick="return clossbtn(event)">關閉</a>
                         }
                     </td>
                     <td>
@@ -89,8 +93,8 @@
                     else
                     {
                         <td>
-                            @Html.ActionLink("新增餐點", "Add", new { id = item.fOrderId }) |
-                            @Html.ActionLink("查看餐點", "Check", new { id = item.fOrderId })
+                            @Html.ActionLink("餐點", "Add", new { id = item.fOrderId }) |
+                            @Html.ActionLink("查看訂單", "Check", new { id = item.fOrderId })
                         </td>
                     }
                 </tr>
@@ -99,3 +103,4 @@
         </table>
     </div>
 </div>
+<script src="~/Scripts/worklog/SwalYN.js"></script>

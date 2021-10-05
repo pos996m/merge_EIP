@@ -264,6 +264,7 @@ namespace merge_EIP.Controllers
             var temp = db.dayOff.Where(m => m.dayoffNumber == fId).FirstOrDefault();
             temp.State = "同意";
             temp.Auditdate = DateTime.Today;
+            temp.fcheck = false;
 
             for (DateTime i = temp.startDate.Date; i <= temp.endDate.Date; i = i.AddDays(1))
             {
@@ -288,6 +289,8 @@ namespace merge_EIP.Controllers
         {
             var temp = db.dayOff.Where(m => m.dayoffNumber == fId).FirstOrDefault();
             temp.State = "退回";
+            temp.Auditdate = DateTime.Today;
+            temp.fcheck = false;
 
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
@@ -303,6 +306,8 @@ namespace merge_EIP.Controllers
             for (int i = 0; i < temp.Count; i++)
             {
                 temp[i].State = "同意";
+                temp[i].Auditdate = DateTime.Today;
+                temp[i].fcheck = false;
 
                 for (DateTime k = temp[i].startDate.Date; k <= temp[i].endDate.Date; k = k.AddDays(1))
                 {
@@ -325,6 +330,8 @@ namespace merge_EIP.Controllers
         {
             var temp = db.workOvertime.Where(m => m.overtimeNumber == fId).FirstOrDefault();
             temp.State = "同意";
+            temp.Auditdate = DateTime.Today;
+            temp.fcheck = false;
 
             var clockinOvertime = db.punchIn.Where(x => x.punchinDate == temp.Date && x.employeeID == temp.employeeID).FirstOrDefault();
             clockinOvertime.startoverTime = temp.startTime;
@@ -339,6 +346,8 @@ namespace merge_EIP.Controllers
         {
             var temp = db.workOvertime.Where(m => m.overtimeNumber == fId).FirstOrDefault();
             temp.State = "退回";
+            temp.Auditdate = DateTime.Today;
+            temp.fcheck = false;
 
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
@@ -354,6 +363,8 @@ namespace merge_EIP.Controllers
             for (int i = 0; i < temp.Count; i++)
             {
                 temp[i].State = "同意";
+                temp[i].Auditdate = DateTime.Today;
+                temp[i].fcheck = false;
                 var thistime = temp[i].Date;
                 string thisEID = temp[i].employeeID;
 
@@ -370,6 +381,8 @@ namespace merge_EIP.Controllers
         {
             var temp = db.Funding.Where(m => m.applicationNumber == fId).FirstOrDefault();
             temp.State = "同意";
+            temp.Auditdate = DateTime.Today;
+            temp.fcheck = false;
 
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
@@ -380,6 +393,8 @@ namespace merge_EIP.Controllers
         {
             var temp = db.Funding.Where(m => m.applicationNumber == fId).FirstOrDefault();
             temp.State = "退回";
+            temp.Auditdate = DateTime.Today;
+            temp.fcheck = false;
 
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
@@ -394,6 +409,8 @@ namespace merge_EIP.Controllers
             for (int i = 0; i < temp.Count; i++)
             {
                 temp[i].State = "同意";
+                temp[i].Auditdate = DateTime.Today;
+                temp[i].fcheck = false;
             }
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
@@ -404,6 +421,8 @@ namespace merge_EIP.Controllers
         {
             var temp = db.rePunchin.Where(m => m.repunchID == fId).FirstOrDefault();
             temp.State = "同意";
+            temp.Auditdate = DateTime.Today;
+            temp.fcheck = false;
 
             var inputUpdate = db.punchIn.Where(x => x.punchinDate == temp.repunchdate && x.employeeID == temp.employeeID).FirstOrDefault();
             if (temp.repunchTimeIn != null)
@@ -425,6 +444,8 @@ namespace merge_EIP.Controllers
         {
             var temp = db.rePunchin.Where(m => m.repunchID == fId).FirstOrDefault();
             temp.State = "退回";
+            temp.Auditdate = DateTime.Today;
+            temp.fcheck = false;
 
             db.SaveChanges();
             return RedirectToAction("Approve", "Form");
@@ -439,6 +460,8 @@ namespace merge_EIP.Controllers
             for (int i = 0; i < temp.Count; i++)
             {
                 temp[i].State = "同意";
+                temp[i].Auditdate = DateTime.Today;
+                temp[i].fcheck = false;
                 var mydate = temp[i].repunchdate;
                 string myEID = temp[i].employeeID;
 

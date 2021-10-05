@@ -2089,6 +2089,7 @@
     <Compile Include="Models\gameRecord.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\HomeClass.cs" />
     <Compile Include="Models\messageBoard.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>

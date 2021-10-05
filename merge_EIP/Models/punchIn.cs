@@ -11,18 +11,39 @@ namespace merge_EIP.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class punchIn
     {
+        [DataType(DataType.Date)]
+        [Display(Name = "日期")]
         public System.DateTime punchinDate { get; set; }
         public string employeeID { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "上班時間")]
         public Nullable<System.TimeSpan> clockIn { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "下班時間")]
         public Nullable<System.TimeSpan> clockOut { get; set; }
+
+        [Display(Name = "狀態")]
         public string State { get; set; }
+        [Display(Name = "體溫")]
         public Nullable<decimal> bodyTemperature { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "加班開始")]
         public Nullable<System.TimeSpan> startoverTime { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "加班結束")]
         public Nullable<System.TimeSpan> endoverTime { get; set; }
+
+        [Display(Name = "加班總時數")]
         public Nullable<decimal> overtimeHours { get; set; }
+        [Display(Name = "上班總時數")]
         public Nullable<decimal> totalHours { get; set; }
     
         public virtual Employee Employee { get; set; }
