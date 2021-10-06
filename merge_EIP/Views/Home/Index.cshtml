@@ -93,24 +93,27 @@
                         @foreach (var item in Model.lMsgBd)
                         {
                             var checkMsg = item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber).FirstOrDefault();
-                            if (checkMsg.watchState == false)
+                            if (checkMsg != null)
                             {
-                                <li class="list-group-item">
-                                    <div class="float-left">
-                                        @if (item.goTop)
-                                        {
-                                            <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
-                                        }
-                                        @if (item.toCalendar)
-                                        {
-                                            <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
-                                                <span class="w3s-tooltiptext">指派至行事曆</span>
-                                            </i>
-                                        }
-                                    </div>
-                                    <span class="float-right" title="發布時間">@item.messageDate.ToString("yyyy-MM-dd")</span>
-                                    <a href="/Message/MsgIndex/@item.messageboardNumber" class="home-msgtext" title="@item.Employee.Department.departmentName@item.Employee.Position.positionName @item.Employee.Name 給:@item.State">@item.messageTitle</a>
-                                </li>
+                                if (checkMsg.watchState == false)
+                                {
+                                    <li class="list-group-item">
+                                        <div class="float-left">
+                                            @if (item.goTop)
+                                            {
+                                                <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                                            }
+                                            @if (item.toCalendar)
+                                            {
+                                                <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                                                    <span class="w3s-tooltiptext">指派至行事曆</span>
+                                                </i>
+                                            }
+                                        </div>
+                                        <span class="float-right" title="發布時間">@item.messageDate.ToString("yyyy-MM-dd")</span>
+                                        <a href="/Message/MsgIndex/@item.messageboardNumber" class="home-msgtext" title="@item.Employee.Department.departmentName@item.Employee.Position.positionName @item.Employee.Name 給:@item.State">@item.messageTitle</a>
+                                    </li>
+                                }
                             }
                         }
                         @*<li class="list-group-item">

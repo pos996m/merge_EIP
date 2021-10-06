@@ -45,7 +45,10 @@ namespace merge_EIP.Models
         public string Reason { get; set; }
         [Display(Name = "附件")]
         public string filePath { get; set; }
+
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> submitDate { get; set; }
+
         public Nullable<System.DateTime> Auditdate { get; set; }
         public Nullable<bool> fcheck { get; set; }
 
