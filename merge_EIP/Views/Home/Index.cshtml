@@ -85,32 +85,48 @@
             </div>*@
         <div class="col-12 col-md-6 col-xl-7 home-margin p-4 shadow" style="padding: 1.5rem !important; background-color: rgb(128 128 128/0.05); ">
 
+            @{
+                string PosID = Convert.ToString(Session["PosID"]);
 
+                string hig = "";
+                if (PosID == "0")
+                {
+                    hig = "h-100";
+                }
+                else
+                {
+                    hig = "h-50";
+                }
+            }
             <div class="col-12 home-Msg">
                 <h3 style="text-align:center;">未確認留言</h3>
-                <div class="h-50 home-Msgoverflow">
+                <div class="@hig home-Msgoverflow">
                     <ul class="list-group list-group-flush shadow-sm">
                         @foreach (var item in Model.lMsgBd)
                         {
-                            var checkMsg = item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber).FirstOrDefault();
+                            string EID = Convert.ToString(Session["ID"]);
+                            var checkMsg = item.watchCount.Where(x => x.messageboardNumber == item.messageboardNumber && x.employeeID == EID).FirstOrDefault();
                             if (checkMsg != null)
                             {
                                 if (checkMsg.watchState == false)
                                 {
                                     <li class="list-group-item">
-                                        <div class="float-left">
-                                            @if (item.goTop)
-                                            {
-                                                <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
-                                            }
-                                            @if (item.toCalendar)
-                                            {
-                                                <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
-                                                    <span class="w3s-tooltiptext">指派至行事曆</span>
-                                                </i>
-                                            }
+                                        <div>
+                                            <div class="float-right">
+                                                @if (item.goTop)
+                                                {
+                                                    <i class="fas fa-level-up-alt head-text-color w3s-tooltip text-secondary"><span class="w3s-tooltiptext">留言置頂</span></i>
+                                                }
+                                                @if (item.toCalendar)
+                                                {
+                                                    <i class="far fa-calendar-alt head-text-color w3s-tooltip text-secondary" style="margin:0rem 0rem 0rem 0.5rem">
+                                                        <span class="w3s-tooltiptext">指派至行事曆</span>
+                                                    </i>
+                                                }
+                                            </div>
+                                            <span class="float-left" title="發布時間">@item.messageDate.ToString("yyyy-MM-dd")</span>
                                         </div>
-                                        <span class="float-right" title="發布時間">@item.messageDate.ToString("yyyy-MM-dd")</span>
+                                        <br />
                                         <a href="/Message/MsgIndex/@item.messageboardNumber" class="home-msgtext" title="@item.Employee.Department.departmentName@item.Employee.Position.positionName @item.Employee.Name 給:@item.State">@item.messageTitle</a>
                                     </li>
                                 }
@@ -125,9 +141,7 @@
                             </li>*@
                     </ul>
                 </div>
-                @{
-                    string PosID = Convert.ToString(Session["PosID"]);
-                }
+
                 @if (PosID == "1")
                 {
                     <h3 style="text-align:center;">表單通知</h3>
@@ -137,11 +151,11 @@
                             {
                                 foreach (var item in Model.leave)
                                 {
-                            <li class="list-group-item">
-                                <a href="/Home/check?type=請假&num=@item.dayoffNumber"><i class="fas fa-times text-secondary home-close"></i></a>
-                                <span class="home-msgtext">@item.Auditdate</span>
-                                <a href="/Form/Search" class="home-msgtext">公差請假單 已<span>@item.State</span></a>
-                            </li>
+                                    <li class="list-group-item">
+                                        <a href="/Home/check?type=請假&num=@item.dayoffNumber"><i class="fas fa-times text-secondary home-close"></i></a>
+                                        <span class="home-msgtext">@item.Auditdate</span>
+                                        <a href="/Form/Search" class="home-msgtext">公差請假單 已<span>@item.State</span></a>
+                                    </li>
                                 }
                             }
                             @if (Model.OT != null)
@@ -150,7 +164,7 @@
                                 {
                                     <li class="list-group-item">
                                         <a href="/Home/check?type=加班&num=@item.overtimeNumber"><i class="fas fa-times text-secondary home-close"></i></a>
-                                        <span class="home-msgtext">@item.Auditdate</span>
+                                        <span class="home-msgtext">@Convert.ToDateTime(item.Auditdate).ToString("yyyy-MM-dd")</span>
                                         <a href="/Form/Search" class="home-msgtext">加班單 已<span>@item.State</span></a>
                                     </li>
                                 }
@@ -159,11 +173,11 @@
                             {
                                 foreach (var item in Model.repunch)
                                 {
-                        <li class="list-group-item">
-                            <a href="/Home/check?type=補卡&num=@item.repunchID"><i class="fas fa-times text-secondary home-close"></i></a>
-                            <span class="home-msgtext">@item.Auditdate</span>
-                            <a href="/Form/Search" class="home-msgtext">補卡單 已<span>@item.State</span></a>
-                        </li>
+                                    <li class="list-group-item">
+                                        <a href="/Home/check?type=補卡&num=@item.repunchID"><i class="fas fa-times text-secondary home-close"></i></a>
+                                        <span class="home-msgtext">@item.Auditdate</span>
+                                        <a href="/Form/Search" class="home-msgtext">補卡單 已<span>@item.State</span></a>
+                                    </li>
                                 }
                             }
                             @if (Model.budget != null)
@@ -172,21 +186,21 @@
                                 {
                                     <li class="list-group-item">
                                         <a href="/Home/check?type=經費&num=@item.applicationNumber"><i class="fas fa-times text-secondary home-close"></i></a>
-                                        <span class="home-msgtext">@item.Auditdate</span>
-                                        <a href="/Form/Search" class="home-msgtext">經費申請 已<span>@item.State</span></a>
+                                        <span class="home-formtext">@Convert.ToDateTime(item.Auditdate).ToString("yyyy-MM-dd")</span>
+                                        <a href="/Form/Search" class="home-formtext">經費申請 已<span>@item.State</span></a>
                                     </li>
                                 }
                             }
                             @*<li class="list-group-item">
-                                <i class="fas fa-times text-secondary home-close"></i>
-                                <span class="home-msgtext">2021-10-03</span>
-                                <a href="" class="home-msgtext">請假單 已同意</a>
-                            </li>*@
+                                    <i class="fas fa-times text-secondary home-close"></i>
+                                    <span class="home-msgtext">2021-10-03</span>
+                                    <a href="" class="home-msgtext">請假單 已同意</a>
+                                </li>*@
                             @*<li class="list-group-item">
-                                <i class="fas fa-times text-secondary home-close"></i>
-                                <span class="home-msgtext">2021-10-01</span>
-                                <a href="" class="home-msgtext">請假單 已退回</a>
-                            </li>*@
+                                    <i class="fas fa-times text-secondary home-close"></i>
+                                    <span class="home-msgtext">2021-10-01</span>
+                                    <a href="" class="home-msgtext">請假單 已退回</a>
+                                </li>*@
                         </ul>
                     </div>
                 }

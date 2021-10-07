@@ -45,7 +45,12 @@ a {
 
 /* 通知與留言文字 */
 .home-msgtext {
-    padding: 0 1.5rem;
+/*    padding: 0 1.5rem;*/
+    font-size: 1.2rem;
+}
+
+.home-formtext {
+        padding: 0 1.5rem;
     font-size: 1.2rem;
 }
 
@@ -85,7 +90,8 @@ a {
 }
 
 .home-Msgoverflow {
-    overflow: auto;
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .home-Msg::-webkit-scrollbar {

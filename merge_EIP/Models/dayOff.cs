@@ -49,6 +49,7 @@ namespace merge_EIP.Models
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd hh:mm}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> submitDate { get; set; }
 
+        [DataType(DataType.Date)]
         public Nullable<System.DateTime> Auditdate { get; set; }
         public Nullable<bool> fcheck { get; set; }
 
