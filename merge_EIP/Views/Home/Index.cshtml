@@ -11,7 +11,7 @@
         <hr />*@
     <br />
     @*<br />*@
-    <marquee direction="right" height="30" scrollamount="6" style="color:blue;">防疫期間請配戴口罩，勤洗手，保持社交距離</marquee>
+    <marquee direction="right" height="30" scrollamount="6" style="color:Highlight;">防疫期間請配戴口罩，勤洗手，保持社交距離。</marquee>
     <div class="row ">
         <div class="col-6 col-md-6 col-xl-3 home-margin">
             @if (Convert.ToString(Session["PosID"]) == "3")
@@ -125,21 +125,71 @@
                             </li>*@
                     </ul>
                 </div>
-                <h3 style="text-align:center;">表單通知</h3>
-                <div class="h-50 home-Msgoverflow">
-                    <ul class="list-group list-group-flush shadow-sm">
+                @{
+                    string PosID = Convert.ToString(Session["PosID"]);
+                }
+                @if (PosID == "1")
+                {
+                    <h3 style="text-align:center;">表單通知</h3>
+                    <div class="h-50 home-Msgoverflow">
+                        <ul class="list-group list-group-flush shadow-sm">
+                            @if (Model.leave != null)
+                            {
+                                foreach (var item in Model.leave)
+                                {
+                            <li class="list-group-item">
+                                <a href="/Home/check?type=請假&num=@item.dayoffNumber"><i class="fas fa-times text-secondary home-close"></i></a>
+                                <span class="home-msgtext">@item.Auditdate</span>
+                                <a href="/Form/Search" class="home-msgtext">公差請假單 已<span>@item.State</span></a>
+                            </li>
+                                }
+                            }
+                            @if (Model.OT != null)
+                            {
+                                foreach (var item in Model.OT)
+                                {
+                                    <li class="list-group-item">
+                                        <a href="/Home/check?type=加班&num=@item.overtimeNumber"><i class="fas fa-times text-secondary home-close"></i></a>
+                                        <span class="home-msgtext">@item.Auditdate</span>
+                                        <a href="/Form/Search" class="home-msgtext">加班單 已<span>@item.State</span></a>
+                                    </li>
+                                }
+                            }
+                            @if (Model.repunch != null)
+                            {
+                                foreach (var item in Model.repunch)
+                                {
                         <li class="list-group-item">
-                            <i class="fas fa-times text-secondary home-close"></i>
-                            <span class="home-msgtext">2021-10-01</span>
-                            <a href="" class="home-msgtext">請假單 已同意</a>
+                            <a href="/Home/check?type=補卡&num=@item.repunchID"><i class="fas fa-times text-secondary home-close"></i></a>
+                            <span class="home-msgtext">@item.Auditdate</span>
+                            <a href="/Form/Search" class="home-msgtext">補卡單 已<span>@item.State</span></a>
                         </li>
-                        <li class="list-group-item">
-                            <i class="fas fa-times text-secondary home-close"></i>
-                            <span class="home-msgtext">2021-10-01</span>
-                            <a href="" class="home-msgtext">請假單 已退回</a>
-                        </li>
-                    </ul>
-                </div>
+                                }
+                            }
+                            @if (Model.budget != null)
+                            {
+                                foreach (var item in Model.budget)
+                                {
+                                    <li class="list-group-item">
+                                        <a href="/Home/check?type=經費&num=@item.applicationNumber"><i class="fas fa-times text-secondary home-close"></i></a>
+                                        <span class="home-msgtext">@item.Auditdate</span>
+                                        <a href="/Form/Search" class="home-msgtext">經費申請 已<span>@item.State</span></a>
+                                    </li>
+                                }
+                            }
+                            @*<li class="list-group-item">
+                                <i class="fas fa-times text-secondary home-close"></i>
+                                <span class="home-msgtext">2021-10-03</span>
+                                <a href="" class="home-msgtext">請假單 已同意</a>
+                            </li>*@
+                            @*<li class="list-group-item">
+                                <i class="fas fa-times text-secondary home-close"></i>
+                                <span class="home-msgtext">2021-10-01</span>
+                                <a href="" class="home-msgtext">請假單 已退回</a>
+                            </li>*@
+                        </ul>
+                    </div>
+                }
             </div>
 
 

@@ -2064,6 +2064,7 @@
     <Compile Include="Models\Department.cs">
       <DependentUpon>EIPModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\DepEmp.cs" />
     <Compile Include="Models\EIPModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2151,6 +2152,8 @@
     <Content Include="Views\Ordermeal\Check.cshtml" />
     <Content Include="Views\Ordermeal\MyOrder.cshtml" />
     <Content Include="Views\Ordermeal\Edit.cshtml" />
+    <Content Include="Views\Home\ChangePsw.cshtml" />
+    <Content Include="Views\Home\Contact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

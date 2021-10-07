@@ -64,7 +64,13 @@ namespace merge_EIP.Models
         public string emergencyContact { get; set; }
         [Display(Name = "緊急聯絡人電話")]
         public string emergencyContactphone { get; set; }
-    
+
+
+        [Display(Name = "確認密碼")]
+        [Required(ErrorMessage = "請輸入確認密碼")]
+        [DataType(DataType.Password)]
+        public string Confirmpwd { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Backlog> Backlog { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

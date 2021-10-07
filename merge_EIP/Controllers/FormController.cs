@@ -148,19 +148,36 @@ namespace merge_EIP.Controllers
         }
 
         // 員工查詢
-        public ActionResult Search()
+        public ActionResult Search(int? id, string type)
         {
             // 判斷是否有登入
             if (Session["ID"] != null)
             {
+                //if(id != null)
+                //{
+                //    if(type == "請假")
+                //    {
+                        
+                //    }else if(type == "加班")
+                //    {
+                        
+                //    }else if(type == "經費")
+                //    {
+
+                //    }else if(type == "補卡")
+                //    {
+
+                //    }
+                //}
+
                 string posID = Convert.ToString(Session["PosID"]);
                 if (posID == "1")
                 {
-                    var id = Convert.ToString(Session["ID"]);
-                    var lv = db.dayOff.Where(m => m.employeeID == id).OrderByDescending(m => m.dayoffNumber).ToList();
-                    var bd = db.Funding.Where(m => m.employeeID == id).OrderByDescending(m => m.applicationNumber).ToList();
-                    var ot = db.workOvertime.Where(m => m.employeeID == id).OrderByDescending(m => m.overtimeNumber).ToList();
-                    var re = db.rePunchin.Where(m => m.employeeID == id).OrderByDescending(m => m.repunchID).ToList();
+                    var EID = Convert.ToString(Session["ID"]);
+                    var lv = db.dayOff.Where(m => m.employeeID == EID).OrderByDescending(m => m.dayoffNumber).ToList();
+                    var bd = db.Funding.Where(m => m.employeeID == EID).OrderByDescending(m => m.applicationNumber).ToList();
+                    var ot = db.workOvertime.Where(m => m.employeeID == EID).OrderByDescending(m => m.overtimeNumber).ToList();
+                    var re = db.rePunchin.Where(m => m.employeeID == EID).OrderByDescending(m => m.repunchID).ToList();
 
                     Search all = new Search() { leave = lv, budget = bd, OT = ot, repunch = re };
                     return View(all);

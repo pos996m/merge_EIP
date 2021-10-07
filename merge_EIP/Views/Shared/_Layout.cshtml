@@ -126,22 +126,35 @@
                             @Html.ActionLink("行事曆", "Calendar", "Worklog", new { }, new { @class = "dropdown-item" })
                         </div>
                     </li>
-                    @*<li class="nav-item">
-                        @Html.ActionLink("留言板", "MsgIndex", "Message", new { }, new { @class = "nav-link" })
-                    </li>*@
-                    <li class="nav-item">
-                        @Html.ActionLink("訂餐系統", "Index", "Ordermeal", new { }, new { @class = "nav-link" })
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">訂餐系統</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("訂餐首頁", "Index", "Ordermeal", new { }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("管理訂單", "MyOrder", "Ordermeal", new { }, new { @class = "dropdown-item" })
+                        </div>
                     </li>
+                    @*<li class="nav-item">
+                        @Html.ActionLink("訂餐系統", "Index", "Ordermeal", new { }, new { @class = "nav-link" })
+                    </li>*@
                     <li class="nav-item">
                         @Html.ActionLink("小遊戲", "Games", "Game", new { }, new { @class = "nav-link" })
                     </li>
-                    <li class="nav-item">
-                        @Html.ActionLink("帳戶設定", "About", "Home", new { }, new { @class = "nav-link" })
+                    @*<li class="nav-item">
+            @Html.ActionLink("帳戶設定", "About", "Home", new { }, new { @class = "nav-link" })
+        </li>*@
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">帳戶</a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            @Html.ActionLink("修改密碼", "ChangePsw", "Home", new { }, new { @class = "dropdown-item" })
+                            @Html.ActionLink("查看聯絡人資訊", "Contact", "Home", new { }, new { @class = "dropdown-item" })
+                        </div>
                     </li>
                     <li class="nav-item" style="color: snow;">
                         <a id="times" class=" nav-time" style="">時間讀取中..</a>
                         @*<div style="color: snow;"></div>
-                            <div  style="color: snow;"></div>*@
+            <div  style="color: snow;"></div>*@
                     </li>
                 </ul>
             </div>
